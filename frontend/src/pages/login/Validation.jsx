@@ -2,7 +2,7 @@ import { useState } from "react";
 import Pseudo from "./Pseudo";
 import Password from "./Password";
 
-export default function Validation(){
+export default function Validation({onSuccess}){
     const[inputStates, setInputsStates] = useState({
         pseudo: "",
         password: "", 
@@ -16,7 +16,7 @@ export default function Validation(){
         e.preventDefault()
         
         if(validationCheck()){
-            console.log("Envoi du formulaire")
+            onSuccess();
         }
     }
     function validationCheck(){
@@ -62,7 +62,7 @@ export default function Validation(){
             showValidation={showValidation}
             />
  
-            <button className="mt-10 bg-slate-100 px-4 py-2 min-w-31.25 rounded"> Valider </button>
+            <button onClick = {onSuccess} className="mt-10 bg-slate-100 px-4 py-2 min-w-31.25 rounded"> Valider </button>
         </form>
     )
 }
