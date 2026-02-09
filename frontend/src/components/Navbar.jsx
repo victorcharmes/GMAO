@@ -12,6 +12,14 @@ export default function Navbar(){
             sm:flex sm:relative sm:flex-row sm:pb-0 `}>
                 <li> 
                    <Link
+                    to="/accueil"
+                    className = "inline-block py-2 mx-6 text-lg sm:py-0"
+                   >
+                        Accueil
+                   </Link>
+                </li>
+                <li> 
+                   <Link
                     to="/machine"
                     className = "inline-block py-2 mx-6 text-lg sm:py-0"
                    >
