@@ -6,7 +6,11 @@ function MachineList({ machines }) {
       <ul>
         {machines.map(machine => (
           <li key={machine.id}>
-            <strong>{machine.nom}</strong> - {machine.description}
+            <strong>{machine.nom}</strong> - {machine.description} - <img 
+                                                                      src={`/photosMachines/${machine.nom}.jpg`}
+                                                                      alt={machine.lienPhoto}
+                                                                      width="200"
+                                                                    />
           </li>
         ))}
       </ul>
