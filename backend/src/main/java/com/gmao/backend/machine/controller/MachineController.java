@@ -14,7 +14,7 @@ import com.gmao.backend.machine.model.Machine;
 
 @RestController
 @RequestMapping("/machine")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173/")
 public class MachineController {
 
     private final MachineServiceInterface service;

@@ -5,7 +5,8 @@ import Machine from "./pages/machine/Machine";
 
 function App() {
   return (
-    <div className="min-h-screen">
+    <div className="h-screen flex flex-col flex-1 overflow-y-auto"> 
+    {/*Scroll bloqué si pas d'éléments, permet si éléments */}
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/accueil" element={<Accueil />} />
