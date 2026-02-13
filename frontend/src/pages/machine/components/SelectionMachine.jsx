@@ -3,7 +3,10 @@ import "../style.css"
 import iconeModificationMachine from "../style/iconeModificationMachine.svg";
 import iconeAjoutMachine from "../style/iconeAjoutMachine.svg";
 
-function SelectionMachine({ machines = [] }) {
+
+
+
+function SelectionMachine({ machines = [], setView  }) {
   const [selectedMachine, setSelectedMachine] = useState(null)
 
   const handleChange = (e) => {
@@ -27,8 +30,9 @@ return (
 
         {/* Icônes */}
         <div className="flex gap-4">
-          <img src={iconeModificationMachine} alt="Modification machine" width="40" />
-          <img src={iconeAjoutMachine} alt="Ajout machine" width="40" />
+          <img src={iconeModificationMachine} alt="Modification machine" width="40"     className="cursor-pointer" onClick={() => setView("modification")} />
+          <img src={iconeAjoutMachine} alt="Ajout machine" width="40"     className="cursor-pointer"
+          onClick={() => setView("ajout")}/>
         </div>
 
         {/* Sélection machine */}
@@ -89,7 +93,11 @@ return (
           <h3>Unité de Réalisation :</h3>
           <input
             className="border-2 rounded border-slate-900 w-full"
-            value={selectedMachine?.ur + ", " + selectedMachine?.descriptionUR || ""}
+            value={
+            selectedMachine?.ur && selectedMachine?.descriptionUR
+              ? `${selectedMachine.ur}, ${selectedMachine.descriptionUR}`
+              : ""
+          }
             readOnly
           />
         </div>
