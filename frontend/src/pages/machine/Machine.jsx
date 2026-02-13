@@ -31,10 +31,14 @@ export default function Machine() {
             )}
 
             {view === "modification" && (
-                <ModificationMachine setView={setView} />
+                <ModificationMachine 
+                    machines={machines}  
+                    setView={setView} />
             )}
             {view === "ajout" && (
-                <AjoutMachine setView={setView} />
+                <AjoutMachine 
+                    machines={machines}  
+                    setView={setView} />
             )}
         </div>
     )
