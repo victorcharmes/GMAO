@@ -35,9 +35,9 @@ function ModificationMachine({ machines = [], setView }) {
     }))
   }
 
-  // ================================
-  // Validation (console seulement)
-  // ================================
+  // ==========
+  // Validation
+  // ==========
     const handleSubmit = () => {
     if (!editedMachine) return
 
@@ -76,7 +76,7 @@ function ModificationMachine({ machines = [], setView }) {
               onClick={() => setView("selection")}
             />
             <h1 className="text-xl font-bold">
-              Modification de machine
+              Modification de machine :
             </h1>
           </div>
 
@@ -109,7 +109,7 @@ function ModificationMachine({ machines = [], setView }) {
                 <h3>Criticité :</h3>
                 <input
                   name="criticite"
-                  className="border-2 rounded border-slate-900 w-full"
+                  className="border-2 rounded border-slate-900 w-full bg-gray-200 text-slate-900"
                   value={editedMachine.criticite || ""}
                   onChange={handleInputChange}
                 />
@@ -118,7 +118,7 @@ function ModificationMachine({ machines = [], setView }) {
               <div>
                 <h3>Classe :</h3>
                 <input
-                  className="border-2 rounded border-slate-900 w-full bg-gray-200"
+                  className="border-2 rounded border-slate-900 w-full bg-gray-200 text-slate-900" 
                   value={editedMachine.descriptionClasseOuverture || ""}
                   readOnly
                 />
@@ -128,7 +128,7 @@ function ModificationMachine({ machines = [], setView }) {
                 <h3>Emplacement :</h3>
                 <input
                   name="emplacement"
-                  className="border-2 rounded border-slate-900 w-full"
+                  className="border-2 rounded border-slate-900 w-full bg-gray-200 text-slate-900"
                   value={editedMachine.emplacement || ""}
                   onChange={handleInputChange}
                 />
@@ -142,18 +142,19 @@ function ModificationMachine({ machines = [], setView }) {
         <div className="w-1/3 flex flex-col gap-6">
 
           {editedMachine && (
-            <>
-              <div>
-                <h3>Responsable production :</h3>
-                <input
-                  name="responsableProdMachine"
-                  className="border-2 rounded border-slate-900 w-full"
-                  value={editedMachine.responsableProdMachine || ""}
-                  onChange={handleInputChange}
-                />
-              </div>
-            </>
-          )}
+            <div>
+              <h3>Responsable production :</h3>
+              <input
+                name="responsableProdMachine"
+                className="border-2 rounded border-slate-900 w-full bg-gray-200 text-slate-900"
+                value={editedMachine.responsableProdMachine || ""}
+                onChange={handleInputChange}
+              />
+
+              <h3>Image :</h3>
+              <p className="border-2 rounded border-slate-900 w-full bg-gray-200 text-slate-900">Pour modifier l'image, se rendre dans le dossier suivant: /GMAO/public/photosMachine/ (Attention à bien faire correspondre le nom de la machine).</p>
+            </div>
+            )}
         </div>
 
         {/* ================= COLONNE 3 ================= */}
@@ -164,7 +165,7 @@ function ModificationMachine({ machines = [], setView }) {
               <h3>Description :</h3>
               <textarea
                 name="description"
-                className="border-2 rounded border-slate-900 w-full h-60 p-2"
+                className="border-2 rounded border-slate-900 w-full h-60 p-2 bg-gray-200 text-slate-900"
                 value={editedMachine.description || ""}
                 onChange={handleInputChange}
               />
