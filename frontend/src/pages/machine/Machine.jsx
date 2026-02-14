@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getMachines } from "./services/machineApi"
+import { getMachines, getCriticite, getClasse } from "./services/machineApi"
 import Navbar from "../../components/Navbar"
 import SelectionMachine from "./components/SelectionMachine"
 import ModificationMachine from "./components/ModificationMachine"
@@ -7,6 +7,8 @@ import AjoutMachine from "./components/AjoutMachine"
 
 export default function Machine() {
     const [machines, setMachines] = useState([]);
+    const [criticite, setCriticite] = useState([]);
+    const [classe, setClasse] = useState([]);
     const [view, setView] = useState("selection"); 
     // "selection" | "modification" | "ajout"
 
@@ -14,9 +16,19 @@ export default function Machine() {
         const data = await getMachines();
         setMachines(data);
     };
+    const loadCriticite = async () => {
+        const data = await getCriticite();
+        setCriticite(data);
+    };
+    const loadClasse = async () => {
+        const data = await getClasse();
+        setClasse(data);
+    };
 
     useEffect(() => {
         loadMachines();
+        loadCriticite();
+        loadClasse();
     }, []);
 
     return(
@@ -26,18 +38,24 @@ export default function Machine() {
             {view === "selection" && (
                 <SelectionMachine 
                     machines={machines} 
+                    criticite={criticite}
+                    classe={classe}
                     setView={setView}
                 />
             )}
 
             {view === "modification" && (
                 <ModificationMachine 
-                    machines={machines}  
+                    machines={machines}
+                    criticite={criticite}
+                    classe={classe}  
                     setView={setView} />
             )}
             {view === "ajout" && (
                 <AjoutMachine 
-                    machines={machines}  
+                    machines={machines}
+                    criticite={criticite}
+                    classe={classe}   
                     setView={setView} />
             )}
         </div>

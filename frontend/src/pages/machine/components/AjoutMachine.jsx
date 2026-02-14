@@ -62,6 +62,10 @@ function AjoutMachine({setView}) {
           <div>
             <h3>Nom de la machine :</h3>
             <input
+
+
+
+
               name="nom"
               className="border-2 rounded border-slate-900 w-full"
               value={newMachine.nom}

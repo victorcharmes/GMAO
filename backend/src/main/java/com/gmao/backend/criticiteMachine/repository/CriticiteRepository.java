@@ -16,18 +16,18 @@ public class CriticiteRepository {
     public List<Criticite> findAll(){
         String sql="""
             SELECT 
-                c.id_criticite_machine,
-                c.criticite_machine
-                c.description_criticite_machine
+                c.ID_CRITICITE_MACHINE,
+                c.CRITICITE_MACHINE,
+                c.DESCRIPTION_CRITICITE_MACHINE
             FROM 
-                CRITICITE c
+                CRITICITE_MACHINE c
         
             """;
         return jdbcTemplate.query(sql, (rs, rowNum) ->
             new Criticite(
-                rs.getInt("id_criticite_machine"),
-                rs.getString("criticite_machine"),
-                rs.getString("description_criticite_machine")
+                rs.getInt("ID_CRITICITE_MACHINE"),
+                rs.getString("CRITICITE_MACHINE"),
+                rs.getString("DESCRIPTION_CRITICITE_MACHINE")
             )
         );
     };
