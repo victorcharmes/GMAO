@@ -18,17 +18,33 @@ function AjoutMachine({ machines = [], criticite = [], classe = [], emplacement 
     }
     const [newMachine, setNewMachine] = useState(initialState)
     
-    const handleSubmit = () => {
-    console.log("Machine envoyée :", newMachine)
+    const handleSubmit = async () => {
+      try {
+        const response = await fetch("http://localhost:8081/machine", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(newMachine)
+        });
 
-    setShowPopup(true)
+        if (!response.ok) {
+          throw new Error("Erreur serveur");
+        }
 
-    // Reset des inputs
-    setNewMachine(initialState)
+        const data = await response.json();
+        console.log("Machine enregistrée :", data);
 
-    setTimeout(() => {
-        setShowPopup(false)
-    }, 1500)
+        setShowPopup(true);
+        setNewMachine(initialState);
+
+        setTimeout(() => {
+          setShowPopup(false);
+        }, 1500);
+
+      } catch (error) {
+        console.error("Erreur :", error);
+      }
     }
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -41,8 +57,6 @@ function AjoutMachine({ machines = [], criticite = [], classe = [], emplacement 
         console.log(name + " :", value)
     }
 
-    console.log(machines)
-    console.log(emplacement)
   return (
     <div className="mt-20 px-10">
       <div className="flex gap-10">
