@@ -41,6 +41,8 @@ function AjoutMachine({ machines = [], criticite = [], classe = [], emplacement 
         console.log(name + " :", value)
     }
 
+    console.log(machines)
+    console.log(emplacement)
   return (
     <div className="mt-20 px-10">
       <div className="flex gap-10">
@@ -113,12 +115,23 @@ function AjoutMachine({ machines = [], criticite = [], classe = [], emplacement 
 
           <div>
             <h3>Emplacement :</h3>
-            <input
-              name="emplacement"
-              className="border-2 rounded border-slate-900 w-full"
-              value={newMachine.emplacement}
-              onChange={handleChange}
-            />
+              <select
+                name="emplacement"
+                className="border-2 rounded border-slate-900 w-full text-black bg-gray-200"
+                value={newMachine.emplacement}
+                onChange={handleChange}
+              >
+                <option value="">-- Sélectionner --</option>
+
+                {emplacement.map((e) => (
+                  <option
+                    key={e.idEmplacement}
+                    value={e.nomEmplacement}
+                  >
+                    {e.nomEmplacement}
+                  </option>
+                ))}
+              </select>
           </div>
 
         </div>

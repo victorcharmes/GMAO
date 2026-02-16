@@ -23,7 +23,7 @@ function ModificationMachine({ machines = [], criticite = [], classe = [], empla
     setEditedMachine(machine ? { ...machine } : null)
   }
   console.log(machines)
-  console.log(ur)
+  console.log(emplacement)
   // ================================
   // Modification des champs
   // ================================
@@ -150,12 +150,23 @@ function ModificationMachine({ machines = [], criticite = [], classe = [], empla
 
               <div>
                 <h3>Emplacement :</h3>
-                <input
-                  name="emplacement"
-                  className="border-2 rounded border-slate-900 w-full bg-gray-200 text-slate-900"
-                  value={editedMachine.emplacement || ""}
-                  onChange={handleInputChange}
-                />
+                  <select
+                    name="emplacement"
+                    className="border-2 rounded border-slate-900 w-full text-black bg-gray-200"
+                    value={editedMachine?.emplacement || ""}
+                    onChange={handleInputChange}
+                  >
+                    <option value="">-- Sélectionner --</option>
+
+                    {emplacement.map((e) => (
+                      <option
+                        key={e.idEmplacement}
+                        value={e.nomEmplacement}
+                      >
+                        {e.nomEmplacement}
+                      </option>
+                    ))}
+                  </select>
               </div>
 
             </div>
