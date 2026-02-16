@@ -2,7 +2,7 @@ import { useState } from "react"
 import "../style.css"
 import iconeFlecheEnArriere from "../style/iconeFlecheEnArriere.svg"
 
-function ModificationMachine({ machines = [], setView }) {
+function ModificationMachine({ machines = [], criticite = [], classe = [], emplacement = [], ur = [], setView  }) {
 
   const [selectedMachine, setSelectedMachine] = useState(null)
   const [editedMachine, setEditedMachine] = useState(null)
@@ -22,7 +22,8 @@ function ModificationMachine({ machines = [], setView }) {
     setSelectedMachine(machine)
     setEditedMachine(machine ? { ...machine } : null)
   }
-
+  console.log(machines)
+  console.log(ur)
   // ================================
   // Modification des champs
   // ================================
@@ -107,21 +108,44 @@ function ModificationMachine({ machines = [], setView }) {
 
               <div>
                 <h3>Criticité :</h3>
-                <input
-                  name="criticite"
-                  className="border-2 rounded border-slate-900 w-full bg-gray-200 text-slate-900"
-                  value={editedMachine.criticite || ""}
-                  onChange={handleInputChange}
-                />
+                  <select
+                    name="criticite"
+                    className="border-2 rounded border-slate-900 w-full text-black bg-gray-200"
+                    value={editedMachine?.criticite || ""}
+                    onChange={handleInputChange}
+                  >
+                    <option value="">-- Sélectionner --</option>
+
+                    {criticite.map((c) => (
+                      <option
+                        key={c.idCriticiteMachine}
+                        value={c.criticiteMachine}
+                      >
+                        {c.criticiteMachine}
+                      </option>
+                    ))}
+                  </select>
               </div>
 
               <div>
                 <h3>Classe :</h3>
-                <input
-                  className="border-2 rounded border-slate-900 w-full bg-gray-200 text-slate-900" 
-                  value={editedMachine.descriptionClasseOuverture || ""}
-                  readOnly
-                />
+                  <select
+                    name="classeOuverture"
+                    className="border-2 rounded border-slate-900 w-full text-black bg-gray-200"
+                    value={editedMachine?.classeOuverture || ""}
+                    onChange={handleInputChange}
+                  >
+                    <option value="">-- Sélectionner --</option>
+
+                    {classe.map((c) => (
+                      <option
+                        key={c.idClasseMachine}
+                        value={c.classeMachine}
+                      >
+                        {c.classeMachine}
+                      </option>
+                    ))}
+                  </select>
               </div>
 
               <div>
@@ -143,16 +167,27 @@ function ModificationMachine({ machines = [], setView }) {
 
           {editedMachine && (
             <div>
-              <h3>Responsable production :</h3>
-              <input
-                name="responsableProdMachine"
-                className="border-2 rounded border-slate-900 w-full bg-gray-200 text-slate-900"
-                value={editedMachine.responsableProdMachine || ""}
-                onChange={handleInputChange}
-              />
+              <h3>UR :</h3>
+                  <select
+                    name="ur"
+                    className="border-2 rounded border-slate-900 w-full text-black bg-gray-200"
+                    value={editedMachine?.ur || ""}
+                    onChange={handleInputChange}
+                  >
+                    <option value="">-- Sélectionner --</option>
+
+                    {ur.map((u) => (
+                      <option
+                        key={u.idUr}
+                        value={u.nomUr}
+                      >
+                        {u.nomUr}
+                      </option>
+                    ))}
+                  </select>
 
               <h3>Image :</h3>
-              <p className="border-2 rounded border-slate-900 w-full bg-gray-200 text-slate-900">Pour modifier l'image, se rendre dans le dossier suivant: /GMAO/public/photosMachine/ (Attention à bien faire correspondre le nom de la machine).</p>
+              <p className="border-2 rounded border-slate-900 w-full bg-gray-200 text-slate-900 p-1.5">Pour modifier l'image, se rendre dans le dossier suivant: /GMAO/public/photosMachine/ (Attention à bien faire correspondre le nom de la machine).</p>
             </div>
             )}
         </div>

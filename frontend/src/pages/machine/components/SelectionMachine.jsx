@@ -18,11 +18,11 @@ function SelectionMachine({ machines = [], criticite = [], classe = [], emplacem
 
     setSelectedMachine(machine)
   }
-  console.log("Criticités :", criticite)
-  console.log("Classes :", classe)
-  console.log("Emplacements :", emplacement)
-  console.log("Machines :", machines)
-  console.log("UR :", ur)
+  //console.log("Criticités :", criticite)
+  //console.log("Classes :", classe)
+  //console.log("Emplacements :", emplacement)
+  //console.log("Machines :", machines)
+  //console.log("UR :", ur)
 return (
   <div className="mt-20 px-10">
 
@@ -110,6 +110,15 @@ return (
           <input
             className="border-2 rounded border-slate-900 w-full"
             value={selectedMachine?.responsableProdMachine || ""}
+            readOnly
+          />
+        </div>
+
+        <div className="w-full">
+          <h3>UR :</h3>
+          <input
+            className="border-2 rounded border-slate-900 w-full"
+            value={selectedMachine?.ur || ""}
             readOnly
           />
         </div>

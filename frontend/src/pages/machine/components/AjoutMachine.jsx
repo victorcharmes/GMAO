@@ -2,7 +2,7 @@ import { useState } from "react"
 import "../style.css"
 import iconeFlecheEnArriere from "../style/iconeFlecheEnArriere.svg"
 
-function AjoutMachine({setView}) {
+function AjoutMachine({ machines = [], criticite = [], classe = [], emplacement = [], ur = [], setView  }) {
 
     const [showPopup, setShowPopup] = useState(false)
     
