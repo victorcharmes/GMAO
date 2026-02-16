@@ -62,10 +62,6 @@ function AjoutMachine({ machines = [], criticite = [], classe = [], emplacement 
           <div>
             <h3>Nom de la machine :</h3>
             <input
-
-
-
-
               name="nom"
               className="border-2 rounded border-slate-900 w-full"
               value={newMachine.nom}
@@ -75,22 +71,44 @@ function AjoutMachine({ machines = [], criticite = [], classe = [], emplacement 
 
           <div>
             <h3>Criticité :</h3>
-            <input
-              name="criticite"
-              className="border-2 rounded border-slate-900 w-full"
-              value={newMachine.criticite}
-              onChange={handleChange}
-            />
+              <select
+                name="criticite"
+                className="border-2 rounded border-slate-900 w-full text-black bg-gray-200"
+                value={newMachine.criticite}
+                onChange={handleChange}
+              >
+                <option value="">-- Sélectionner --</option>
+
+                {criticite.map((c) => (
+                  <option
+                    key={c.idCriticiteMachine}
+                    value={c.criticiteMachine}
+                  >
+                    {c.criticiteMachine}
+                  </option>
+                ))}
+              </select>
           </div>
 
           <div>
             <h3>Classe :</h3>
-            <input
-              name="descriptionClasseOuverture"
-              className="border-2 rounded border-slate-900 w-full"
-              value={newMachine.descriptionClasseOuverture}
-              onChange={handleChange}
-            />
+              <select
+                name="classeOuverture"
+                className="border-2 rounded border-slate-900 w-full text-black bg-gray-200"
+                value={newMachine.classeOuverture}
+                onChange={handleChange}
+              >
+                <option value="">-- Sélectionner --</option>
+
+                {classe.map((c) => (
+                  <option
+                    key={c.idClasseMachine}
+                    value={c.classeMachine}
+                  >
+                    {c.classeMachine}
+                  </option>
+                ))}
+              </select>
           </div>
 
           <div>
@@ -110,32 +128,25 @@ function AjoutMachine({ machines = [], criticite = [], classe = [], emplacement 
 
           <div>
             <h3>Unité de Réalisation :</h3>
-            <input
-              name="ur"
-              className="border-2 rounded border-slate-900 w-full"
-              value={newMachine.ur}
-              onChange={handleChange}
-            />
-          </div>
+              <select
+                name="ur"
+                className="border-2 rounded border-slate-900 w-full text-black bg-gray-200"
+                value={newMachine.ur}
+                onChange={handleChange}
+              >
+                <option value="">-- Sélectionner --</option>
 
-          <div>
-            <h3>Description UR :</h3>
-            <input
-              name="descriptionUR"
-              className="border-2 rounded border-slate-900 w-full"
-              value={newMachine.descriptionUR}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div>
-            <h3>Responsable production :</h3>
-            <input
-              name="responsableProdMachine"
-              className="border-2 rounded border-slate-900 w-full"
-              value={newMachine.responsableProdMachine}
-              onChange={handleChange}
-            />
+                {ur.map((u) => (
+                  <option
+                    key={u.idUr}
+                    value={u.nomUr}
+                  >
+                    {u.nomUr}
+                  </option>
+                ))}
+              </select>
+              <h3>Image :</h3>
+              <p className="border-2 rounded border-slate-900 w-full bg-gray-200 text-slate-900 p-1.5">Pour l'image, se rendre dans le dossier suivant: /GMAO/public/photosMachine/ (Attention à bien faire correspondre le nom de la machine).</p>
           </div>
 
         </div>
