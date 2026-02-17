@@ -7,14 +7,15 @@ function AjoutMachine({ machines = [], criticite = [], classe = [], emplacement 
     const [showPopup, setShowPopup] = useState(false)
     
     const initialState = {
-        nom: "",
-        criticite: "",
-        descriptionClasseOuverture: "",
-        emplacement: "",
-        ur: "",
-        descriptionUR: "",
-        responsableProdMachine: "",
-        description: ""
+      nom: "",
+      criticite: "",
+      classeOuverture: "",
+      emplacement: "",
+      ur: "",
+      descriptionUR: "",
+      responsableProdMachine: "",
+      description: "",
+      dateImplementation: ""
     }
     const [newMachine, setNewMachine] = useState(initialState)
     
@@ -97,10 +98,10 @@ function AjoutMachine({ machines = [], criticite = [], classe = [], emplacement 
 
                 {criticite.map((c) => (
                   <option
-                    key={c.idCriticiteMachine}
-                    value={c.criticiteMachine}
+                    key={c.idCriticiteMachine} //key
+                    value={c.idCriticiteMachine} //valeur envoyé dans le State
                   >
-                    {c.criticiteMachine}
+                    {c.criticiteMachine} {/*valeur affiché */}
                   </option>
                 ))}
               </select>
@@ -119,7 +120,7 @@ function AjoutMachine({ machines = [], criticite = [], classe = [], emplacement 
                 {classe.map((c) => (
                   <option
                     key={c.idClasseMachine}
-                    value={c.classeMachine}
+                    value={c.idClasseMachine}
                   >
                     {c.classeMachine}
                   </option>
@@ -140,7 +141,7 @@ function AjoutMachine({ machines = [], criticite = [], classe = [], emplacement 
                 {emplacement.map((e) => (
                   <option
                     key={e.idEmplacement}
-                    value={e.nomEmplacement}
+                    value={e.idEmplacement}
                   >
                     {e.nomEmplacement}
                   </option>
@@ -166,12 +167,20 @@ function AjoutMachine({ machines = [], criticite = [], classe = [], emplacement 
                 {ur.map((u) => (
                   <option
                     key={u.idUr}
-                    value={u.nomUr}
+                    value={u.idUr}
                   >
                     {u.nomUr}
                   </option>
                 ))}
               </select>
+              <h3>Date d'implémentation :</h3>
+              <input
+                type="date"
+                name="dateImplementation"
+                className="border-2 rounded border-slate-900 w-full text-black bg-gray-200"
+                value={newMachine.dateImplementation}
+                onChange={handleChange}
+              />
               <h3>Image :</h3>
               <p className="border-2 rounded border-slate-900 w-full bg-gray-200 text-slate-900 p-1.5">Pour l'image, se rendre dans le dossier suivant: /GMAO/public/photosMachine/ (Attention à bien faire correspondre le nom de la machine).</p>
           </div>

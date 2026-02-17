@@ -38,6 +38,10 @@ public class Machine {
         this.responsableProdMachine = responsableProdMachine;
     }
 
+    @Override
+    public String toString(){
+        return "id: " + this.id + "\nMachine: " + this.nom + "\nDescription: " + this.description + "\nPhoto: " + this.lienPhoto + "\nDate implémentation: " + this.dateImplementation + "\nCriticite: " + this.criticite + "\nClasse: " + this.classeOuverture + "\nEmplacement: " + this.emplacement + "\nUR: " + this.ur;
+    }
     public Integer getId() {
         return id;
     }

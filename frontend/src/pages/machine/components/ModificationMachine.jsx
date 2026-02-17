@@ -118,10 +118,10 @@ function ModificationMachine({ machines = [], criticite = [], classe = [], empla
 
                     {criticite.map((c) => (
                       <option
-                        key={c.idCriticiteMachine}
-                        value={c.criticiteMachine}
+                        key={c.idCriticiteMachine} //key
+                        value={c.criticiteMachine} //valeur envoyé dans le state
                       >
-                        {c.criticiteMachine}
+                        {c.criticiteMachine} {/*Valeur affiché*/}
                       </option>
                     ))}
                   </select>

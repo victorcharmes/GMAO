@@ -18,11 +18,7 @@ function SelectionMachine({ machines = [], criticite = [], classe = [], emplacem
 
     setSelectedMachine(machine)
   }
-  //console.log("Criticités :", criticite)
-  //console.log("Classes :", classe)
-  //console.log("Emplacements :", emplacement)
-  //console.log("Machines :", machines)
-  //console.log("UR :", ur)
+
 return (
   <div className="mt-20 px-10">
 
