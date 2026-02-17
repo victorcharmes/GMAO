@@ -5,6 +5,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+
+import com.gmao.backend.machine.model.Machine;
 import com.gmao.backend.machine.model.MachineView;
 
 @Repository
@@ -66,5 +68,41 @@ public class MachineRepository {
                 rs.getString("nom_utilisateur")
             )
         );
+    }
+    public Machine save(Machine machine) {
+
+        String sql = """
+            INSERT INTO MACHINE (
+                machine,
+                description_machine,
+                photo,
+                date_implementation,
+                criticite_machine,
+                classe_machine,
+                emplacement_machine,
+                ur_machine
+            )
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        """;
+
+        //Valeur par défaut pour le lienPhoto machines
+        String photo = machine.getLienPhoto();
+
+        if (photo == null || photo.isBlank()) {
+            photo = "/photosMachines/";
+        }
+
+        jdbcTemplate.update(sql,
+            machine.getNom(),
+            machine.getDescription(),
+            photo,
+            machine.getDateImplementation(),
+            machine.getCriticite(),
+            machine.getClasseOuverture(),
+            machine.getEmplacement(),
+            machine.getUr()
+        );
+
+        return machine;
     }
 }

@@ -32,13 +32,11 @@ public class MachineController {
         return service.findAll();
     }
     
-@PostMapping
-public ResponseEntity<Machine> createMachine(@RequestBody Machine machine) {
+    @PostMapping
+    public ResponseEntity<Machine> createMachine(@RequestBody Machine machine) {
 
-    System.out.println("=== MACHINE REÇUE ===");
-    System.out.println(machine);
-    System.out.println("=====================");
+        Machine savedMachine = service.save(machine);
 
-    return ResponseEntity.ok(machine);
-}
+        return ResponseEntity.status(201).body(savedMachine);
+    }
 }

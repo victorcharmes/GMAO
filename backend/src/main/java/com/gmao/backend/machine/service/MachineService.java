@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.gmao.backend.machine.repository.MachineRepository;
+import com.gmao.backend.machine.model.Machine;
 import com.gmao.backend.machine.model.MachineView;
 
 @Service
@@ -19,4 +20,10 @@ public class MachineService implements MachineServiceInterface{
     public List<MachineView> findAll(){
         return repository.findAll();
     }
+    
+    @Override
+    public Machine save(Machine machine) {
+        return repository.save(machine);
+    }
+
 }
