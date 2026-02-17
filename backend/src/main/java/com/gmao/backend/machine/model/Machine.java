@@ -1,41 +1,33 @@
 package com.gmao.backend.machine.model;
 import java.time.LocalDate;
 
+//Class fidèle à la bd
 public class Machine {
     private Integer id;
     private String nom;
     private String description;
     private String lienPhoto;
     private LocalDate  dateImplementation;
-    private String criticite;
-    private String descriptionCriticite;
-    private String classeOuverture;
-    private String descriptionClasseOuverture;
-    private String emplacement;
-    private String ur;
-    private String descriptionUR;
-    String responsableProdMachine;
+    private Integer criticite;
+    private Integer classeOuverture;
+    private Integer emplacement;
+    private Integer ur;
     
     public Machine() {
     //Constructeur vide pour jackson
     }
 
     public Machine(Integer id, String nom, String description, String lienPhoto, LocalDate dateImplementation,
-            String criticite, String descriptionCriticite, String classeOuverture, String descriptionClasseOuverture,
-            String emplacement, String ur, String descriptionUR, String responsableProdMachine) {
+            Integer criticite, Integer classeOuverture, Integer emplacement, Integer ur) {
         this.id = id;
         this.nom = nom;
         this.description = description;
         this.lienPhoto = lienPhoto;
         this.dateImplementation = dateImplementation;
         this.criticite = criticite;
-        this.descriptionCriticite = descriptionCriticite;
         this.classeOuverture = classeOuverture;
-        this.descriptionClasseOuverture = descriptionClasseOuverture;
         this.emplacement = emplacement;
         this.ur = ur;
-        this.descriptionUR = descriptionUR;
-        this.responsableProdMachine = responsableProdMachine;
     }
 
     @Override
@@ -82,71 +74,39 @@ public class Machine {
         this.dateImplementation = dateImplementation;
     }
 
-    public String getCriticite() {
+    public Integer getCriticite() {
         return criticite;
     }
 
-    public void setCriticite(String criticite) {
+    public void setCriticite(Integer criticite) {
         this.criticite = criticite;
     }
 
-    public String getDescriptionCriticite() {
-        return descriptionCriticite;
-    }
 
-    public void setDescriptionCriticite(String descriptionCriticite) {
-        this.descriptionCriticite = descriptionCriticite;
-    }
-
-    public String getClasseOuverture() {
+    public Integer getClasseOuverture() {
         return classeOuverture;
     }
 
-    public void setClasseOuverture(String classeOuverture) {
+    public void setClasseOuverture(Integer classeOuverture) {
         this.classeOuverture = classeOuverture;
     }
 
-    public String getDescriptionClasseOuverture() {
-        return descriptionClasseOuverture;
-    }
-
-    public void setDescriptionClasseOuverture(String descriptionClasseOuverture) {
-        this.descriptionClasseOuverture = descriptionClasseOuverture;
-    }
-
-    public String getEmplacement() {
+    public Integer getEmplacement() {
         return emplacement;
     }
 
-    public void setEmplacement(String emplacement) {
+    public void setEmplacement(Integer emplacement) {
         this.emplacement = emplacement;
     }
 
-    public String getUr() {
+    public Integer getUr() {
         return ur;
     }
 
-    public void setUr(String ur) {
+    public void setUr(Integer ur) {
         this.ur = ur;
     }
 
-    public String getDescriptionUR() {
-        return descriptionUR;
-    }
-
-    public void setDescriptionUR(String descriptionUR) {
-        this.descriptionUR = descriptionUR;
-    }
-
-    public String getResponsableProdMachine() {
-        return responsableProdMachine;
-    }
-
-    public void setResponsableProdMachine(String responsableProdMachine) {
-        this.responsableProdMachine = responsableProdMachine;
-    }
-
-    
 
     
 

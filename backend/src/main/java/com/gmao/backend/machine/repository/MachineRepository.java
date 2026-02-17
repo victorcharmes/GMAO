@@ -5,7 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import com.gmao.backend.machine.model.Machine;
+import com.gmao.backend.machine.model.MachineView;
 
 @Repository
 public class MachineRepository {
@@ -13,7 +13,7 @@ public class MachineRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public List<Machine> findAll() {
+    public List<MachineView> findAll() {
 
         String sql = """
             SELECT
@@ -50,7 +50,7 @@ public class MachineRepository {
         """;
 
         return jdbcTemplate.query(sql, (rs, rowNum) ->
-            new Machine(
+            new MachineView(
                 rs.getInt("id_machine"),
                 rs.getString("machine"),
                 rs.getString("description_machine"),

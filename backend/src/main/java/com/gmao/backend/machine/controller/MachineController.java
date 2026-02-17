@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
+import com.gmao.backend.machine.model.MachineView;
 import com.gmao.backend.machine.model.Machine;
 
 @RestController
@@ -27,14 +28,13 @@ public class MachineController {
     }
 
     @GetMapping
-    public List<Machine> getMachine(){
+    public List<MachineView> getMachine(){
         return service.findAll();
     }
     
 @PostMapping
 public ResponseEntity<Machine> createMachine(@RequestBody Machine machine) {
 
-    // 🔎 Affichage console pour test
     System.out.println("=== MACHINE REÇUE ===");
     System.out.println(machine);
     System.out.println("=====================");
