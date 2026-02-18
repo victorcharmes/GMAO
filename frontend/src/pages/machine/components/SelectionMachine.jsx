@@ -66,7 +66,7 @@ return (
             <h3>Classe :</h3>
             <input
               className="border-2 rounded border-slate-900 w-full"
-              value={selectedMachine?.descriptionClasseOuverture || ""}
+              value={selectedMachine?.classe || ""}
               readOnly
             />
           </div>
@@ -93,8 +93,8 @@ return (
           <input
             className="border-2 rounded border-slate-900 w-full"
             value={
-            selectedMachine?.ur && selectedMachine?.descriptionUR
-              ? `${selectedMachine.ur}, ${selectedMachine.descriptionUR}`
+            selectedMachine?.ur && selectedMachine?.descriptionUr
+              ? `${selectedMachine.ur}, ${selectedMachine.descriptionUr}`
               : ""
           }
             readOnly
@@ -105,7 +105,7 @@ return (
           <h3>Responsable production :</h3>
           <input
             className="border-2 rounded border-slate-900 w-full"
-            value={selectedMachine?.responsableProdMachine || ""}
+            value={selectedMachine?.nomUtilisateur || ""}
             readOnly
           />
         </div>

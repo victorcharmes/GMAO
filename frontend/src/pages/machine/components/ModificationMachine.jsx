@@ -58,8 +58,8 @@ function ModificationMachine({ machines = [], criticite = [], classe = [], empla
         setEditedMachine(null)
         setSelectedName("")
     }, 1500)
+    
     }
-
   return (
     <div className="mt-20 px-10">
 
@@ -119,7 +119,7 @@ function ModificationMachine({ machines = [], criticite = [], classe = [], empla
                     {criticite.map((c) => (
                       <option
                         key={c.idCriticiteMachine} //key
-                        value={c.criticiteMachine} //valeur envoyé dans le state
+                        value={c.idCriticiteMachine} //valeur envoyé dans le state
                       >
                         {c.criticiteMachine} {/*Valeur affiché*/}
                       </option>
@@ -130,19 +130,19 @@ function ModificationMachine({ machines = [], criticite = [], classe = [], empla
               <div>
                 <h3>Classe :</h3>
                   <select
-                    name="classeOuverture"
+                    name="classe"
                     className="border-2 rounded border-slate-900 w-full text-black bg-gray-200"
-                    value={editedMachine?.classeOuverture || ""}
+                    value={editedMachine?.classe || ""}
                     onChange={handleInputChange}
                   >
                     <option value="">-- Sélectionner --</option>
 
                     {classe.map((c) => (
                       <option
-                        key={c.idClasseMachine}
-                        value={c.classeMachine}
+                        key={c.idClasseMachine} //key
+                        value={c.idClasseMachine} //valeur envoyé dans le state
                       >
-                        {c.classeMachine}
+                        {c.classeMachine} {/*Valeur affiché*/}
                       </option>
                     ))}
                   </select>
@@ -161,7 +161,7 @@ function ModificationMachine({ machines = [], criticite = [], classe = [], empla
                     {emplacement.map((e) => (
                       <option
                         key={e.idEmplacement}
-                        value={e.nomEmplacement}
+                        value={e.idEmplacement}
                       >
                         {e.nomEmplacement}
                       </option>
@@ -190,7 +190,7 @@ function ModificationMachine({ machines = [], criticite = [], classe = [], empla
                     {ur.map((u) => (
                       <option
                         key={u.idUr}
-                        value={u.nomUr}
+                        value={u.idUr}
                       >
                         {u.nomUr}
                       </option>
