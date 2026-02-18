@@ -46,6 +46,7 @@ public class MachineController {
             @RequestBody Machine machine) {
 
         machine.setId(id);
+        System.out.println("Machine modifié:\n");
         System.out.println(machine);
         //Machine updatedMachine = service.save(machine);
 

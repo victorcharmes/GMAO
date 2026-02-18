@@ -35,7 +35,7 @@ function ModificationMachine({ machines = [], criticite = [], classe = [], empla
     setEditedMachine({
       ...machine,
       criticite: criticiteObj?.idCriticiteMachine || "",
-      classe: classeObj?.idClasseMachine || "",
+      classeOuverture: classeObj?.idClasseMachine || "",
       emplacement: emplacementObj?.idEmplacement || "",
       ur: urObj?.idUr || "",
     });
@@ -43,7 +43,7 @@ function ModificationMachine({ machines = [], criticite = [], classe = [], empla
   // ================================
   // Modification des champs
   // ================================
-  const numericFields = ["criticite", "classe", "emplacement", "ur"];
+  const numericFields = ["criticite", "classeOuverture", "emplacement", "ur"];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -90,6 +90,7 @@ function ModificationMachine({ machines = [], criticite = [], classe = [], empla
       console.error("Erreur :", error);
     }
   }
+  console.log(classe)
   return (
     <div className="mt-20 px-10">
 
@@ -160,9 +161,9 @@ function ModificationMachine({ machines = [], criticite = [], classe = [], empla
               <div>
                 <h3>Classe :</h3>
                   <select
-                    name="classe"
+                    name="classeOuverture"
                     className="border-2 rounded border-slate-900 w-full text-black bg-gray-200"
-                    value={editedMachine?.classe || ""}
+                    value={editedMachine?.classeOuverture || ""}
                     onChange={handleInputChange}
                   >
                     <option value="">-- Sélectionner --</option>
