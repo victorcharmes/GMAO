@@ -13,53 +13,83 @@ function ModificationMachine({ machines = [], criticite = [], classe = [], empla
   // Sélection machine
   // ================================
   const handleSelectMachine = (e) => {
-    const selectedName = e.target.value
+    const selectedName = e.target.value //récupérer machine sélectionné par user
 
     const machine = machines.find(
       (m) => m.nom === selectedName
-    )
+    ) //Recherche machine dans tableau machines
 
-    setSelectedMachine(machine)
-    setEditedMachine(machine ? { ...machine } : null)
-  }
-  console.log(machines)
-  console.log(emplacement)
+    //Si mauvaise saisie
+    if (!machine) {
+      setEditedMachine(null);
+      return;
+    }
+
+    //permet d'afficher les données et pas id
+    const criticiteObj = criticite.find(c => c.criticiteMachine === machine.criticite)
+    const classeObj = classe.find(c => c.classeMachine === machine.classe)
+    const emplacementObj = emplacement.find(e => e.nomEmplacement === machine.emplacement)
+    const urObj = ur.find(u => u.nomUr === machine.ur)
+
+    //création d'un objet éditable
+    setEditedMachine({
+      ...machine,
+      criticite: criticiteObj?.idCriticiteMachine || "",
+      classe: classeObj?.idClasseMachine || "",
+      emplacement: emplacementObj?.idEmplacement || "",
+      ur: urObj?.idUr || "",
+    });
+  };
   // ================================
   // Modification des champs
   // ================================
+  const numericFields = ["criticite", "classe", "emplacement", "ur"];
+
   const handleInputChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
 
     setEditedMachine(prev => ({
       ...prev,
-      [name]: value
-    }))
-  }
+      [name]: numericFields.includes(name)
+        ? Number(value)
+        : value
+    }));
+  };
 
   // ==========
   // Validation
   // ==========
-    const handleSubmit = () => {
-    if (!editedMachine) return
+  
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:8081/machine/${editedMachine.id}`,
+        {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(editedMachine)
+      });
 
-    console.log("========== DONNÉES À ENVOYER ==========")
-    console.log(editedMachine)
-    console.log("========================================")
+      if (!response.ok) {
+        throw new Error("Erreur serveur");
+      }
 
-    // ffiche popup
-    setShowPopup(true)
+      const data = await response.json();
+      console.log("Modifications enregistrées :", data);
 
-    // Disparition après 2 secondes
-    setTimeout(() => {
-        setShowPopup(false)
+      setShowPopup(true);
+      setEditedMachine(null);
 
-        // Reset formulaire
-        setSelectedMachine(null)
-        setEditedMachine(null)
-        setSelectedName("")
-    }, 1500)
-    
+      setTimeout(() => {
+        setShowPopup(false);
+      }, 1500);
+
+    } catch (error) {
+      console.error("Erreur :", error);
     }
+  }
   return (
     <div className="mt-20 px-10">
 
