@@ -1,8 +1,17 @@
+// URLs des endpoints backend
 const API_MACHINE = "http://localhost:8081/machine";
 const API_CRITICITE = "http://localhost:8081/criticite";
 const API_CLASSE = "http://localhost:8081/classe";
 const API_EMPLACEMENT = "http://localhost:8081/emplacement";
 const API_UR = "http://localhost:8081/ur";
+
+/*
+  Fonctions génériques de récupération des données.
+  Chaque fonction :
+  - appelle l'API
+  - vérifie la réponse
+  - retourne le JSON
+*/
 
 export const getMachines = async () => {
   const response = await fetch(API_MACHINE);

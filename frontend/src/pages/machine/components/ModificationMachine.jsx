@@ -2,6 +2,13 @@ import { useState, useEffect } from "react"
 import "../style.css"
 import iconeFlecheEnArriere from "../style/iconeFlecheEnArriere.svg"
 
+/*
+  Composant permettant :
+  - La sélection d'une machine
+  - La modification de ses champs
+  - La validation avec contrôle des erreurs
+*/
+
 function ModificationMachine({
   machines = [],
   loadMachines,
@@ -12,6 +19,10 @@ function ModificationMachine({
   setView
 }) {
 
+  // ================================
+  // ETAT INITIAL D'UNE MACHINE EDITEE
+  // ================================
+  
   const initialMachineState = {
     id: "",
     criticite: "",
@@ -28,6 +39,7 @@ function ModificationMachine({
   // ================================
   // Sélection machine
   // ================================
+
   const handleSelectMachine = (e) => {
     const id = Number(e.target.value);
     const machine = machines.find(m => m.id === id);
@@ -37,6 +49,7 @@ function ModificationMachine({
       return;
     }
 
+    // Conversion des libellés en IDs pour les <select>
     const criticiteObj = criticite.find(c => c.criticiteMachine === machine.criticite);
     const classeObj = classe.find(c => c.classeMachine === machine.classe);
     const emplacementObj = emplacement.find(e => e.nomEmplacement === machine.emplacement);
@@ -54,6 +67,7 @@ function ModificationMachine({
   // ================================
   // Modification champs
   // ================================
+
   const numericFields = ["criticite", "classeOuverture", "emplacement", "ur"];
 
   const handleInputChange = (e) => {
@@ -68,15 +82,18 @@ function ModificationMachine({
   };
 
   // ================================
-  // Validation
+  // VALIDATION + ENVOI PUT
   // ================================
+
   const handleSubmit = async () => {
 
+    // Vérification sélection machine
     if (!editedMachine.id) {
       setErrorMessage("❌ Veuillez sélectionner une machine");
       return;
     }
 
+    // Champs obligatoires
     const requiredFields = [
       { key: "criticite", label: "Criticité" },
       { key: "classeOuverture", label: "Classe" },
@@ -124,6 +141,7 @@ function ModificationMachine({
   // ================================
   // RENDER
   // ================================
+
   return (
     <div className="mt-20 px-10">
 
@@ -286,7 +304,8 @@ function ModificationMachine({
         </div>
 
       </div>
-
+      
+      {/* Popup scuccès */}
       {showPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-slate-600 bg-opacity-40 z-50">
           <div className="bg-white px-8 py-6 rounded-xl shadow-xl text-lg font-semibold text-green-600">
@@ -294,6 +313,7 @@ function ModificationMachine({
           </div>
         </div>
       )}
+      {/* Popup erreur */}
       {errorMessage && (
         <div className="fixed inset-0 flex items-center justify-center bg-slate-600 bg-opacity-40 z-50">
           <div className="bg-white px-8 py-6 rounded-xl shadow-xl text-lg font-semibold text-red-600 text-center">

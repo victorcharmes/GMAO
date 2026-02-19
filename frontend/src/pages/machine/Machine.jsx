@@ -5,88 +5,127 @@ import SelectionMachine from "./components/SelectionMachine"
 import ModificationMachine from "./components/ModificationMachine"
 import AjoutMachine from "./components/AjoutMachine"
 
-export default function Machine() {
-    const [machines, setMachines] = useState([]);
-    const [criticite, setCriticite] = useState([]);
-    const [classe, setClasse] = useState([]);
-    const [emplacement, setEmplacement] = useState([]);
-    const [ur, setUr] = useState([]);
-    const [view, setView] = useState("selection"); 
-    // "selection" | "modification" | "ajout"
+/*
+Composant principal de la gestion des machines.
+Il :
+- Charge toutes les données nécessaires depuis l’API
+- Gère la navigation entre les vues
+- Transmet les données aux sous-composants
+*/
 
-    //const loadMachines = useCallback(async () => {
-    //    const data = await getMachines();
-    //    setMachines(data);
-    //}, []);
-    const loadMachines = useCallback(async () => {
+export default function Machine() {
+
+// ================================
+// STATES PRINCIPAUX
+// ================================
+
+// Liste complète des machines
+const [machines, setMachines] = useState([])
+
+// Listes de référence (menus déroulants)
+const [criticite, setCriticite] = useState([])
+const [classe, setClasse] = useState([])
+const [emplacement, setEmplacement] = useState([])
+const [ur, setUr] = useState([])
+
+// Vue active
+// "selection" | "modification" | "ajout"
+const [view, setView] = useState("selection")
+
+
+
+// ================================
+// CHARGEMENT DES MACHINES
+// ================================
+
+/*
+useCallback permet d'éviter
+de recréer la fonction à chaque render.
+*/
+const loadMachines = useCallback(async () => {
     const data = await getMachines();
     console.log("LONGUEUR API :", data.length);
     console.log("DATA COMPLETE :", data);
     setMachines(data);
-    }, []);
-    useEffect(() => {
+}, []);
+// Debug du state machines
+useEffect(() => {
     console.log("STATE MACHINES :", machines.length);
-    }, [machines]);
-    const loadCriticite = async () => {
-        const data = await getCriticite();
-        setCriticite(data);
-    };
-    const loadClasse = async () => {
-        const data = await getClasse();
-        setClasse(data);
-    };
-    const loadEmplacement = async () => {
-        const data = await getEmplacement();
-        setEmplacement(data);
-    };
-    const loadUr = async () => {
-        const data = await getUr();
-        setUr(data);
-    };
+}, [machines]);
 
-    useEffect(() => {
-        loadMachines();
-        loadCriticite();
-        loadClasse();
-        loadEmplacement();
-        loadUr();
-    }, []);
+// ================================
+// CHARGEMENT DES DONNEES DE REFERENCE
+// ================================
 
-    return(
-        <div className="min-h-screen text-white">
-            <Navbar/>
+const loadCriticite = async () => {
+    const data = await getCriticite();
+    setCriticite(data);
+};
+const loadClasse = async () => {
+    const data = await getClasse();
+    setClasse(data);
+};
+const loadEmplacement = async () => {
+    const data = await getEmplacement();
+    setEmplacement(data);
+};
+const loadUr = async () => {
+    const data = await getUr();
+    setUr(data);
+};
 
-            {view === "selection" && (
-                <SelectionMachine 
-                    machines={machines} 
-                    criticite={criticite}
-                    classe={classe}
-                    emplacement={emplacement}
-                    ur={ur}
-                    setView={setView}
-                />
-            )}
+// ================================
+// CHARGEMENT INITIAL AU MONTAGE
+// ================================
 
-            {view === "modification" && (
-                <ModificationMachine 
-                    machines={machines}
-                    loadMachines={loadMachines} //
-                    criticite={criticite}
-                    classe={classe}
-                    emplacement={emplacement}
-                    ur={ur}  
-                    setView={setView} />
-            )}
-            {view === "ajout" && (
-                <AjoutMachine 
-                    machines={machines}
-                    loadMachines={loadMachines} //
-                    criticite={criticite}
-                    classe={classe}
-                    emplacement={emplacement}
-                    ur={ur}   
-                    setView={setView} />
-            )}
-        </div>
-    )
+useEffect(() => {
+    loadMachines();
+    loadCriticite();
+    loadClasse();
+    loadEmplacement();
+    loadUr();
+}, []);
+
+
+// ================================
+// RENDER
+// ================================
+
+return(
+    <div className="min-h-screen text-white">
+        <Navbar/>
+
+        {view === "selection" && (
+            <SelectionMachine 
+                machines={machines} 
+                criticite={criticite}
+                classe={classe}
+                emplacement={emplacement}
+                ur={ur}
+                setView={setView}
+            />
+        )}
+
+        {view === "modification" && (
+            <ModificationMachine 
+                machines={machines}
+                loadMachines={loadMachines} //
+                criticite={criticite}
+                classe={classe}
+                emplacement={emplacement}
+                ur={ur}  
+                setView={setView} />
+        )}
+        {view === "ajout" && (
+            <AjoutMachine 
+                machines={machines}
+                loadMachines={loadMachines} //
+                criticite={criticite}
+                classe={classe}
+                emplacement={emplacement}
+                ur={ur}   
+                setView={setView} />
+        )}
+    </div>
+)
 }

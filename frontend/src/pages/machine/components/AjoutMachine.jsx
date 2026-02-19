@@ -2,24 +2,43 @@ import { useState } from "react"
 import "../style.css"
 import iconeFlecheEnArriere from "../style/iconeFlecheEnArriere.svg"
 
-function AjoutMachine({ loadMachines, criticite = [], classe = [], emplacement = [], ur = [], setView  }) {
+/*
+  Composant permettant :
+  - La création d'une nouvelle machine
+  - La validation des champs obligatoires
+  - L'affichage d'un popup succès ou erreur
+*/
 
-    const [showPopup, setShowPopup] = useState(false)
-    const [errorMessage, setErrorMessage] = useState("")
+function AjoutMachine({ loadMachines, criticite = [], classe = [], emplacement = [], ur = [], setView  }) {
+  // ================================
+  // STATES
+  // ================================
+
+  // Popup succès
+  const [showPopup, setShowPopup] = useState(false)
+
+  // Message d'erreur
+  const [errorMessage, setErrorMessage] = useState("")
+
+  // Etat initial du formulaire
+  const initialState = {
+    nom: "",
+    criticite: "",
+    classeOuverture: "",
+    emplacement: "",
+    ur: "",
+    descriptionUR: "",
+    responsableProdMachine: "",
+    description: "",
+    dateImplementation: ""
+  }
+
+  // Machine en cours de création
+  const [newMachine, setNewMachine] = useState(initialState)
     
-    const initialState = {
-      nom: "",
-      criticite: "",
-      classeOuverture: "",
-      emplacement: "",
-      ur: "",
-      descriptionUR: "",
-      responsableProdMachine: "",
-      description: "",
-      dateImplementation: ""
-    }
-    const [newMachine, setNewMachine] = useState(initialState)
-    
+  // ================================
+  // VALIDATION + ENVOI POST
+  // ================================
   const handleSubmit = async () => {
 
     // Liste des champs obligatoires
@@ -39,7 +58,7 @@ function AjoutMachine({ loadMachines, criticite = [], classe = [], emplacement =
         return;
       }
     }
-
+    // Envoi POST vers le backend
     try {
       const response = await fetch("http://localhost:8081/machine", {
         method: "POST",
@@ -52,22 +71,25 @@ function AjoutMachine({ loadMachines, criticite = [], classe = [], emplacement =
       if (!response.ok) throw new Error("Erreur serveur");
 
       await response.json();
+
+      // Recharge la liste des machines dans le composant parent
       await loadMachines();
 
+      // Affichage popup succès
       setShowPopup(true);
+      // Reset formulaire
       setNewMachine(initialState);
 
+      // Disparition automatique popup
       setTimeout(() => {
         setShowPopup(false);
       }, 1500);
 
     } catch (error) {
+      // Gestion erreur backend
       setErrorMessage("❌ Erreur lors de l'enregistrement");
     }
   }
-
-
-
     const handleChange = (e) => {
         const { name, value } = e.target
 
@@ -79,6 +101,9 @@ function AjoutMachine({ loadMachines, criticite = [], classe = [], emplacement =
         console.log(name + " :", value)
     }
 
+  // ================================
+  // RENDER
+  // ================================
   return (
     <div className="mt-20 px-10">
       <div className="flex gap-10">
@@ -227,6 +252,7 @@ function AjoutMachine({ loadMachines, criticite = [], classe = [], emplacement =
         </div>
 
       </div>
+        {/* Popup scuccès */}
         {showPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-slate-600 bg-opacity-40 z-50">
             <div className="bg-white px-8 py-6 rounded-xl shadow-xl text-lg font-semibold text-green-600">
@@ -234,6 +260,7 @@ function AjoutMachine({ loadMachines, criticite = [], classe = [], emplacement =
             </div>
         </div>
         )}
+        {/* Popup erreur */}
         {errorMessage && (
           <div className="fixed inset-0 flex items-center justify-center bg-slate-600 bg-opacity-40 z-50">
             <div className="bg-white px-8 py-6 rounded-xl shadow-xl text-lg font-semibold text-red-600 text-center">
