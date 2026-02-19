@@ -61,6 +61,7 @@ export default function Machine() {
             {view === "modification" && (
                 <ModificationMachine 
                     machines={machines}
+                    loadMachines={loadMachines}
                     criticite={criticite}
                     classe={classe}
                     emplacement={emplacement}
@@ -70,6 +71,7 @@ export default function Machine() {
             {view === "ajout" && (
                 <AjoutMachine 
                     machines={machines}
+                    loadMachines={loadMachines}
                     criticite={criticite}
                     classe={classe}
                     emplacement={emplacement}

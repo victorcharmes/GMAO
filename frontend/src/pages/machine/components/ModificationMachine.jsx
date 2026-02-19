@@ -2,13 +2,13 @@ import { useState } from "react"
 import "../style.css"
 import iconeFlecheEnArriere from "../style/iconeFlecheEnArriere.svg"
 
-function ModificationMachine({ machines = [], criticite = [], classe = [], emplacement = [], ur = [], setView  }) {
+function ModificationMachine({ machines = [], loadMachines, criticite = [], classe = [], emplacement = [], ur = [], setView  }) {
 
   const [selectedMachine, setSelectedMachine] = useState(null)
   const [editedMachine, setEditedMachine] = useState(null)
   const [selectedName, setSelectedName] = useState("")
   const [showPopup, setShowPopup] = useState(false)
-  
+
   // ================================
   // Sélection machine
   // ================================
@@ -71,7 +71,6 @@ function ModificationMachine({ machines = [], criticite = [], classe = [], empla
         },
         body: JSON.stringify(editedMachine)
       });
-
       if (!response.ok) {
         throw new Error("Erreur serveur");
       }
@@ -79,7 +78,11 @@ function ModificationMachine({ machines = [], criticite = [], classe = [], empla
       const data = await response.json();
       console.log("Modifications enregistrées :", data);
 
+      //Recharger et prendre en compte modifs
+      await loadMachines();
+
       setShowPopup(true);
+      setSelectedName("");
       setEditedMachine(null);
 
       setTimeout(() => {
@@ -90,6 +93,7 @@ function ModificationMachine({ machines = [], criticite = [], classe = [], empla
       console.error("Erreur :", error);
     }
   }
+
   console.log(classe)
   return (
     <div className="mt-20 px-10">
