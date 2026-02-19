@@ -26,4 +26,15 @@ public class MachineService implements MachineServiceInterface{
         return repository.save(machine);
     }
 
+    @Override
+    public Machine update(Machine machine) {
+    int rows = repository.update(machine);
+
+    if (rows == 0) {
+        return null; // id inexistant
+    }
+
+    return machine;
+    }
+
 }

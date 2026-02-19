@@ -105,4 +105,37 @@ public class MachineRepository {
 
         return machine;
     }
+    public int update(Machine machine) {
+
+    String sql = """
+        UPDATE MACHINE SET
+            machine = ?,
+            description_machine = ?,
+            photo = ?,
+            date_implementation = ?,
+            criticite_machine = ?,
+            classe_machine = ?,
+            emplacement_machine = ?,
+            ur_machine = ?
+        WHERE id_machine = ?
+    """;
+
+    String photo = machine.getLienPhoto();
+
+    if (photo == null || photo.isBlank()) {
+        photo = "/photosMachines/";
+    }
+
+    return jdbcTemplate.update(sql,
+        machine.getNom(),
+        machine.getDescription(),
+        photo,
+        machine.getDateImplementation(),
+        machine.getCriticite(),
+        machine.getClasseOuverture(),
+        machine.getEmplacement(),
+        machine.getUr(),
+        machine.getId()
+    );
+}
 }

@@ -46,10 +46,14 @@ public class MachineController {
             @RequestBody Machine machine) {
 
         machine.setId(id);
-        System.out.println("Machine modifié:\n");
-        System.out.println(machine);
-        //Machine updatedMachine = service.save(machine);
 
-        return ResponseEntity.ok(machine);
+        Machine updatedMachine = service.update(machine);
+
+        if (updatedMachine == null) {
+            return ResponseEntity.notFound().build();
+        }
+        System.out.println("ID reçu : " + id);
+        System.out.println("ID dans objet : " + machine.getId());
+        return ResponseEntity.ok(updatedMachine);
     }
 }
