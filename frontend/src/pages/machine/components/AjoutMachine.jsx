@@ -5,6 +5,7 @@ import iconeFlecheEnArriere from "../style/iconeFlecheEnArriere.svg"
 function AjoutMachine({ loadMachines, criticite = [], classe = [], emplacement = [], ur = [], setView  }) {
 
     const [showPopup, setShowPopup] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
     
     const initialState = {
       nom: "",
@@ -19,35 +20,54 @@ function AjoutMachine({ loadMachines, criticite = [], classe = [], emplacement =
     }
     const [newMachine, setNewMachine] = useState(initialState)
     
-    const handleSubmit = async () => {
-      try {
-        const response = await fetch("http://localhost:8081/machine", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(newMachine)
-        });
+  const handleSubmit = async () => {
 
-        if (!response.ok) {
-          throw new Error("Erreur serveur");
-        }
+    // Liste des champs obligatoires
+    const requiredFields = [
+      { key: "nom", label: "Nom de la machine" },
+      { key: "criticite", label: "Criticité" },
+      { key: "classeOuverture", label: "Classe" },
+      { key: "emplacement", label: "Emplacement" },
+      { key: "ur", label: "Unité de Réalisation" },
+      { key: "dateImplementation", label: "Date d'implémentation" }
+    ];
 
-        const data = await response.json();
-        console.log("Machine enregistrée :", data);
-        await loadMachines(); //Recharger la liste
-
-        setShowPopup(true);
-        setNewMachine(initialState);
-
-        setTimeout(() => {
-          setShowPopup(false);
-        }, 1500);
-
-      } catch (error) {
-        console.error("Erreur :", error);
+    // Vérification des champs vides
+    for (let field of requiredFields) {
+      if (!newMachine[field.key] || newMachine[field.key].toString().trim() === "") {
+        setErrorMessage(`❌ Veuillez compléter le champ : ${field.label}`);
+        return;
       }
     }
+
+    try {
+      const response = await fetch("http://localhost:8081/machine", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newMachine)
+      });
+
+      if (!response.ok) throw new Error("Erreur serveur");
+
+      await response.json();
+      await loadMachines();
+
+      setShowPopup(true);
+      setNewMachine(initialState);
+
+      setTimeout(() => {
+        setShowPopup(false);
+      }, 1500);
+
+    } catch (error) {
+      setErrorMessage("❌ Erreur lors de l'enregistrement");
+    }
+  }
+
+
+
     const handleChange = (e) => {
         const { name, value } = e.target
 
@@ -213,6 +233,21 @@ function AjoutMachine({ loadMachines, criticite = [], classe = [], emplacement =
             ✅ Machine ajouté
             </div>
         </div>
+        )}
+        {errorMessage && (
+          <div className="fixed inset-0 flex items-center justify-center bg-slate-600 bg-opacity-40 z-50">
+            <div className="bg-white px-8 py-6 rounded-xl shadow-xl text-lg font-semibold text-red-600 text-center">
+              {errorMessage}
+              <div className="mt-4">
+                <button
+                  onClick={() => setErrorMessage("")}
+                  className="px-4 py-2 bg-red-500 text-white rounded"
+                >
+                  OK
+                </button>
+              </div>
+            </div>
+          </div>
         )}
     </div>
   )

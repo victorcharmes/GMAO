@@ -23,6 +23,7 @@ function ModificationMachine({
 
   const [editedMachine, setEditedMachine] = useState(initialMachineState);
   const [showPopup, setShowPopup] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   // ================================
   // Sélection machine
@@ -70,6 +71,27 @@ function ModificationMachine({
   // Validation
   // ================================
   const handleSubmit = async () => {
+
+    if (!editedMachine.id) {
+      setErrorMessage("❌ Veuillez sélectionner une machine");
+      return;
+    }
+
+    const requiredFields = [
+      { key: "criticite", label: "Criticité" },
+      { key: "classeOuverture", label: "Classe" },
+      { key: "emplacement", label: "Emplacement" },
+      { key: "ur", label: "Unité de Réalisation" },
+      { key: "description", label: "Description" }
+    ];
+
+    for (let field of requiredFields) {
+      if (!editedMachine[field.key] || editedMachine[field.key].toString().trim() === "") {
+        setErrorMessage(`❌ Veuillez compléter le champ : ${field.label}`);
+        return;
+      }
+    }
+
     try {
       const response = await fetch(
         `http://localhost:8081/machine/${editedMachine.id}`,
@@ -95,7 +117,7 @@ function ModificationMachine({
       }, 1500);
 
     } catch (error) {
-      console.error("Erreur :", error);
+      setErrorMessage("❌ Erreur lors de la modification");
     }
   };
 
@@ -272,7 +294,21 @@ function ModificationMachine({
           </div>
         </div>
       )}
-
+      {errorMessage && (
+        <div className="fixed inset-0 flex items-center justify-center bg-slate-600 bg-opacity-40 z-50">
+          <div className="bg-white px-8 py-6 rounded-xl shadow-xl text-lg font-semibold text-red-600 text-center">
+            {errorMessage}
+            <div className="mt-4">
+              <button
+                onClick={() => setErrorMessage("")}
+                className="px-4 py-2 bg-red-500 text-white rounded"
+              >
+                OK
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
