@@ -168,14 +168,14 @@ function ModificationMachine({
             <h3>Nom de la machine :</h3>
 
             <select
-              className="border-2 rounded border-slate-900 w-full text-black"
+              className="border-2 rounded border-slate-900 w-full text-white"
               value={editedMachine.id || ""}
               onChange={handleSelectMachine}
             >
-              <option value="">-- Choisir une machine --</option>
+              <option value="" className="bg-slate-900">-- Choisir une machine --</option>
 
               {machines.map(machine => (
-                <option key={machine.id} value={machine.id}>
+                <option key={machine.id} value={machine.id} className="bg-slate-900">
                   {machine.nom}
                 </option>
               ))}
@@ -187,16 +187,17 @@ function ModificationMachine({
             <h3>Criticité :</h3>
             <select
               name="criticite"
-              className="border-2 rounded border-slate-900 w-full text-black bg-gray-200"
+              className="border-2 rounded border-slate-900 w-full text-white"
               value={editedMachine.criticite}
               onChange={handleInputChange}
             >
-              <option value="">-- Sélectionner --</option>
+              <option value="" className="bg-slate-900">-- Sélectionner --</option>
 
               {criticite.map(c => (
                 <option
                   key={c.idCriticiteMachine}
                   value={c.idCriticiteMachine}
+                  className="bg-slate-900"
                 >
                   {c.criticiteMachine}
                 </option>
@@ -209,16 +210,17 @@ function ModificationMachine({
             <h3>Classe :</h3>
             <select
               name="classeOuverture"
-              className="border-2 rounded border-slate-900 w-full text-black bg-gray-200"
+              className="border-2 rounded border-slate-900 w-full text-white"
               value={editedMachine.classeOuverture}
               onChange={handleInputChange}
             >
-              <option value="">-- Sélectionner --</option>
+              <option value="" className="bg-slate-900">-- Sélectionner --</option>
 
               {classe.map(c => (
                 <option
                   key={c.idClasseMachine}
                   value={c.idClasseMachine}
+                  className="bg-slate-900"
                 >
                   {c.classeMachine}
                 </option>
@@ -231,16 +233,17 @@ function ModificationMachine({
             <h3>Emplacement :</h3>
             <select
               name="emplacement"
-              className="border-2 rounded border-slate-900 w-full text-black bg-gray-200"
+              className="border-2 rounded border-slate-900 w-full text-white"
               value={editedMachine.emplacement}
               onChange={handleInputChange}
             >
-              <option value="">-- Sélectionner --</option>
+              <option value="" className="bg-slate-900">-- Sélectionner --</option>
 
               {emplacement.map(e => (
                 <option
                   key={e.idEmplacement}
                   value={e.idEmplacement}
+                  className="bg-slate-900"
                 >
                   {e.nomEmplacement}
                 </option>
@@ -257,16 +260,17 @@ function ModificationMachine({
             <h3>UR :</h3>
             <select
               name="ur"
-              className="border-2 rounded border-slate-900 w-full text-black bg-gray-200"
+              className="border-2 rounded border-slate-900 w-full text-white"
               value={editedMachine.ur}
               onChange={handleInputChange}
             >
-              <option value="">-- Sélectionner --</option>
+              <option value="" className="bg-slate-900">-- Sélectionner --</option>
 
               {ur.map(u => (
                 <option
                   key={u.idUr}
                   value={u.idUr}
+                  className="bg-slate-900"
                 >
                   {u.nomUr}
                 </option>
@@ -274,7 +278,7 @@ function ModificationMachine({
             </select>
 
             <h3>Image :</h3>
-            <p className="border-2 rounded border-slate-900 w-full bg-gray-200 text-slate-900 p-1.5">
+            <p className="border-2 rounded border-slate-900 w-full text-white p-1.5">
               Pour modifier l'image, se rendre dans le dossier suivant:
               /GMAO/public/photosMachine/
             </p>
@@ -288,7 +292,7 @@ function ModificationMachine({
           <h3>Description :</h3>
           <textarea
             name="description"
-            className="border-2 rounded border-slate-900 w-full h-60 p-2 bg-gray-200 text-slate-900"
+            className="border-2 rounded border-slate-900 w-full h-60 p-2 text-white"
             value={editedMachine.description}
             onChange={handleInputChange}
           />
@@ -305,7 +309,7 @@ function ModificationMachine({
 
       </div>
       
-      {/* Popup scuccès */}
+      {/* Popup succès */}
       {showPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-slate-600 bg-opacity-40 z-50">
           <div className="bg-white px-8 py-6 rounded-xl shadow-xl text-lg font-semibold text-green-600">

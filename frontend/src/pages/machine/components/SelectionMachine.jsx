@@ -39,7 +39,7 @@ return (
             <h3>Nom de la machine :</h3>
 
             <select
-              className="border-2 rounded border-slate-900 w-full text-black"
+              className="border-2 rounded border-slate-900 w-full text-white"
               value={selectedMachine?.id || ""}
               onChange={(e) => {
                 const id = Number(e.target.value);
@@ -47,10 +47,10 @@ return (
                 setSelectedMachine(machine || null);
               }}
             >
-              <option value="">-- Choisir une machine --</option>
+              <option value="" className="bg-slate-900">-- Choisir une machine --</option>
 
               {machines.map(machine => (
-                <option key={machine.id} value={machine.id}>
+                <option key={machine.id} value={machine.id} className="bg-slate-900"> 
                   {machine.nom}
                 </option>
               ))}

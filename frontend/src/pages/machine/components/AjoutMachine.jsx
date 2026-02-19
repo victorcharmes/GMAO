@@ -136,16 +136,17 @@ function AjoutMachine({ loadMachines, criticite = [], classe = [], emplacement =
             <h3>Criticité :</h3>
               <select
                 name="criticite"
-                className="border-2 rounded border-slate-900 w-full text-black bg-gray-200"
+                className="border-2 rounded border-slate-900 w-full text-white"
                 value={newMachine.criticite}
                 onChange={handleChange}
               >
-                <option value="">-- Sélectionner --</option>
+                <option value="" className="bg-slate-900">-- Sélectionner --</option>
 
                 {criticite.map((c) => (
                   <option
                     key={c.idCriticiteMachine} //key
                     value={c.idCriticiteMachine} //valeur envoyé dans le State
+                    className="bg-slate-900"
                   >
                     {c.criticiteMachine} {/*valeur affiché */}
                   </option>
@@ -157,16 +158,17 @@ function AjoutMachine({ loadMachines, criticite = [], classe = [], emplacement =
             <h3>Classe :</h3>
               <select
                 name="classeOuverture"
-                className="border-2 rounded border-slate-900 w-full text-black bg-gray-200"
+                className="border-2 rounded border-slate-900 w-full text-white"
                 value={newMachine.classeOuverture}
                 onChange={handleChange}
               >
-                <option value="">-- Sélectionner --</option>
+                <option value="" className="bg-slate-900">-- Sélectionner --</option>
 
                 {classe.map((c) => (
                   <option
                     key={c.idClasseMachine}
                     value={c.idClasseMachine}
+                    className="bg-slate-900"
                   >
                     {c.classeMachine}
                   </option>
@@ -178,16 +180,17 @@ function AjoutMachine({ loadMachines, criticite = [], classe = [], emplacement =
             <h3>Emplacement :</h3>
               <select
                 name="emplacement"
-                className="border-2 rounded border-slate-900 w-full text-black bg-gray-200"
+                className="border-2 rounded border-slate-900 w-full text-white"
                 value={newMachine.emplacement}
                 onChange={handleChange}
               >
-                <option value="">-- Sélectionner --</option>
+                <option value="" className="bg-slate-900">-- Sélectionner --</option>
 
                 {emplacement.map((e) => (
                   <option
                     key={e.idEmplacement}
                     value={e.idEmplacement}
+                    className="bg-slate-900"
                   >
                     {e.nomEmplacement}
                   </option>
@@ -204,16 +207,17 @@ function AjoutMachine({ loadMachines, criticite = [], classe = [], emplacement =
             <h3>Unité de Réalisation :</h3>
               <select
                 name="ur"
-                className="border-2 rounded border-slate-900 w-full text-black bg-gray-200"
+                className="border-2 rounded border-slate-900 w-full text-white"
                 value={newMachine.ur}
                 onChange={handleChange}
               >
-                <option value="">-- Sélectionner --</option>
+                <option value="" className="bg-slate-900">-- Sélectionner --</option>
 
                 {ur.map((u) => (
                   <option
                     key={u.idUr}
                     value={u.idUr}
+                    className="bg-slate-900"
                   >
                     {u.nomUr}
                   </option>
@@ -223,12 +227,12 @@ function AjoutMachine({ loadMachines, criticite = [], classe = [], emplacement =
               <input
                 type="date"
                 name="dateImplementation"
-                className="border-2 rounded border-slate-900 w-full text-black bg-gray-200"
+                className="border-2 rounded border-slate-900 w-full text-white"
                 value={newMachine.dateImplementation}
                 onChange={handleChange}
               />
               <h3>Image :</h3>
-              <p className="border-2 rounded border-slate-900 w-full bg-gray-200 text-slate-900 p-1.5">Pour l'image, se rendre dans le dossier suivant: /GMAO/public/photosMachine/ (Attention à bien faire correspondre le nom de la machine).</p>
+              <p className="border-2 rounded border-slate-900 w-full text-white p-1.5">Pour l'image, se rendre dans le dossier suivant: /GMAO/public/photosMachine/ (Attention à bien faire correspondre le nom de la machine).</p>
           </div>
 
         </div>
