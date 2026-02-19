@@ -35,21 +35,27 @@ return (
         </div>
 
         {/* Sélection machine */}
-        <div>
-          <h3>Nom de la machine :</h3>
-          <input
-            list="machinesList"
-            className="border-2 rounded border-slate-900 w-full"
-            placeholder="Choisir ou saisir..."
-            onChange={handleChange}
-          />
+          <div>
+            <h3>Nom de la machine :</h3>
 
-          <datalist id="machinesList">
-            {machines.map(machine => (
-              <option key={machine.id} value={machine.nom} />
-            ))}
-          </datalist>
-        </div>
+            <select
+              className="border-2 rounded border-slate-900 w-full text-black"
+              value={selectedMachine?.id || ""}
+              onChange={(e) => {
+                const id = Number(e.target.value);
+                const machine = machines.find(m => m.id === id);
+                setSelectedMachine(machine || null);
+              }}
+            >
+              <option value="">-- Choisir une machine --</option>
+
+              {machines.map(machine => (
+                <option key={machine.id} value={machine.id}>
+                  {machine.nom}
+                </option>
+              ))}
+            </select>
+          </div>
 
         {/* Infos machine */}
         <div className="space-y-4">

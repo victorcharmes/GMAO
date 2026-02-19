@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useCallback  } from "react"
 import { getMachines, getCriticite, getClasse, getEmplacement, getUr } from "./services/machineApi"
 import Navbar from "../../components/Navbar"
 import SelectionMachine from "./components/SelectionMachine"
@@ -14,10 +14,19 @@ export default function Machine() {
     const [view, setView] = useState("selection"); 
     // "selection" | "modification" | "ajout"
 
-    const loadMachines = async () => {
-        const data = await getMachines();
-        setMachines(data);
-    };
+    //const loadMachines = useCallback(async () => {
+    //    const data = await getMachines();
+    //    setMachines(data);
+    //}, []);
+    const loadMachines = useCallback(async () => {
+    const data = await getMachines();
+    console.log("LONGUEUR API :", data.length);
+    console.log("DATA COMPLETE :", data);
+    setMachines(data);
+    }, []);
+    useEffect(() => {
+    console.log("STATE MACHINES :", machines.length);
+    }, [machines]);
     const loadCriticite = async () => {
         const data = await getCriticite();
         setCriticite(data);
@@ -61,7 +70,7 @@ export default function Machine() {
             {view === "modification" && (
                 <ModificationMachine 
                     machines={machines}
-                    loadMachines={loadMachines}
+                    loadMachines={loadMachines} //
                     criticite={criticite}
                     classe={classe}
                     emplacement={emplacement}
@@ -71,7 +80,7 @@ export default function Machine() {
             {view === "ajout" && (
                 <AjoutMachine 
                     machines={machines}
-                    loadMachines={loadMachines}
+                    loadMachines={loadMachines} //
                     criticite={criticite}
                     classe={classe}
                     emplacement={emplacement}

@@ -2,7 +2,7 @@ import { useState } from "react"
 import "../style.css"
 import iconeFlecheEnArriere from "../style/iconeFlecheEnArriere.svg"
 
-function AjoutMachine({ machines = [], criticite = [], classe = [], emplacement = [], ur = [], setView  }) {
+function AjoutMachine({ loadMachines, criticite = [], classe = [], emplacement = [], ur = [], setView  }) {
 
     const [showPopup, setShowPopup] = useState(false)
     
@@ -35,6 +35,7 @@ function AjoutMachine({ machines = [], criticite = [], classe = [], emplacement 
 
         const data = await response.json();
         console.log("Machine enregistrée :", data);
+        await loadMachines(); //Recharger la liste
 
         setShowPopup(true);
         setNewMachine(initialState);
