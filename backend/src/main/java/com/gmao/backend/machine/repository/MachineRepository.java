@@ -138,4 +138,10 @@ public class MachineRepository {
         machine.getId()
     );
 }
+    public int deleteById(Integer id) {
+
+        String sql = "DELETE FROM MACHINE WHERE id_machine = ?";
+
+        return jdbcTemplate.update(sql, id);
+    }
 }

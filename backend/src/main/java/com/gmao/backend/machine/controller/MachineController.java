@@ -2,6 +2,7 @@ package com.gmao.backend.machine.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -55,5 +56,18 @@ public class MachineController {
         System.out.println("ID reçu : " + id);
         System.out.println("ID dans objet : " + machine.getId());
         return ResponseEntity.ok(updatedMachine);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteMachine(@PathVariable Integer id) {
+
+        System.out.println("ID reçu pour suppression : " + id);
+
+        boolean deleted = service.deleteById(id);
+
+        if (!deleted) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.noContent().build();
     }
 }

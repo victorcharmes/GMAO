@@ -9,4 +9,5 @@ public interface MachineServiceInterface {
     List<MachineView> findAll();
     Machine save(Machine machine);
     public Machine update(Machine machine);
+    boolean deleteById(Integer id);
 }

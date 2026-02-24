@@ -36,5 +36,11 @@ public class MachineService implements MachineServiceInterface{
 
     return machine;
     }
+    @Override
+    public boolean deleteById(Integer id) {
 
+        int rowsAffected = repository.deleteById(id);
+
+        return rowsAffected > 0;
+    }
 }
