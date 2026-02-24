@@ -8,7 +8,9 @@ function SelectionMachine({
 }) {
 
   const [selectedId, setSelectedId] = useState("");
+  const [selectedMachine, setSelectedMachine] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
+  const [showConfirmPopup, setShowConfirmPopup] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   // Sélection machine
@@ -16,41 +18,48 @@ function SelectionMachine({
     const id = Number(e.target.value);
     setSelectedId(id);
 
-    const machine = machines.find(m => m.id === id);
+    const machine = machines.find(m => m.id === id) || null;
+    setSelectedMachine(machine);
+
     console.log("Machine sélectionnée :", machine);
   };
 
-  // Suppression
-  const handleDelete = async () => {
-
+  // Demande confirmation
+  const handleDeleteClick = () => {
     if (!selectedId) {
       setErrorMessage("❌ Veuillez sélectionner une machine");
       return;
     }
 
+    setShowConfirmPopup(true);
+  };
+
+  // Suppression réelle
+  const confirmDelete = async () => {
+
     try {
       const response = await fetch(
         `http://localhost:8081/machine/${selectedId}`,
-        {
-          method: "DELETE"
-        }
+        { method: "DELETE" }
       );
 
       if (!response.ok) {
         throw new Error("Erreur serveur");
       }
 
-      // Recharge la liste
       await loadMachines();
 
+      setShowConfirmPopup(false);
       setShowPopup(true);
       setSelectedId("");
+      setSelectedMachine(null);
 
       setTimeout(() => {
         setShowPopup(false);
       }, 1500);
 
     } catch (error) {
+      setShowConfirmPopup(false);
       setErrorMessage("❌ Erreur lors de la suppression");
     }
   };
@@ -99,7 +108,7 @@ return(
                 </div>
 
                 <button
-                    onClick={handleDelete}
+                    onClick={handleDeleteClick}
                     className="mt-4 px-4 py-2 bg-red-600 text-white rounded"
                 >
                     Supprimer
@@ -107,6 +116,37 @@ return(
 
             </div>
         </div>
+
+        {/* Popup confirmation */}
+        {showConfirmPopup && (
+            <div className="fixed inset-0 flex items-center justify-center bg-slate-600 bg-opacity-40 z-50">
+                <div className="bg-white px-8 py-6 rounded-xl shadow-xl text-lg text-center text-black">
+                    <p className="font-semibold mb-4">
+                        ⚠️ Voulez-vous supprimer la machine :
+                        <br />
+                        <span className="text-red-600">
+                            {selectedMachine?.nom}
+                        </span> ?
+                    </p>
+
+                    <div className="flex justify-center gap-4 mt-4">
+                        <button
+                            onClick={confirmDelete}
+                            className="px-4 py-2 bg-red-600 text-white rounded"
+                        >
+                            Oui
+                        </button>
+
+                        <button
+                            onClick={() => setShowConfirmPopup(false)}
+                            className="px-4 py-2 bg-gray-400 text-white rounded"
+                        >
+                            Annuler
+                        </button>
+                    </div>
+                </div>
+            </div>
+        )}
 
         {/* Popup succès */}
         {showPopup && (
