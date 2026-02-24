@@ -2,7 +2,7 @@ import { useState } from "react"
 import "../style.css"
 import iconeModificationMachine from "../style/iconeModificationMachine.svg";
 import iconeAjoutMachine from "../style/iconeAjoutMachine.svg";
-
+import iconeSupressionMachine from "../style/iconeSupressionMachine.svg";
 
 
 
@@ -32,6 +32,8 @@ return (
           <img src={iconeModificationMachine} alt="Modification machine" width="40"     className="cursor-pointer" onClick={() => setView("modification")} />
           <img src={iconeAjoutMachine} alt="Ajout machine" width="40"     className="cursor-pointer"
           onClick={() => setView("ajout")}/>
+          <img src={iconeSupressionMachine} alt="Supression machine" width="40"     className="cursor-pointer"
+          onClick={() => setView("supression")}/>
         </div>
 
         {/* Sélection machine */}

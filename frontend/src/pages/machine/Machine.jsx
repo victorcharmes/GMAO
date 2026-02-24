@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar"
 import SelectionMachine from "./components/SelectionMachine"
 import ModificationMachine from "./components/ModificationMachine"
 import AjoutMachine from "./components/AjoutMachine"
+import SupressionMachine from "./components/SupressionMachine"
 
 /*
 Composant principal de la gestion des machines.
@@ -29,7 +30,7 @@ const [emplacement, setEmplacement] = useState([])
 const [ur, setUr] = useState([])
 
 // Vue active
-// "selection" | "modification" | "ajout"
+// "selection" | "modification" | "ajout" | "supression"
 const [view, setView] = useState("selection")
 
 
@@ -125,6 +126,13 @@ return(
                 emplacement={emplacement}
                 ur={ur}   
                 setView={setView} />
+        )}
+        {view === "supression" && (
+            <SupressionMachine 
+            machines={machines}
+            loadMachines={loadMachines} 
+            setView={setView}
+            />
         )}
     </div>
 )
