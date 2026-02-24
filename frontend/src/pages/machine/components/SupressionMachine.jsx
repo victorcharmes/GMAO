@@ -88,11 +88,11 @@ return(
                     <h3>Liste des machines :</h3>
 
                     <select
-                        className="border-2 rounded border-slate-900 w-full text-black"
+                        className="border-2 rounded border-slate-900 w-full text-white"
                         value={selectedId}
                         onChange={handleSelectMachine}
                     >
-                        <option value="">
+                        <option value="" className="bg-slate-900">
                             -- Choisir une machine --
                         </option>
 
@@ -100,6 +100,7 @@ return(
                             <option
                                 key={machine.id}
                                 value={machine.id}
+                                className="bg-slate-900"
                             >
                                 {machine.nom}
                             </option>
