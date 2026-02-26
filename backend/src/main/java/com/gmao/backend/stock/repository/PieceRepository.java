@@ -21,14 +21,11 @@ public class PieceRepository {
                 p.id_piece,
                 p.nom_piece,
                 p.description_piece,
-                p.quantite_piece,
+                p.quantite,
                 p.prix_achat,
                 p.date_mise_en_stock,
-
-                s.id_slot,
+                p.slot_de_piece
             FROM PIECE p
-            JOIN SLOT s
-                ON p.slot_de_piece = s.id_slot
 
         """;
 
@@ -37,10 +34,10 @@ public class PieceRepository {
                 rs.getInt("id_piece"),
                 rs.getString("nom_piece"),
                 rs.getString("description_piece"),
-                rs.getInt("quantite_piece"),
+                rs.getInt("quantite"),
                 rs.getInt("prix_achat"),
                 rs.getDate("date_mise_en_stock").toLocalDate(),
-                rs.getInt("id_slot")
+                rs.getInt("slot_de_piece")
             )
         );
     }
@@ -53,7 +50,7 @@ public class PieceRepository {
                 quantite,
                 prix_achat,
                 date_mise_en_stock,
-                id_slot
+                slot_de_piece
             )
             VALUES (?, ?, ?, ?, ?, ?)
         """;
@@ -79,7 +76,7 @@ public class PieceRepository {
             quantite = ?,
             prix_achat = ?,
             date_mise_en_stock = ?,
-            id_slot = ?
+            slot_de_piece = ?
         WHERE id_piece = ?
     """;
 
