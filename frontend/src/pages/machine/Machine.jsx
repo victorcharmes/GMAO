@@ -99,10 +99,6 @@ return(
         {view === "selection" && (
             <SelectionMachine 
                 machines={machines} 
-                criticite={criticite}
-                classe={classe}
-                emplacement={emplacement}
-                ur={ur}
                 setView={setView}
             />
         )}

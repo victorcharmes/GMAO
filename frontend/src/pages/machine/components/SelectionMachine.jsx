@@ -6,18 +6,10 @@ import iconeSupressionMachine from "../style/iconeSupressionMachine.svg";
 
 
 
-function SelectionMachine({ machines = [], criticite = [], classe = [], emplacement = [], ur = [], setView  }) {
+function SelectionMachine({ machines = [], setView  }) {
   const [selectedMachine, setSelectedMachine] = useState(null)
 
-  const handleChange = (e) => {
-    const selectedName = e.target.value
 
-    const machine = machines.find(
-      (m) => m.nom === selectedName
-    )
-
-    setSelectedMachine(machine)
-  }
 
 return (
   <div className="mt-20 px-10">

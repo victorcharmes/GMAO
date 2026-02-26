@@ -1,6 +1,6 @@
 import iconeFlecheEnArriere from "../style/iconeFlecheEnArriere.svg"
 
-function ModificationPiece({setView}){
+function ModificationPiece({setView, pieces=[]}){
     return(
         <div className="flex gap-10">
 
