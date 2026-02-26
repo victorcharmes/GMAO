@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import com.gmao.backend.stock.model.Piece;
+import com.gmao.backend.stock.model.PieceView;
 
 @Repository
 public class PieceRepository {
@@ -14,7 +15,7 @@ public class PieceRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public List<Piece> findAll() {
+    public List<PieceView> findAll() {
 
         String sql = """
             SELECT
@@ -24,20 +25,39 @@ public class PieceRepository {
                 p.quantite,
                 p.prix_achat,
                 p.date_mise_en_stock,
-                p.slot_de_piece
+                p.slot_de_piece,
+
+                s.nom_slot,
+                s.magasin_de_slot,
+
+                m.nom_magasin,
+                m.emplacement_de_magasin,
+
+                e.nom_emplacement
             FROM PIECE p
+            JOIN SLOT s
+                ON p.slot_de_piece = s.id_slot
+            JOIN MAGASIN m
+                ON s.magasin_de_slot = m.id_magasin 
+            JOIN EMPLACEMENT e
+                ON m.emplacement_de_magasin = e.id_emplacement
 
         """;
 
         return jdbcTemplate.query(sql, (rs, rowNum) ->
-            new Piece(
+            new PieceView(
                 rs.getInt("id_piece"),
                 rs.getString("nom_piece"),
                 rs.getString("description_piece"),
                 rs.getInt("quantite"),
                 rs.getInt("prix_achat"),
                 rs.getDate("date_mise_en_stock").toLocalDate(),
-                rs.getInt("slot_de_piece")
+                rs.getInt("slot_de_piece"),
+                rs.getString("nom_slot"),
+                rs.getInt("magasin_de_slot"),
+                rs.getString("nom_magasin"),
+                rs.getInt("emplacement_de_magasin"),
+                rs.getString("nom_emplacement")
             )
         );
     }

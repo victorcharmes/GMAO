@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.gmao.backend.stock.repository.PieceRepository;
 import com.gmao.backend.stock.model.Piece;
+import com.gmao.backend.stock.model.PieceView;
 
 @Service
 public class PieceService implements PieceServiceInterface{
@@ -16,7 +17,7 @@ public class PieceService implements PieceServiceInterface{
     }
     
     @Override
-    public List<Piece> findAll(){
+    public List<PieceView> findAll(){
         return repository.findAll();
     }
     

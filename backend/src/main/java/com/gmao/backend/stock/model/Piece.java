@@ -8,25 +8,25 @@ public class Piece {
     private Integer quantite;
     private Integer prixAchat;
     private LocalDate dateAchat;
-    private Integer slotDePiece;
+    private Integer idSlotDePiece;
 
     public Piece() {
     }
 
     public Piece(Integer id, String nom, String description, Integer quantite, Integer prixAchat, LocalDate dateAchat,
-            Integer slotDePiece) {
+            Integer idSlotDePiece) {
         this.id = id;
         this.nom = nom;
         this.description = description;
         this.quantite = quantite;
         this.prixAchat = prixAchat;
         this.dateAchat = dateAchat;
-        this.slotDePiece = slotDePiece;
+        this.idSlotDePiece = idSlotDePiece;
     }
 
     @Override
     public String toString(){
-        return "id: " + this.id + "\nNom: " + this.nom + "\nDescription: " + this.description + "\nQuantité: " + this.quantite + "\nPrix d'achat: " + this.prixAchat + "\nDate d'achat: " + this.dateAchat + "\nSlot de pièce: " + this.slotDePiece;
+        return "id: " + this.id + "\nNom: " + this.nom + "\nDescription: " + this.description + "\nQuantité: " + this.quantite + "\nPrix d'achat: " + this.prixAchat + "\nDate d'achat: " + this.dateAchat + "\nSlot de pièce: " + this.idSlotDePiece;
     }
     public Integer getId() {
         return id;
@@ -77,11 +77,11 @@ public class Piece {
     }
 
     public Integer getSlotDePiece() {
-        return slotDePiece;
+        return idSlotDePiece;
     }
 
     public void setSlotDePiece(Integer slotDePiece) {
-        this.slotDePiece = slotDePiece;
+        this.idSlotDePiece = slotDePiece;
     }
     
 }

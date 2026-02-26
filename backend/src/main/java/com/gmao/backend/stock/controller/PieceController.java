@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
+import com.gmao.backend.stock.model.PieceView;
 import com.gmao.backend.stock.model.Piece;
 
 @RestController
@@ -30,7 +31,7 @@ public class PieceController {
     }
 
     @GetMapping
-    public List<Piece> getPiece(){
+    public List<PieceView> getPiece(){
         return service.findAll();
     }
 
