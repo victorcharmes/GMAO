@@ -7,7 +7,7 @@ import iconeFlecheEnArriere from "../style/iconeFlecheEnArriere.svg"
   - La modification de ses champs
   - La validation avec contrôle des erreurs
 */
-function ModificationPiece({setView, loadPieces, pieces=[]}){
+function ModificationPiece({ pieces=[], magasins=[], slots=[], loadPieces, setView}){
 
     // ================================
     // ETAT INITIAL D'UNE piece EDITEE
@@ -93,6 +93,8 @@ function ModificationPiece({setView, loadPieces, pieces=[]}){
         setErrorMessage("❌ Erreur lors de la modification");
         }
     };
+    console.log(magasins)
+    console.log(slots)
     return(
     <div className="flex gap-10">
 
