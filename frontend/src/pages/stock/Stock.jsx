@@ -59,6 +59,7 @@ return(
             {view === "modification" && (
                 <ModificationPiece
                     pieces = {pieces}
+                    loadPieces
                     setView={setView}
                 />
             )}
@@ -70,6 +71,7 @@ return(
             {view === "supression" && (
                 <SupressionPiece
                     pieces = {pieces}
+                    loadPieces
                     setView={setView}
                 />
             )}

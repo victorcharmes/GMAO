@@ -71,7 +71,11 @@ function SelectionPiece({setView, pieces=[]}){
                 <h3>Prix d'achat :</h3>
                 <input
                 className="border-2 rounded border-slate-900 w-full max-w-75"
-                value={selectedPiece?.prixAchat + " €" || ""}
+                value={
+                selectedPiece?.prixAchat != null
+                    ? selectedPiece.prixAchat + " €"
+                    : ""
+                }
                 readOnly
                 />
             </div>
