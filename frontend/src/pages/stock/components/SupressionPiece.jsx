@@ -1,32 +1,182 @@
+import { useState } from "react"
 import iconeFlecheEnArriere from "../style/iconeFlecheEnArriere.svg"
 
-function SupressionPiece({setView, pieces=[]}) {
-    return(
+function SelectionPiece({
+    pieces = [],
+    loadPieces,
+    setView
+}) {
+
+  const [selectedId, setSelectedId] = useState("");
+  const [selectedPiece, setSelectedPiece] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [showConfirmPopup, setShowConfirmPopup] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  // Sélection piece
+  const handleSelectPiece = (e) => {
+    const id = Number(e.target.value);
+    setSelectedId(id);
+
+    const piece = pieces.find(p => p.id === id) || null;
+    setSelectedPiece(piece);
+
+    console.log("Pièce sélectionnée :", piece);
+  };
+
+  // Demande confirmation
+  const handleDeleteClick = () => {
+    if (!selectedId) {
+      setErrorMessage("❌ Veuillez sélectionner une pièce");
+      return;
+    }
+
+    setShowConfirmPopup(true);
+  };
+
+  // Suppression réelle
+  const confirmDelete = async () => {
+
+    try {
+      const response = await fetch(
+        `http://localhost:8081/stock/${selectedId}`,
+        { method: "DELETE" }
+      );
+
+      if (!response.ok) {
+        throw new Error("Erreur serveur");
+      }
+
+      await loadPieces();
+
+      setShowConfirmPopup(false);
+      setShowPopup(true);
+      setSelectedId("");
+      setSelectedPiece(null);
+
+      setTimeout(() => {
+        setShowPopup(false);
+      }, 1500);
+
+    } catch (error) {
+      setShowConfirmPopup(false);
+      setErrorMessage("❌ Erreur lors de la suppression");
+    }
+  };
+
+return(
+    <div className="mt-20 px-10">
+
         <div className="flex gap-10">
 
-            {/* ================= COLONNE 1 ================= */}
             <div className="w-1/3 space-y-6">
-                {/* Icônes */}
+
                 <div className="flex gap-4 items-center">
-                <img
-                    src={iconeFlecheEnArriere}
-                    alt="Retour"
-                    width="40"
-                    className="cursor-pointer"
-                    onClick={() => setView("selection")}
-                />
-                <h1 className="text-xl font-bold">
-                    Supression d'une pièce :
-                </h1>
+                    <img
+                        src={iconeFlecheEnArriere}
+                        alt="Retour"
+                        width="40"
+                        className="cursor-pointer"
+                        onClick={() => setView("selection")}
+                    />
+                    <h1 className="text-xl font-bold">
+                        Suppression de piece :
+                    </h1>
+                </div>
+
+                <div>
+                    <h3>Liste des pieces :</h3>
+
+                    <select
+                        className="border-2 rounded border-slate-900 w-full text-white"
+                        value={selectedId}
+                        onChange={handleSelectPiece}
+                    >
+                        <option value="" className="bg-slate-900">
+                            -- Choisir une piece --
+                        </option>
+
+                        {pieces.map(piece => (
+                            <option
+                                key={piece.id}
+                                value={piece.id}
+                                className="bg-slate-900"
+                            >
+                                {piece.nom}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+
+                <button
+                    onClick={handleDeleteClick}
+                    className="mt-4 px-4 py-2 bg-red-600 text-white rounded"
+                >
+                    Supprimer
+                </button>
+
+            </div>
+        </div>
+
+        {/* Popup confirmation */}
+        {showConfirmPopup && (
+            <div className="fixed inset-0 flex items-center justify-center bg-slate-600 bg-opacity-40 z-50">
+                <div className="bg-white px-8 py-6 rounded-xl shadow-xl text-lg text-center text-black">
+                    <p className="font-semibold mb-4">
+                        ⚠️ Voulez-vous supprimer la pièce :
+                        <br />
+                        <span className="text-red-600">
+                            {selectedPiece?.nom}
+                        </span> ?
+                    </p>
+
+                    <div className="flex justify-center gap-4 mt-4">
+                        <button
+                            onClick={confirmDelete}
+                            className="px-4 py-2 bg-red-600 text-white rounded"
+                        >
+                            Oui
+                        </button>
+
+                        <button
+                            onClick={() => setShowConfirmPopup(false)}
+                            className="px-4 py-2 bg-gray-400 text-white rounded"
+                        >
+                            Annuler
+                        </button>
+                    </div>
                 </div>
             </div>
-            {/* ================= COLONNE 2 ================= */}
-            <div className="w-1/3 flex flex-col items-center gap-6">
+        )}
+
+        {/* Popup succès */}
+        {showPopup && (
+            <div className="fixed inset-0 flex items-center justify-center bg-slate-600 bg-opacity-40 z-50">
+                <div className="bg-white px-8 py-6 rounded-xl shadow-xl text-lg font-semibold text-green-600">
+                    ✅ Pièce supprimée
+                </div>
             </div>
-            {/* ================= COLONNE 3 ================= */}
-            <div className="w-1/3">
+        )}
+
+        {/* Popup erreur */}
+        {errorMessage && (
+            <div className="fixed inset-0 flex items-center justify-center bg-slate-600 bg-opacity-40 z-50">
+                <div className="bg-white px-8 py-6 rounded-xl shadow-xl text-lg font-semibold text-red-600 text-center">
+                    {errorMessage}
+                    <div className="mt-4">
+                        <button
+                            onClick={() => setErrorMessage("")}
+                            className="px-4 py-2 bg-red-500 text-white rounded"
+                        >
+                            OK
+                        </button>
+                    </div>
+                </div>
             </div>
-        </div>   
-    )
+        )}
+
+    </div>
+)
 }
-export default SupressionPiece
+
+export default SelectionPiece
