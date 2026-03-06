@@ -65,7 +65,7 @@ public class PieceRepository {
 
         String sql = """
             INSERT INTO PIECE (
-                piece,
+                nom_piece,
                 description_piece,
                 quantite,
                 prix_achat,
@@ -91,7 +91,7 @@ public class PieceRepository {
 
     String sql = """
         UPDATE PIECE SET
-            piece = ?,
+            nom_piece = ?,
             description_piece = ?,
             quantite = ?,
             prix_achat = ?,
@@ -106,7 +106,8 @@ public class PieceRepository {
         piece.getQuantite(),
         piece.getPrixAchat(),
         piece.getDateAchat(),
-        piece.getSlotDePiece()
+        piece.getSlotDePiece(),
+        piece.getId()
     );
 }
     public int deleteById(Integer id) {
