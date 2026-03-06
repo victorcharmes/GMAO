@@ -85,6 +85,10 @@ return(
             )}
             {view === "ajout" && (
                 <AjoutPiece
+                    pieces={pieces}
+                    magasins={magasins}
+                    slots={slots}
+                    loadPieces={loadPieces}
                     setView={setView}
                 />
             )}
