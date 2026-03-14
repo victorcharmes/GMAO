@@ -7,26 +7,26 @@ public class Piece {
     private String description;
     private Integer quantite;
     private Integer prixAchat;
-    private LocalDate dateAchat;
+    private LocalDate dateMiseEnStock;
     private Integer idSlotDePiece;
 
     public Piece() {
     }
 
-    public Piece(Integer id, String nom, String description, Integer quantite, Integer prixAchat, LocalDate dateAchat,
+    public Piece(Integer id, String nom, String description, Integer quantite, Integer prixAchat, LocalDate dateMiseEnStock,
             Integer idSlotDePiece) {
         this.id = id;
         this.nom = nom;
         this.description = description;
         this.quantite = quantite;
         this.prixAchat = prixAchat;
-        this.dateAchat = dateAchat;
+        this.dateMiseEnStock = dateMiseEnStock;
         this.idSlotDePiece = idSlotDePiece;
     }
 
     @Override
     public String toString(){
-        return "id: " + this.id + "\nNom: " + this.nom + "\nDescription: " + this.description + "\nQuantité: " + this.quantite + "\nPrix d'achat: " + this.prixAchat + "\nDate d'achat: " + this.dateAchat + "\nSlot de pièce: " + this.idSlotDePiece;
+        return "id: " + this.id + "\nNom: " + this.nom + "\nDescription: " + this.description + "\nQuantité: " + this.quantite + "\nPrix d'achat: " + this.prixAchat + "\nDate d'achat: " + this.dateMiseEnStock + "\nSlot de pièce: " + this.idSlotDePiece;
     }
     public Integer getId() {
         return id;
@@ -68,12 +68,12 @@ public class Piece {
         this.prixAchat = prixAchat;
     }
 
-    public LocalDate getDateAchat() {
-        return dateAchat;
+    public LocalDate getDateMiseEnStock() {
+        return dateMiseEnStock;
     }
 
-    public void setDateAchat(LocalDate dateAchat) {
-        this.dateAchat = dateAchat;
+    public void setDateMiseEnStock(LocalDate dateMiseEnStock) {
+        this.dateMiseEnStock = dateMiseEnStock;
     }
 
     public Integer getSlotDePiece() {

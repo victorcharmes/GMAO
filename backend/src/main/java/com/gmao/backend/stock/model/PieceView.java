@@ -6,7 +6,7 @@ public class PieceView {
     private String description;
     private Integer quantite;
     private Integer prixAchat;
-    private LocalDate dateAchat;
+    private LocalDate dateMiseEnStock;
     private Integer idSlotDePiece;
     private String nomSlot;
     private Integer idMagasinDeSlot;
@@ -19,14 +19,14 @@ public class PieceView {
     }
 
     public PieceView(Integer id, String nom, String description, Integer quantite, Integer prixAchat,
-            LocalDate dateAchat, Integer idSlotDePiece, String nomSlot, Integer idMagasinDeSlot, String nomMagasin,
+            LocalDate dateMiseEnStock, Integer idSlotDePiece, String nomSlot, Integer idMagasinDeSlot, String nomMagasin,
             Integer idEmplacementDeMagasin, String nomEmplacement) {
         this.id = id;
         this.nom = nom;
         this.description = description;
         this.quantite = quantite;
         this.prixAchat = prixAchat;
-        this.dateAchat = dateAchat;
+        this.dateMiseEnStock = dateMiseEnStock;
         this.idSlotDePiece = idSlotDePiece;
         this.nomSlot = nomSlot;
         this.idMagasinDeSlot = idMagasinDeSlot;
@@ -75,12 +75,12 @@ public class PieceView {
         this.prixAchat = prixAchat;
     }
 
-    public LocalDate getDateAchat() {
-        return dateAchat;
+    public LocalDate getDateMiseEnStock() {
+        return dateMiseEnStock;
     }
 
-    public void setDateAchat(LocalDate dateAchat) {
-        this.dateAchat = dateAchat;
+    public void setDateMiseEnStock(LocalDate dateMiseEnStock) {
+        this.dateMiseEnStock = dateMiseEnStock;
     }
 
     public Integer getIdSlotDePiece() {

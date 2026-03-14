@@ -80,7 +80,7 @@ public class PieceRepository {
             piece.getDescription(),
             piece.getQuantite(),
             piece.getPrixAchat(),
-            piece.getDateAchat(),
+            piece.getDateMiseEnStock(),
             piece.getSlotDePiece()
         );
 
@@ -105,7 +105,7 @@ public class PieceRepository {
         piece.getDescription(),
         piece.getQuantite(),
         piece.getPrixAchat(),
-        piece.getDateAchat(),
+        piece.getDateMiseEnStock(),
         piece.getSlotDePiece(),
         piece.getId()
     );

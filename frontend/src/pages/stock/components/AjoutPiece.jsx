@@ -1,5 +1,4 @@
 import { useState } from "react"
-import "../style.css"
 import iconeFlecheEnArriere from "../style/iconeFlecheEnArriere.svg"
 
 /*
@@ -23,18 +22,17 @@ function AjoutPiece({ loadMachines, criticite = [], classe = [], emplacement = [
   // Etat initial du formulaire
   const initialState = {
     nom: "",
-    criticite: "",
-    classeOuverture: "",
-    emplacement: "",
-    ur: "",
-    descriptionUR: "",
-    responsableProdMachine: "",
     description: "",
-    dateImplementation: ""
+    quantite: "",
+    prixAchat: "",
+    dateAchat: "",
+    nomMagasin: "",
+    nomSlot: "",
+    nomEmplacement: ""
   }
 
-  // Machine en cours de création
-  const [newMachine, setNewMachine] = useState(initialState)
+  // Piece en cours de création
+  const [newPiece, setNewPiece] = useState(initialState)
     
   // ================================
   // VALIDATION + ENVOI POST
@@ -44,9 +42,9 @@ function AjoutPiece({ loadMachines, criticite = [], classe = [], emplacement = [
     // Liste des champs obligatoires
     const requiredFields = [
       { key: "nom", label: "Nom de la machine" },
-      { key: "criticite", label: "Criticité" },
-      { key: "classeOuverture", label: "Classe" },
-      { key: "emplacement", label: "Emplacement" },
+      { key: "quantite", label: "Quantite" },
+      { key: "prixAchat", label: "Prix d'achat" },
+      { key: "dateAchat", label: "Emplacement" },
       { key: "ur", label: "Unité de Réalisation" },
       { key: "dateImplementation", label: "Date d'implémentation" }
     ];
