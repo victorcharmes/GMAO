@@ -95,10 +95,10 @@ function SelectionPiece({setView, pieces=[]}){
             </div>
 
             <div className="w-full">
-            <h3>Emplacement :</h3>
+            <h3>Slot :</h3>
             <input
                 className="border-2 rounded border-slate-900 w-full max-w-75"
-                value={selectedPiece?.nomEmplacement || ""}
+                value={selectedPiece?.nomSlot || ""}
                 readOnly
             />
             </div>
@@ -107,7 +107,7 @@ function SelectionPiece({setView, pieces=[]}){
             <h3>Localisation :</h3>
             <input
                 className="border-2 rounded border-slate-900 w-full max-w-75"
-                value={selectedPiece?.nomSlot || ""}
+                value={selectedPiece?.nomEmplacement || ""}
                 readOnly
             />
             </div>

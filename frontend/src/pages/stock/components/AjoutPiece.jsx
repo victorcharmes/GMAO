@@ -8,11 +8,12 @@ import iconeFlecheEnArriere from "../style/iconeFlecheEnArriere.svg"
   - L'affichage d'un popup succès ou erreur
 */
 
-function AjoutPiece({ loadMachines, criticite = [], classe = [], emplacement = [], ur = [], setView  }) {
+function AjoutPiece({ magasins = [], slots = [], setView  }) {
   // ================================
   // STATES
   // ================================
-
+    console.log(magasins)
+    console.log(slots)
   // Popup succès
   const [showPopup, setShowPopup] = useState(false)
 
@@ -25,7 +26,7 @@ function AjoutPiece({ loadMachines, criticite = [], classe = [], emplacement = [
     description: "",
     quantite: "",
     prixAchat: "",
-    dateAchat: "",
+    dateMiseEnStock: "",
     nomMagasin: "",
     nomSlot: "",
     nomEmplacement: ""
@@ -41,29 +42,30 @@ function AjoutPiece({ loadMachines, criticite = [], classe = [], emplacement = [
 
     // Liste des champs obligatoires
     const requiredFields = [
-      { key: "nom", label: "Nom de la machine" },
+      { key: "nom", label: "Nom de la piece" },
       { key: "quantite", label: "Quantite" },
       { key: "prixAchat", label: "Prix d'achat" },
-      { key: "dateAchat", label: "Emplacement" },
-      { key: "ur", label: "Unité de Réalisation" },
-      { key: "dateImplementation", label: "Date d'implémentation" }
+      { key: "dateMiseEnStock", label: "Date mise en stock de la piece" },
+      { key: "nomMagasin", label: "nom du magasin " },
+      { key: "nomSlot", label: "nom du slot" },
+      { key: "nomEmplacement", label: "nom de l'emplacement" }
     ];
 
     // Vérification des champs vides
     for (let field of requiredFields) {
-      if (!newMachine[field.key] || newMachine[field.key].toString().trim() === "") {
+      if (!newPiece[field.key] || newPiece[field.key].toString().trim() === "") {
         setErrorMessage(`❌ Veuillez compléter le champ : ${field.label}`);
         return;
       }
     }
     // Envoi POST vers le backend
     try {
-      const response = await fetch("http://localhost:8081/machine", {
+      const response = await fetch("http://localhost:8081/stock", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(newMachine)
+        body: JSON.stringify(newPiece)
       });
 
       if (!response.ok) throw new Error("Erreur serveur");
@@ -71,12 +73,12 @@ function AjoutPiece({ loadMachines, criticite = [], classe = [], emplacement = [
       await response.json();
 
       // Recharge la liste des machines dans le composant parent
-      await loadMachines();
+      await loadPieces();
 
       // Affichage popup succès
       setShowPopup(true);
       // Reset formulaire
-      setNewMachine(initialState);
+      setNewPiece(initialState);
 
       // Disparition automatique popup
       setTimeout(() => {
@@ -91,7 +93,7 @@ function AjoutPiece({ loadMachines, criticite = [], classe = [], emplacement = [
     const handleChange = (e) => {
         const { name, value } = e.target
 
-        setNewMachine(prev => ({
+        setNewPiece(prev => ({
         ...prev,
         [name]: value
         }))
@@ -103,11 +105,10 @@ function AjoutPiece({ loadMachines, criticite = [], classe = [], emplacement = [
   // RENDER
   // ================================
   return (
-    <div className="mt-20 px-10">
       <div className="flex gap-10">
 
         {/* COLONNE 1 */}
-        <div className="w-1/3 space-y-4">
+        <div className="w-1/2 space-y-6">
             <div className="flex gap-4 items-center">
             <img
                 src={iconeFlecheEnArriere}
@@ -117,148 +118,106 @@ function AjoutPiece({ loadMachines, criticite = [], classe = [], emplacement = [
                 onClick={() => setView("selection")}
             />
             <h1 className="text-xl font-bold">
-                Ajout d'une machine :
+                Ajout d'une piece :
             </h1>
             </div>
           <div>
-            <h3>Nom de la machine :</h3>
+            <h3>Nom de la piece :</h3>
             <input
               name="nom"
-              className="border-2 rounded border-slate-900 w-full"
-              value={newMachine.nom}
+              className="border-2 rounded border-slate-900 w-full max-w-75"
+              value={newPiece.nom}
               onChange={handleChange}
             />
           </div>
 
           <div>
-            <h3>Criticité :</h3>
-              <select
-                name="criticite"
-                className="border-2 rounded border-slate-900 w-full text-white"
-                value={newMachine.criticite}
-                onChange={handleChange}
-              >
-                <option value="" className="bg-slate-900">-- Sélectionner --</option>
-
-                {criticite.map((c) => (
-                  <option
-                    key={c.idCriticiteMachine} //key
-                    value={c.idCriticiteMachine} //valeur envoyé dans le State
-                    className="bg-slate-900"
-                  >
-                    {c.criticiteMachine} {/*valeur affiché */}
-                  </option>
-                ))}
-              </select>
+            <h3>Description :</h3>
+            <input
+              name="nom"
+              className="border-2 rounded border-slate-900 w-full max-w-75"
+              value={newPiece.nom}
+              onChange={handleChange}
+            />
           </div>
 
           <div>
-            <h3>Classe :</h3>
-              <select
-                name="classeOuverture"
-                className="border-2 rounded border-slate-900 w-full text-white"
-                value={newMachine.classeOuverture}
-                onChange={handleChange}
-              >
-                <option value="" className="bg-slate-900">-- Sélectionner --</option>
-
-                {classe.map((c) => (
-                  <option
-                    key={c.idClasseMachine}
-                    value={c.idClasseMachine}
-                    className="bg-slate-900"
-                  >
-                    {c.classeMachine}
-                  </option>
-                ))}
-              </select>
+            <h3>Quantite :</h3>
+            <input
+              name="nom"
+              className="border-2 rounded border-slate-900 w-full max-w-75"
+              value={newPiece.nom}
+              onChange={handleChange}
+            />
           </div>
 
           <div>
-            <h3>Emplacement :</h3>
-              <select
-                name="emplacement"
-                className="border-2 rounded border-slate-900 w-full text-white"
-                value={newMachine.emplacement}
-                onChange={handleChange}
-              >
-                <option value="" className="bg-slate-900">-- Sélectionner --</option>
-
-                {emplacement.map((e) => (
-                  <option
-                    key={e.idEmplacement}
-                    value={e.idEmplacement}
-                    className="bg-slate-900"
-                  >
-                    {e.nomEmplacement}
-                  </option>
-                ))}
-              </select>
+            <h3>Prix d'achat :</h3>
+            <input
+              name="nom"
+              className="border-2 rounded border-slate-900 w-full max-w-75"
+              value={newPiece.nom}
+              onChange={handleChange}
+            />
           </div>
 
         </div>
 
         {/* COLONNE 2 */}
-        <div className="w-1/3 space-y-4">
-
+        <div className="w-1/2 flex flex-col items-center gap-6">
+          
           <div>
-            <h3>Unité de Réalisation :</h3>
+            <h3>Magasin :</h3>
               <select
-                name="ur"
+                name="Magasin"
                 className="border-2 rounded border-slate-900 w-full text-white"
-                value={newMachine.ur}
+                value={newPiece.nomMagasin}
                 onChange={handleChange}
               >
                 <option value="" className="bg-slate-900">-- Sélectionner --</option>
 
-                {ur.map((u) => (
+                {magasins.map((m) => (
                   <option
-                    key={u.idUr}
-                    value={u.idUr}
+                    key={m.idMagasin}
+                    value={m.idMagasin}
                     className="bg-slate-900"
                   >
-                    {u.nomUr}
+                    {m.nomMagasin}
                   </option>
                 ))}
               </select>
-              <h3>Date d'implémentation :</h3>
-              <input
-                type="date"
-                name="dateImplementation"
+          </div>
+
+          <div>
+            <h3>Slot :</h3>
+              <select
+                name="nomSlot"
                 className="border-2 rounded border-slate-900 w-full text-white"
-                value={newMachine.dateImplementation}
+                value={newPiece.nomSlot}
                 onChange={handleChange}
-              />
-              <h3>Image :</h3>
-              <p className="border-2 rounded border-slate-900 w-full text-white p-1.5">Pour l'image, se rendre dans le dossier suivant: /GMAO/public/photosMachine/ (Attention à bien faire correspondre le nom de la machine).</p>
+              >
+                <option value="" className="bg-slate-900">-- Sélectionner --</option>
+
+                {slots.map((s) => (
+                  <option
+                    key={s.idSlot}
+                    value={s.idSlot}
+                    className="bg-slate-900"
+                  >
+                    {s.nomSlot}
+                  </option>
+                ))}
+              </select>
           </div>
 
         </div>
 
-        {/* COLONNE 3 */}
-        <div className="w-1/3">
-          <h3>Description :</h3>
-          <textarea
-            name="description"
-            className="border-2 rounded border-slate-900 w-full h-60 p-2"
-            value={newMachine.description}
-            onChange={handleChange}
-          />
-
-        <button
-        onClick={handleSubmit}
-        className="mt-4 px-4 py-2 bg-green-600 text-white rounded"
-        >
-        Valider
-        </button>
-        </div>
-
-      </div>
+      
         {/* Popup scuccès */}
         {showPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-slate-600 bg-opacity-40 z-50">
             <div className="bg-white px-8 py-6 rounded-xl shadow-xl text-lg font-semibold text-green-600">
-            ✅ Machine ajouté
+            ✅ Pièce ajoutée
             </div>
         </div>
         )}
