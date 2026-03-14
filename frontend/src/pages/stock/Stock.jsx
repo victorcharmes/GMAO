@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback  } from "react"
-import { getPieces, getMagasins, getSlots } from "./service/pieceApi"
+import { getPieces, getMagasins, getSlots, getEmplacements } from "./service/pieceApi"
 import Navbar from "../../components/Navbar"
 import SelectionPiece from "./components/SelectionPiece"
 import AjoutPiece from "./components/AjoutPiece"
@@ -14,6 +14,7 @@ export default function Stock() {
     // Listes de référence (menus déroulants)
     const [magasins, setMagasin] = useState([])
     const [slots, setSlot] = useState([])
+    const [empalcements, setEmplacement] = useState([])
     // Vue active
     // "selection" | "modification" | "ajout" | "supression"
     const [view, setView] = useState("selection")
@@ -49,6 +50,10 @@ export default function Stock() {
         const data = await getSlots();
         setSlot(data);
     };
+    const loadEmplacement = async () => {
+        const data = await getEmplacements();
+        setEmplacement(data);
+    };
 
     // ================================
     // CHARGEMENT INITIAL AU MONTAGE
@@ -58,6 +63,7 @@ export default function Stock() {
         loadPieces();
         loadMagasin();
         loadSlot();
+        loadEmplacement();
     }, []);
 
 // ================================
@@ -87,6 +93,7 @@ return(
                 <AjoutPiece
                     magasins={magasins}
                     slots={slots}
+                    emplacements={empalcements}
                     setView={setView}
                 />
             )}

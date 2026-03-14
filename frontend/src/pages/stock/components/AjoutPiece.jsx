@@ -8,12 +8,13 @@ import iconeFlecheEnArriere from "../style/iconeFlecheEnArriere.svg"
   - L'affichage d'un popup succès ou erreur
 */
 
-function AjoutPiece({ magasins = [], slots = [], setView  }) {
+function AjoutPiece({ magasins = [], slots = [], emplacements = [], setView  }) {
   // ================================
   // STATES
   // ================================
     console.log(magasins)
     console.log(slots)
+    console.log(emplacements)
   // Popup succès
   const [showPopup, setShowPopup] = useState(false)
 
@@ -134,9 +135,9 @@ function AjoutPiece({ magasins = [], slots = [], setView  }) {
           <div>
             <h3>Description :</h3>
             <input
-              name="nom"
+              name="description"
               className="border-2 rounded border-slate-900 w-full max-w-75"
-              value={newPiece.nom}
+              value={newPiece.description}
               onChange={handleChange}
             />
           </div>
@@ -144,9 +145,9 @@ function AjoutPiece({ magasins = [], slots = [], setView  }) {
           <div>
             <h3>Quantite :</h3>
             <input
-              name="nom"
+              name="quantite"
               className="border-2 rounded border-slate-900 w-full max-w-75"
-              value={newPiece.nom}
+              value={newPiece.quantite}
               onChange={handleChange}
             />
           </div>
@@ -154,9 +155,9 @@ function AjoutPiece({ magasins = [], slots = [], setView  }) {
           <div>
             <h3>Prix d'achat :</h3>
             <input
-              name="nom"
+              name="prixAchat"
               className="border-2 rounded border-slate-900 w-full max-w-75"
-              value={newPiece.nom}
+              value={newPiece.prixAchat}
               onChange={handleChange}
             />
           </div>
@@ -164,13 +165,13 @@ function AjoutPiece({ magasins = [], slots = [], setView  }) {
         </div>
 
         {/* COLONNE 2 */}
-        <div className="w-1/2 flex flex-col items-center gap-6">
+        <div className="w-1/2 flex flex-col gap-6">
           
           <div>
             <h3>Magasin :</h3>
               <select
                 name="Magasin"
-                className="border-2 rounded border-slate-900 w-full text-white"
+                className="border-2 rounded border-slate-900 w-full max-w-75 text-white"
                 value={newPiece.nomMagasin}
                 onChange={handleChange}
               >
@@ -192,7 +193,7 @@ function AjoutPiece({ magasins = [], slots = [], setView  }) {
             <h3>Slot :</h3>
               <select
                 name="nomSlot"
-                className="border-2 rounded border-slate-900 w-full text-white"
+                className="border-2 rounded border-slate-900 w-full max-w-75 text-white"
                 value={newPiece.nomSlot}
                 onChange={handleChange}
               >
@@ -210,7 +211,35 @@ function AjoutPiece({ magasins = [], slots = [], setView  }) {
               </select>
           </div>
 
+          <div>
+            <h3>Emplacement :</h3>
+              <select
+                name="nomEmplacement"
+                className="border-2 rounded border-slate-900 w-full max-w-75 text-white"
+                value={newPiece.nomEmplacement}
+                onChange={handleChange}
+              >
+                <option value="" className="bg-slate-900">-- Sélectionner --</option>
+
+                {emplacements.map((e) => (
+                  <option
+                    key={e.idEmplacement}
+                    value={e.idEmplacement}
+                    className="bg-slate-900"
+                  >
+                    {e.nomEmplacement}
+                  </option>
+                ))}
+              </select>
+          </div>
+          <button
+          onClick={handleSubmit}
+          className="mt-4 px-4 py-2 bg-green-600 text-white rounded w-32"
+          >
+          Valider
+          </button>
         </div>
+
 
       
         {/* Popup scuccès */}

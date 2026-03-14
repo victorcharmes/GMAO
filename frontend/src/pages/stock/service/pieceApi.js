@@ -2,6 +2,7 @@
 const API_PIECE = "http://localhost:8081/stock";
 const API_MAGASIN = "http://localhost:8081/magasin";
 const API_SLOT = "http://localhost:8081/slot";
+const API_EMPLACEMENT = "http://localhost:8081/emplacement";
 /*
   Fonctions génériques de récupération des données.
   Chaque fonction :
@@ -22,6 +23,11 @@ export const getMagasins = async () => {
 };
 export const getSlots = async () => {
   const response = await fetch(API_SLOT);
+  if (!response.ok) throw new Error("Erreur API");
+  return response.json();
+};
+export const getEmplacements = async () => {
+  const response = await fetch(API_EMPLACEMENT);
   if (!response.ok) throw new Error("Erreur API");
   return response.json();
 };
