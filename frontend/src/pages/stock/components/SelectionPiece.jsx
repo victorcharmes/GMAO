@@ -111,6 +111,15 @@ function SelectionPiece({setView, pieces=[]}){
                 readOnly
             />
             </div>
+
+            <div className="w-full">
+            <h3>Date de mise en stock :</h3>
+            <input
+                className="border-2 rounded border-slate-900 w-full max-w-75"
+                value={selectedPiece?.dateMiseEnStock || ""}
+                readOnly
+            />
+            </div>
         </div>
 
     </div>
