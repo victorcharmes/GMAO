@@ -19,69 +19,81 @@ public class PanneRepository {
 
         String sql = """
             SELECT
-                p.id_piece,
-                p.nom_piece,
-                p.description_piece,
-                p.quantite,
-                p.prix_achat,
-                p.date_mise_en_stock,
-                p.slot_de_piece,
+                p.id_panne,
+                p.description_panne,
+                p.date_debut_panne,
+                p.date_fin_panne,
+                p.temp_arret,
+                p.temp_repparation,
+                p.urgence_panne,
+                p.etat_panne,
+                p.utilisateur_demandeur,
+                p.machine_en_panne,
 
-                s.nom_slot,
-                s.magasin_de_slot,
+                up.urgence_panne AS urgence_panne_libelle,
 
-                m.nom_magasin,
-                m.emplacement_de_magasin,
+                ep.etat_panne AS etat_panne_libelle,
+                
+                u.nom_utilisateur,
 
-                e.nom_emplacement
-            FROM PIECE p
-            JOIN SLOT s
-                ON p.slot_de_piece = s.id_slot
-            JOIN MAGASIN m
-                ON s.magasin_de_slot = m.id_magasin 
-            JOIN EMPLACEMENT e
-                ON m.emplacement_de_magasin = e.id_emplacement
-
+                m.machine
+            FROM PANNE p
+            JOIN URGENCE_PANNE up
+                ON p.urgence_panne = up.id_urgence_panne
+            JOIN ETAT_PANNE ep
+                ON p.etat_panne = ep.id_etat_panne
+            JOIN UTILISATEUR u
+                ON p.utilisateur_demandeur = u.id_utilisateur
+            JOIN MACHINE m
+                ON p.machine_en_panne = m.id_machine
         """;
 
         return jdbcTemplate.query(sql, (rs, rowNum) ->
             new PanneView(
-                rs.getInt("id_piece"),
-                rs.getString("nom_piece"),
-                rs.getString("description_piece"),
-                rs.getInt("quantite"),
-                rs.getInt("prix_achat"),
-                rs.getDate("date_mise_en_stock").toLocalDate(),
-                rs.getInt("slot_de_piece"),
-                rs.getString("nom_slot"),
-                rs.getInt("magasin_de_slot"),
-                rs.getString("nom_magasin"),
-                rs.getInt("emplacement_de_magasin"),
-                rs.getString("nom_emplacement")
+                rs.getInt("id_panne"),
+                rs.getString("description_panne"),
+                rs.getDate("date_debut_panne").toLocalDate(),
+                rs.getDate("date_fin_panne") != null ? rs.getDate("date_fin_panne").toLocalDate() : null,
+                rs.getInt("temp_arret"),
+                rs.getInt("temp_repparation"),
+                rs.getInt("urgence_panne"),
+                 rs.getString("urgence_panne_libelle"),
+                rs.getInt("etat_panne"),
+                 rs.getString("etat_panne_libelle"),
+                rs.getInt("utilisateur_demandeur"),
+                 rs.getString("nom_utilisateur"),
+                rs.getInt("machine_en_panne"),
+                 rs.getString("machine")
             )
         );
     }
     public Panne save(Panne panne) {
 
         String sql = """
-            INSERT INTO PIECE (
-                nom_piece,
-                description_piece,
-                quantite,
-                prix_achat,
-                date_mise_en_stock,
-                slot_de_piece
+            INSERT INTO PANNE (
+                description_panne,
+                date_debut_panne,
+                date_fin_panne,
+                temp_arret,
+                temp_repparation,
+                urgence_panne,
+                etat_panne,
+                utilisateur_demandeur,
+                machine_en_panne
             )
-            VALUES (?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """;
 
         jdbcTemplate.update(sql,
-            piece.getNom(),
-            piece.getDescription(),
-            piece.getQuantite(),
-            piece.getPrixAchat(),
-            piece.getDateMiseEnStock(),
-            piece.getSlotDePiece()
+            panne.getDescription(),
+            panne.getDateDebut(),
+            panne.getDateFin(),
+            panne.getTpsArret(),
+            panne.getTpsReparation(),
+            panne.getIdUrgence(),
+            panne.getIdEtatPanne(),
+            panne.getIdUtilisateurDemandeur(),
+            panne.getIdMachineEnPanne()
         );
 
         return panne;
@@ -90,29 +102,35 @@ public class PanneRepository {
     public int update(Panne panne) {
 
     String sql = """
-        UPDATE PIECE SET
-            nom_piece = ?,
-            description_piece = ?,
-            quantite = ?,
-            prix_achat = ?,
-            date_mise_en_stock = ?,
-            slot_de_piece = ?
-        WHERE id_piece = ?
+        UPDATE PANNE SET
+            description_panne = ?,
+            date_debut_panne = ?,
+            date_fin_panne = ?,
+            temp_arret = ?,
+            temp_repparation = ?,
+            urgence_panne = ?,
+            etat_panne = ?,
+            utilisateur_demandeur = ?,
+            machine_en_panne = ?
+        WHERE id_panne = ?
     """;
 
     return jdbcTemplate.update(sql,
-        piece.getNom(),
-        piece.getDescription(),
-        piece.getQuantite(),
-        piece.getPrixAchat(),
-        piece.getDateMiseEnStock(),
-        piece.getSlotDePiece(),
-        piece.getId()
+        panne.getDescription(),
+        panne.getDateDebut(),
+        panne.getDateFin(),
+        panne.getTpsArret(),
+        panne.getTpsReparation(),
+        panne.getIdUrgence(),
+        panne.getIdEtatPanne(),
+        panne.getIdUtilisateurDemandeur(),
+        panne.getIdMachineEnPanne(),
+        panne.getId()
     );
 }
     public int deleteById(Integer id) {
 
-        String sql = "DELETE FROM PIECE WHERE id_piece = ?";
+        String sql = "DELETE FROM PANNE WHERE id_panne = ?";
 
         return jdbcTemplate.update(sql, id);
     }
