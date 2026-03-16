@@ -8,7 +8,7 @@ import iconeFlecheEnArriere from "../style/iconeFlecheEnArriere.svg"
   - L'affichage d'un popup succès ou erreur
 */
 
-function AjoutPiece({ magasins = [], slots = [], emplacements = [], setView  }) {
+function AjoutPiece({ magasins = [], slots = [], emplacements = [], loadPieces, setView }) {
   // ================================
   // STATES
   // ================================
@@ -29,7 +29,7 @@ function AjoutPiece({ magasins = [], slots = [], emplacements = [], setView  }) 
     prixAchat: "",
     dateMiseEnStock: "",
     nomMagasin: "",
-    nomSlot: "",
+    slotDePiece: "",
     nomEmplacement: ""
   }
 
@@ -48,7 +48,7 @@ function AjoutPiece({ magasins = [], slots = [], emplacements = [], setView  }) 
       { key: "prixAchat", label: "Prix d'achat" },
       { key: "dateMiseEnStock", label: "Date mise en stock de la piece" },
       { key: "nomMagasin", label: "nom du magasin " },
-      { key: "nomSlot", label: "nom du slot" },
+      { key: "slotDePiece", label: "nom du slot" },
       { key: "nomEmplacement", label: "nom de l'emplacement" }
     ];
 
@@ -68,6 +68,8 @@ function AjoutPiece({ magasins = [], slots = [], emplacements = [], setView  }) 
         },
         body: JSON.stringify(newPiece)
       });
+
+      console.log(newPiece)
 
       if (!response.ok) throw new Error("Erreur serveur");
 
@@ -96,15 +98,18 @@ function AjoutPiece({ magasins = [], slots = [], emplacements = [], setView  }) 
 
         setNewPiece(prev => ({
         ...prev,
-        [name]: value
+        [name]: value,
+        // Réinitialiser le slot si on change de magasin
+        ...(name === "nomMagasin" ? { slotDePiece: "" } : {})
         }))
-
-        console.log(name + " :", value)
     }
 
   // ================================
   // RENDER
   // ================================
+  const slotsFiltres = slots.filter(s => String(s.magasinDeSlot) === String(newPiece.nomMagasin))
+
+
   return (
       <div className="flex gap-10">
 
@@ -170,7 +175,7 @@ function AjoutPiece({ magasins = [], slots = [], emplacements = [], setView  }) 
           <div>
             <h3>Magasin :</h3>
               <select
-                name="Magasin"
+                name="nomMagasin"
                 className="border-2 rounded border-slate-900 w-full max-w-75 text-white"
                 value={newPiece.nomMagasin}
                 onChange={handleChange}
@@ -192,14 +197,14 @@ function AjoutPiece({ magasins = [], slots = [], emplacements = [], setView  }) 
           <div>
             <h3>Slot :</h3>
               <select
-                name="nomSlot"
+                name="slotDePiece"
                 className="border-2 rounded border-slate-900 w-full max-w-75 text-white"
-                value={newPiece.nomSlot}
+                value={newPiece.slotDePiece}
                 onChange={handleChange}
               >
-                <option value="" className="bg-slate-900">-- Sélectionner --</option>
+                <option value="" className="bg-slate-900">-- Sélectionner un magasin --</option>
 
-                {slots.map((s) => (
+                {slotsFiltres.map((s) => (
                   <option
                     key={s.idSlot}
                     value={s.idSlot}
@@ -232,6 +237,18 @@ function AjoutPiece({ magasins = [], slots = [], emplacements = [], setView  }) 
                 ))}
               </select>
           </div>
+
+          <div>
+            <h3>Date de mise en stock :</h3>
+            <input
+              type = "date"
+              name="dateMiseEnStock"
+              className="border-2 rounded border-slate-900 w-full max-w-75"
+              value={newPiece.dateMiseEnStock}
+              onChange={handleChange}
+            />
+          </div>
+
           <button
           onClick={handleSubmit}
           className="mt-4 px-4 py-2 bg-green-600 text-white rounded w-32"

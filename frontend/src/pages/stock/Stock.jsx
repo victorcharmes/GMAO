@@ -94,6 +94,7 @@ return(
                     magasins={magasins}
                     slots={slots}
                     emplacements={empalcements}
+                    loadPieces={loadPieces}
                     setView={setView}
                 />
             )}
