@@ -3,6 +3,7 @@ import Login from "./pages/login/Login";
 import Accueil from "./pages/accueil/Accueil";
 import Machine from "./pages/machine/Machine";
 import Stock from "./pages/stock/Stock";
+import Panne from "./pages/panne/Panne";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/accueil" element={<Accueil />} />
         <Route path="/machine" element={<Machine />} />
         <Route path="/stock" element={<Stock />} />
+        <Route path="/panne" element={<Panne />} />
       </Routes>
     </div>
   );

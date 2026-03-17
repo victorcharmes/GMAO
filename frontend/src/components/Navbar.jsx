@@ -27,7 +27,12 @@ export default function Navbar(){
                    </Link>
                 </li>
                 <li> 
-                   <a className = "inline-block py-2 mx-6 text-lg sm:py-0" href="#"> Panne </a> 
+                   <Link
+                    to="/panne"
+                    className = "inline-block py-2 mx-6 text-lg sm:py-0"
+                   >
+                        Panne
+                   </Link>
                 </li>
                 <li> 
                    <a className = "inline-block py-2 mx-6 text-lg sm:py-0" href="#"> Intervention </a> 
