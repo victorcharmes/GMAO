@@ -3,7 +3,7 @@ import iconeModification from "../style/iconeModification.svg";
 import iconeAjout from "../style/iconeAjout.svg";
 import iconeSupression from "../style/iconeSupression.svg";
 
-function SelectionPanne({setView}){
+function SelectionPanne({setView, pannes=[]}){
     const [selectedPanne, setSelectedPanne] = useState(null)
     return(
         <div className="flex gap-10">
