@@ -23,6 +23,7 @@ public class UrgencePanneController {
         this.service = service;
     }
 
+    
     @GetMapping
     public List<UrgencePanne> getUrgencePanne(){
         return service.findAll();
