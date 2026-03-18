@@ -15,7 +15,7 @@ function AjoutPanne({setView}){
                     onClick={() => setView("selection")}
                 />
                 <h1 className="text-xl font-bold">
-                    Ajout d'une piece :
+                    Ajout d'une panne :
                 </h1>
                 </div>
             </div>

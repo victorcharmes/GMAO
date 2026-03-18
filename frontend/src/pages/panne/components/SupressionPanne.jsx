@@ -15,7 +15,7 @@ function SupressionPanne({setView}){
                     onClick={() => setView("selection")}
                 />
                 <h1 className="text-xl font-bold">
-                    Supression d'une piece :
+                    Supression d'une panne :
                 </h1>
                 </div>
             </div>

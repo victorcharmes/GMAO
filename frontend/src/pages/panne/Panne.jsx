@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback  } from "react"
-import { getPannes } from "./service/panneApi"
+import { getPannes, getUtilisateurs, getEtatsPanne, getUrgencesPanne, getInterventions } from "./service/panneApi"
 import Navbar from "../../components/Navbar"
 import SelectionPanne from "./components/SelectionPanne"
 import SupressionPanne from "./components/SupressionPanne"
@@ -11,9 +11,11 @@ export default function Panne(){
     const[pannes, setPannes] = useState([])
 
     // Listes de référence (menus déroulants)
-    
-    //const [magasins, setMagasin] = useState([])
-    
+    const [utilisateurs, setUtilisateurs] = useState([])
+    const [etatPannes, setEtatPannes] = useState([])
+    const [urgencePannes, setUrgencePannes] = useState([])
+    const [interventions, setInterventions] = useState([])
+
     // Vue active
     // "selection" | "modification" | "ajout" | "supression"
     const [view, setView] = useState("selection")
@@ -40,11 +42,22 @@ export default function Panne(){
     // ================================
     // CHARGEMENT DES DONNEES DE REFERENCE
     // ================================
-    
-    /*const loadMagasin = async () => {
-        const data = await getMagasins();
-        setMagasin(data);
-    };*/
+    const loadUtilisateurs = async () => {
+        const data = await getUtilisateurs();
+        setUtilisateurs(data);
+    };
+    const loadEtatPannes = async () => {
+        const data = await getEtatsPanne();
+        setEtatPannes(data);
+    };
+    const loadUrgencePannes = async () => {
+        const data = await getUrgencesPanne();
+        setUrgencePannes(data);
+    };
+    const loadInterventions = async () => {
+        const data = await getInterventions();
+        setInterventions(data);
+    };
 
     // ================================
     // CHARGEMENT INITIAL AU MONTAGE
@@ -52,12 +65,20 @@ export default function Panne(){
     
     useEffect(() => {
         loadPannes();
+        loadUtilisateurs();
+        loadEtatPannes();
+        loadUrgencePannes();
+        loadInterventions();
     }, []);
 
 // ================================
 // RENDER
 // ================================
-
+console.log("Pannes: ", pannes)
+console.log("Users: ", utilisateurs)
+console.log("etatsPannes", etatPannes)
+console.log("UgrencePanne: ", urgencePannes)
+console.log("Interventions: ", interventions)
     return(
         <div className="min-h-screen text-white" >
         <Navbar/>
@@ -65,6 +86,7 @@ export default function Panne(){
             {view === "selection" && (
                 <SelectionPanne
                     pannes ={pannes}
+
                     setView={setView}
                 />
             )}
