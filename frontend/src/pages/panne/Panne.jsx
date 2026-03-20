@@ -74,11 +74,6 @@ export default function Panne(){
 // ================================
 // RENDER
 // ================================
-console.log("Pannes: ", pannes)
-console.log("Users: ", utilisateurs)
-console.log("etatsPannes", etatPannes)
-console.log("UgrencePanne: ", urgencePannes)
-console.log("Interventions: ", interventions)
     return(
         <div className="min-h-screen text-white" >
         <Navbar/>
@@ -86,7 +81,10 @@ console.log("Interventions: ", interventions)
             {view === "selection" && (
                 <SelectionPanne
                     pannes ={pannes}
-
+                    utilisateurs = {utilisateurs}
+                    etatPannes = {etatPannes}
+                    urgencePannes = {urgencePannes}
+                    interventions = {interventions}
                     setView={setView}
                 />
             )}
