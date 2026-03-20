@@ -4,6 +4,7 @@ const API_UTILISATEUR = "http://localhost:8081/utilisateur";
 const API_ETAT_PANNE = "http://localhost:8081/etatPanne";
 const API_URGENCE_PANNE = "http://localhost:8081/urgencePanne";
 const API_ITERVENTION = "http://localhost:8081/intervention";
+const API_MACHINE = "http://localhost:8081/machine";
 
 /*
   Fonctions génériques de récupération des données.
@@ -35,6 +36,11 @@ export const getUrgencesPanne = async () => {
 };
 export const getInterventions = async () => {
   const response = await fetch(API_ITERVENTION);
+  if (!response.ok) throw new Error("Erreur API");
+  return response.json();
+};
+export const getMachines = async () => {
+  const response = await fetch(API_MACHINE);
   if (!response.ok) throw new Error("Erreur API");
   return response.json();
 };

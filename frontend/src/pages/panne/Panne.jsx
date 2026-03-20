@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback  } from "react"
-import { getPannes, getUtilisateurs, getEtatsPanne, getUrgencesPanne, getInterventions } from "./service/panneApi"
+import { getPannes, getUtilisateurs, getEtatsPanne, getUrgencesPanne, getInterventions, getMachines } from "./service/panneApi"
 import Navbar from "../../components/Navbar"
 import SelectionPanne from "./components/SelectionPanne"
 import SupressionPanne from "./components/SupressionPanne"
@@ -15,6 +15,7 @@ export default function Panne(){
     const [etatPannes, setEtatPannes] = useState([])
     const [urgencePannes, setUrgencePannes] = useState([])
     const [interventions, setInterventions] = useState([])
+    const [machines, setMachines] = useState([])
 
     // Vue active
     // "selection" | "modification" | "ajout" | "supression"
@@ -58,6 +59,10 @@ export default function Panne(){
         const data = await getInterventions();
         setInterventions(data);
     };
+    const loadMachines = async () => {
+        const data = await getMachines();
+        setMachines(data);
+    };
 
     // ================================
     // CHARGEMENT INITIAL AU MONTAGE
@@ -69,6 +74,7 @@ export default function Panne(){
         loadEtatPannes();
         loadUrgencePannes();
         loadInterventions();
+        loadMachines();
     }, []);
 
 // ================================
@@ -85,6 +91,7 @@ export default function Panne(){
                     etatPannes = {etatPannes}
                     urgencePannes = {urgencePannes}
                     interventions = {interventions}
+                    machines = {machines}
                     setView={setView}
                 />
             )}
