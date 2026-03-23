@@ -2,6 +2,7 @@ package com.gmao.backend.panne.model;
 import java.time.LocalDate;
 public class PanneView {
     private Integer id;
+    private String nom;
     private String description;
     private LocalDate dateDebut;
     private LocalDate dateFin;
@@ -21,12 +22,12 @@ public class PanneView {
 
     }
 
-
-    public PanneView(Integer id, String description, LocalDate dateDebut, LocalDate dateFin, Integer tpsArret,
-            Integer tpsReparation, Integer idUrgence, String nomUrgence, Integer idEtatPanne, String nomEtatPanne,
-            Integer idUtilisateurDemandeur, String nomUtilisateurDemandeur, Integer idMachineEnPanne,
-            String nomMachineEnPanne) {
+    public PanneView(Integer id, String nom, String description, LocalDate dateDebut, LocalDate dateFin,
+            Integer tpsArret, Integer tpsReparation, Integer idUrgence, String nomUrgence, Integer idEtatPanne,
+            String nomEtatPanne, Integer idUtilisateurDemandeur, String nomUtilisateurDemandeur,
+            Integer idMachineEnPanne, String nomMachineEnPanne) {
         this.id = id;
+        this.nom = nom;
         this.description = description;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
@@ -179,6 +180,14 @@ public class PanneView {
 
     public void setNomMachineEnPanne(String nomMachineEnPanne) {
         this.nomMachineEnPanne = nomMachineEnPanne;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     

@@ -2,8 +2,12 @@ package com.gmao.backend.panne.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Statement;
+import java.sql.PreparedStatement;
 import java.util.List;
 
 import com.gmao.backend.panne.model.Panne;
@@ -20,6 +24,7 @@ public class PanneRepository {
         String sql = """
             SELECT
                 p.id_panne,
+                p.nom_panne,
                 p.description_panne,
                 p.date_debut_panne,
                 p.date_fin_panne,
@@ -51,6 +56,7 @@ public class PanneRepository {
         return jdbcTemplate.query(sql, (rs, rowNum) ->
             new PanneView(
                 rs.getInt("id_panne"),
+                rs.getString("nom_panne"),
                 rs.getString("description_panne"),
                 rs.getDate("date_debut_panne").toLocalDate(),
                 rs.getDate("date_fin_panne") != null ? rs.getDate("date_fin_panne").toLocalDate() : null,
@@ -79,12 +85,65 @@ public class PanneRepository {
                 urgence_panne,
                 etat_panne,
                 utilisateur_demandeur,
-                machine_en_panne
+                machine_en_panne,
+                nom_panne
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """;
 
-        jdbcTemplate.update(sql,
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(connection -> {
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, panne.getDescription());
+            ps.setObject(2, panne.getDateDebut());
+            ps.setObject(3, panne.getDateFin());
+            ps.setObject(4, panne.getTpsArret());
+            ps.setObject(5, panne.getTpsReparation());
+            ps.setInt(6, panne.getIdUrgence());
+            ps.setInt(7, panne.getIdEtatPanne());
+            ps.setInt(8, panne.getIdUtilisateurDemandeur());
+            ps.setInt(9, panne.getIdMachineEnPanne());
+            ps.setString(10, "TEMP"); // valeur temporaire, écrasée juste après
+            return ps;
+        }, keyHolder);
+
+        int generatedId = keyHolder.getKey().intValue();
+
+        String nomPanne = (panne.getIdUrgence() == 5 ? "PREV_" : "CORR_") + generatedId;
+
+        jdbcTemplate.update(
+            "UPDATE PANNE SET nom_panne = ? WHERE id_panne = ?",
+            nomPanne, generatedId
+        );
+
+        panne.setId(generatedId);
+        panne.setNom(nomPanne);
+
+        return panne;
+    }
+
+    public int update(Panne panne) {
+
+        String nomPanne = (panne.getIdUrgence() == 5 ? "PREV_" : "CORR_") + panne.getId();
+
+        String sql = """
+            UPDATE PANNE SET
+                nom_panne = ?,
+                description_panne = ?,
+                date_debut_panne = ?,
+                date_fin_panne = ?,
+                temp_arret = ?,
+                temp_repparation = ?,
+                urgence_panne = ?,
+                etat_panne = ?,
+                utilisateur_demandeur = ?,
+                machine_en_panne = ?
+            WHERE id_panne = ?
+        """;
+
+        return jdbcTemplate.update(sql,
+            nomPanne,
             panne.getDescription(),
             panne.getDateDebut(),
             panne.getDateFin(),
@@ -93,41 +152,10 @@ public class PanneRepository {
             panne.getIdUrgence(),
             panne.getIdEtatPanne(),
             panne.getIdUtilisateurDemandeur(),
-            panne.getIdMachineEnPanne()
+            panne.getIdMachineEnPanne(),
+            panne.getId()
         );
-
-        return panne;
     }
-
-    public int update(Panne panne) {
-
-    String sql = """
-        UPDATE PANNE SET
-            description_panne = ?,
-            date_debut_panne = ?,
-            date_fin_panne = ?,
-            temp_arret = ?,
-            temp_repparation = ?,
-            urgence_panne = ?,
-            etat_panne = ?,
-            utilisateur_demandeur = ?,
-            machine_en_panne = ?
-        WHERE id_panne = ?
-    """;
-
-    return jdbcTemplate.update(sql,
-        panne.getDescription(),
-        panne.getDateDebut(),
-        panne.getDateFin(),
-        panne.getTpsArret(),
-        panne.getTpsReparation(),
-        panne.getIdUrgence(),
-        panne.getIdEtatPanne(),
-        panne.getIdUtilisateurDemandeur(),
-        panne.getIdMachineEnPanne(),
-        panne.getId()
-    );
-}
     public int deleteById(Integer id) {
 
         String sql = "DELETE FROM PANNE WHERE id_panne = ?";

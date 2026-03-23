@@ -3,6 +3,7 @@ import java.time.LocalDate;
 
 public class Panne {
     private Integer id;
+    private String nom;
     private String description;
     private LocalDate dateDebut;
     private LocalDate dateFin;
@@ -16,10 +17,11 @@ public class Panne {
     public Panne() {
     }
 
-    public Panne(Integer id, String description, LocalDate dateDebut, LocalDate dateFin, Integer tpsArret,
+    public Panne(Integer id, String nom, String description, LocalDate dateDebut, LocalDate dateFin, Integer tpsArret,
             Integer tpsReparation, Integer idUrgence, Integer idEtatPanne, Integer idUtilisateurDemandeur,
             Integer idMachineEnPanne) {
         this.id = id;
+        this.nom = nom;
         this.description = description;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
@@ -30,6 +32,8 @@ public class Panne {
         this.idUtilisateurDemandeur = idUtilisateurDemandeur;
         this.idMachineEnPanne = idMachineEnPanne;
     }
+
+
 
     public Integer getId() {
         return id;
@@ -109,6 +113,14 @@ public class Panne {
 
     public void setIdMachineEnPanne(Integer idMachineEnPanne) {
         this.idMachineEnPanne = idMachineEnPanne;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     
