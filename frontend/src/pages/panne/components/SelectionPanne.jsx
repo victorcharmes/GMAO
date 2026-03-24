@@ -12,9 +12,22 @@ function SelectionPanne({
     machines= [],
     setView
     }){
+    const [selectedMachine, setSelectedMachine] = useState(null)
     const [selectedPanne, setSelectedPanne] = useState(null)
+    const [selectedNomPanne, setSelectedNomPanne] = useState(null)
+    const [dateDebutFiltre, setDateDebutFiltre] = useState("")
+    const [dateFinFiltre, setDateFinFiltre] = useState("")
 
-    const pannesFiltres = pannes.filter(p => String(p.idMachineEnPanne) === String(selectedPanne?.id))
+    const pannesFiltres = (selectedNomPanne
+        ? pannes.filter(p => p.nom === selectedNomPanne)
+        : pannes.filter(p => String(p.idMachineEnPanne) === String(selectedMachine?.id))
+    ).filter(p => {
+        if (dateDebutFiltre && p.dateDebut < dateDebutFiltre) return false
+        if (dateFinFiltre && p.dateDebut > dateFinFiltre) return false
+        return true
+    })
+
+    const nomsUniques = [...new Set(pannes.map(p => p.nom).filter(Boolean))]
     return(
         <div className="space-y-6">
             <div className="flex gap-10">
@@ -35,11 +48,13 @@ function SelectionPanne({
                         <h3>Machine pour visualiser pannes :</h3>
                         <select
                             className="border-2 rounded border-slate-900 w-full text-white max-w-75"
-                            value={selectedPanne?.id || ""}
+                            value={selectedMachine?.id || ""}
                             onChange={(e) => {
                                 const id = Number(e.target.value);
                                 const machine = machines.find(m => m.id === id);
-                                setSelectedPanne(machine || null);
+                                setSelectedMachine(machine || null);
+                                setSelectedPanne(null);
+                                setSelectedNomPanne(null);
                             }}
                         >
                             <option value="" className="bg-slate-900">-- Choisir une machine --</option>
@@ -50,21 +65,61 @@ function SelectionPanne({
                             ))}
                         </select>
                     </div>
+                    <div>
+                        <h3>Nom de la panne :</h3>
+                        <select
+                            className="border-2 rounded border-slate-900 w-full text-white max-w-75"
+                            value={selectedNomPanne || ""}
+                            onChange={(e) => {
+                                const nom = e.target.value;
+                                setSelectedNomPanne(nom || null);
+                                setSelectedMachine(null);
+                                setSelectedPanne(null);
+                                setDateDebutFiltre("");
+                                setDateFinFiltre("");
+                            }}
+                        >
+                            <option value="" className="bg-slate-900">-- Choisir une panne --</option>
+                            {nomsUniques.map(nom => (
+                                <option key={nom} value={nom} className="bg-slate-900">{nom}</option>
+                            ))}
+                        </select>
+                    </div>
                 </div>
                 {/* ================= COLONNE 2 ================= */}
                 <div className="w-1/3 flex flex-col items-center gap-6">
-                    colonne 2
+                    <div>
+                        <h3>Date de debut :</h3>
+                        <input
+                        type = "date"
+                        value={dateDebutFiltre}
+                        onChange={(e) => setDateDebutFiltre(e.target.value)}
+                        className="border-2 rounded border-slate-900 w-full max-w-75"
+                        />
+                    </div>
                 </div>
                 {/* ================= COLONNE 3 ================= */}
                 <div className="w-1/3 flex flex-col items-center gap-6">
-                    colonne 3
+                    <div>
+                        <h3>Date de fin :</h3>
+                        <input
+                        type = "date"
+                        value={dateFinFiltre}
+                        onChange={(e) => setDateFinFiltre(e.target.value)}
+                        className="border-2 rounded border-slate-900 w-full max-w-75"
+                        />
+                    </div>
                 </div>
             </div>
 
             {/* ================= TABLEAU DES PANNES ================= */}
-            {selectedPanne && (
+            {(selectedMachine || selectedNomPanne) && (
                 <div>
-                    <h3 className="mb-2">Pannes de la machine : {selectedPanne.nom}</h3>
+                    <h3 className="mb-2">
+                        {selectedNomPanne
+                            ? `Panne : ${selectedNomPanne}`
+                            : `Pannes de la machine : ${selectedMachine.nom}`}
+                    </h3>
                     {pannesFiltres.length === 0 ? (
                         <p className="text-slate-400">Aucune panne enregistrée pour cette machine.</p>
                     ) : (
@@ -81,7 +136,7 @@ function SelectionPanne({
                             </thead>
                             <tbody>
                                 {pannesFiltres.map(panne => (
-                                    <tr key={panne.id} className="border-b border-slate-700 hover:bg-slate-800">
+                                    <tr key={panne.id} className={`border-b border-slate-700 hover:bg-slate-800 cursor-pointer ${selectedPanne?.id === panne.id ? "bg-slate-700" : ""}`} onClick={() => setSelectedPanne(panne)}>
                                         <td className="py-2 pr-4">{panne.description}</td>
                                         <td className="py-2 pr-4">{panne.dateDebut}</td>
                                         <td className="py-2 pr-4">{panne.dateFin ?? "-"}</td>
