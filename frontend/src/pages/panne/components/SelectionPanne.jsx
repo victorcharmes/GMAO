@@ -91,7 +91,7 @@ function SelectionPanne({
                     <div>
                         <h3>Date de debut :</h3>
                         <input
-                        type = "date"
+                        type = "datetime-local"
                         value={dateDebutFiltre}
                         onChange={(e) => setDateDebutFiltre(e.target.value)}
                         className="border-2 rounded border-slate-900 w-full max-w-75"
@@ -103,7 +103,7 @@ function SelectionPanne({
                     <div>
                         <h3>Date de fin :</h3>
                         <input
-                        type = "date"
+                        type = "datetime-local"
                         value={dateFinFiltre}
                         onChange={(e) => setDateFinFiltre(e.target.value)}
                         className="border-2 rounded border-slate-900 w-full max-w-75"
@@ -138,8 +138,8 @@ function SelectionPanne({
                                 {pannesFiltres.map(panne => (
                                     <tr key={panne.id} className={`border-b border-slate-700 hover:bg-slate-800 cursor-pointer ${selectedPanne?.id === panne.id ? "bg-slate-700" : ""}`} onClick={() => setSelectedPanne(panne)}>
                                         <td className="py-2 pr-4">{panne.description}</td>
-                                        <td className="py-2 pr-4">{panne.dateDebut}</td>
-                                        <td className="py-2 pr-4">{panne.dateFin ?? "-"}</td>
+                                        <td className="py-2 pr-4">{new Date(panne.dateDebut).toLocaleString("fr-FR")}</td>
+                                        <td className="py-2 pr-4">{new Date(panne.dateFin).toLocaleString("fr-FR") ?? "-"}</td>
                                         <td className="py-2 pr-4">{panne.nomUrgence}</td>
                                         <td className="py-2 pr-4">{panne.nomEtatPanne}</td>
                                         <td className="py-2 pr-4">{panne.nomUtilisateurDemandeur}</td>
