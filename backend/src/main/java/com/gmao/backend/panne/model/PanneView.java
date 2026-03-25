@@ -1,11 +1,11 @@
 package com.gmao.backend.panne.model;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 public class PanneView {
     private Integer id;
     private String nom;
     private String description;
-    private LocalDate dateDebut;
-    private LocalDate dateFin;
+    private LocalDateTime dateDebut;
+    private LocalDateTime dateFin;
     private Integer tpsArret;
     private Integer tpsReparation;
     private Integer idUrgence;
@@ -22,7 +22,7 @@ public class PanneView {
 
     }
 
-    public PanneView(Integer id, String nom, String description, LocalDate dateDebut, LocalDate dateFin,
+    public PanneView(Integer id, String nom, String description, LocalDateTime dateDebut, LocalDateTime dateFin,
             Integer tpsArret, Integer tpsReparation, Integer idUrgence, String nomUrgence, Integer idEtatPanne,
             String nomEtatPanne, Integer idUtilisateurDemandeur, String nomUtilisateurDemandeur,
             Integer idMachineEnPanne, String nomMachineEnPanne) {
@@ -63,22 +63,22 @@ public class PanneView {
     }
 
 
-    public LocalDate getDateDebut() {
+    public LocalDateTime getDateDebut() {
         return dateDebut;
     }
 
 
-    public void setDateDebut(LocalDate dateDebut) {
+    public void setDateDebut(LocalDateTime dateDebut) {
         this.dateDebut = dateDebut;
     }
 
 
-    public LocalDate getDateFin() {
+    public LocalDateTime getDateFin() {
         return dateFin;
     }
 
 
-    public void setDateFin(LocalDate dateFin) {
+    public void setDateFin(LocalDateTime dateFin) {
         this.dateFin = dateFin;
     }
 
