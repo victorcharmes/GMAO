@@ -245,7 +245,17 @@ function ModificationPanne({
             </div>
             {/* ================= COLONNE 3 ================= */}
             <div className="w-1/3">
-
+                {/* Date de fin  */}
+                <div>
+                    <h3>Date de fin :</h3>
+                    <input
+                        type = "datetime-local"
+                        name="dateFin"
+                        className="border-2 rounded border-slate-900 w-full max-w-75"
+                        value={editedPanne.dateFin || ""}
+                        onChange={handleInputChange}
+                    />
+                </div>
             </div>
         </div>
     )

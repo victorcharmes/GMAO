@@ -55,6 +55,8 @@ function SelectionPanne({
                                 setSelectedMachine(machine || null);
                                 setSelectedPanne(null);
                                 setSelectedNomPanne(null);
+                                setDateDebutFiltre("");
+                                setDateFinFiltre("");
                             }}
                         >
                             <option value="" className="bg-slate-900">-- Choisir une machine --</option>
