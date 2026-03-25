@@ -92,7 +92,6 @@ function ModificationPanne({
         const requiredFields = [
             { key: "description", label: "Description" },
             { key: "dateDebut", label: "DateDebut" },
-            { key: "dateFin", label: "DateFin" },
             { key: "nomUrgence", label: "NomUrgence" },
             { key: "nomEtatPanne", label: "NomEtatPanne" }
         ];
@@ -256,7 +255,39 @@ function ModificationPanne({
                         onChange={handleInputChange}
                     />
                 </div>
+                <button
+                onClick={handleSubmit}
+                className="mt-4 px-4 py-2 bg-green-600 text-white disabled:bg-gray-400 rounded"
+                disabled={!editedPanne.id}
+                >
+                    Valider
+                </button>
             </div>
+            
+            {/* Popup succès */}
+            {showPopup && (
+                <div className="fixed inset-0 flex items-center justify-center bg-slate-600 bg-opacity-40 z-50">
+                <div className="bg-white px-8 py-6 rounded-xl shadow-xl text-lg font-semibold text-green-600">
+                    ✅ Modifications prises en compte
+                </div>
+                </div>
+            )}
+            {/* Popup erreur */}
+            {errorMessage && (
+                <div className="fixed inset-0 flex items-center justify-center bg-slate-600 bg-opacity-40 z-50">
+                <div className="bg-white px-8 py-6 rounded-xl shadow-xl text-lg font-semibold text-red-600 text-center">
+                    {errorMessage}
+                    <div className="mt-4">
+                    <button
+                        onClick={() => setErrorMessage("")}
+                        className="px-4 py-2 bg-red-500 text-white rounded"
+                    >
+                        OK
+                    </button>
+                    </div>
+                </div>
+                </div>
+            )}
         </div>
     )
 }
