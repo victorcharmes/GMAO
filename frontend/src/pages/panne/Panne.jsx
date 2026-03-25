@@ -99,6 +99,7 @@ export default function Panne(){
                 <ModificationPanne
                     pannes ={pannes}
                     loadPannes={loadPannes}
+                    etatPannes = {etatPannes}
                     urgencePannes = {urgencePannes}
                     setView={setView}
                 />
