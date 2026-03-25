@@ -97,6 +97,9 @@ export default function Panne(){
             )}
             {view === "modification" && (
                 <ModificationPanne
+                    pannes ={pannes}
+                    loadPannes={loadPannes}
+                    urgencePannes = {urgencePannes}
                     setView={setView}
                 />
             )}
