@@ -90,14 +90,15 @@ function ModificationPanne({
         }
 
         const requiredFields = [
-            { key: "description", label: "Description" },
-            { key: "dateDebut", label: "DateDebut" },
-            { key: "nomUrgence", label: "NomUrgence" },
-            { key: "nomEtatPanne", label: "NomEtatPanne" }
+            { key: "description", label: "Description de la panne" },
+            { key: "dateDebut", label: "Date de début de la panne" },
+            { key: "idUrgence", label: "Urgence de la panne" },
+            { key: "idEtatPanne", label: "État de la panne" }
         ];
 
         for (let field of requiredFields) {
-            if (!editedPanne[field.key]) {
+            const value = editedPanne[field.key];
+            if (value === "" || value === null || value === undefined) {
                 setErrorMessage(`❌ Veuillez compléter : ${field.label}`);
                 return;
             }

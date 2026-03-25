@@ -247,12 +247,12 @@ function AjoutMachine({ loadMachines, criticite = [], classe = [], emplacement =
             onChange={handleChange}
           />
 
-        <button
-        onClick={handleSubmit}
-        className="mt-4 px-4 py-2 bg-green-600 text-white rounded"
-        >
-        Valider
-        </button>
+          <button
+          onClick={handleSubmit}
+          className="mt-4 px-4 py-2 bg-green-600 text-white rounded"
+          >
+          Valider
+          </button>
         </div>
 
       </div>

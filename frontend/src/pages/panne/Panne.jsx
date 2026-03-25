@@ -106,6 +106,11 @@ export default function Panne(){
             )}
             {view === "ajout" && (
                 <AjoutPanne
+                    pannes ={pannes}
+                    loadPannes={loadPannes}
+                    etatPannes = {etatPannes}
+                    urgencePannes = {urgencePannes}
+                    machines ={machines}
                     setView={setView}
                 />
             )}
