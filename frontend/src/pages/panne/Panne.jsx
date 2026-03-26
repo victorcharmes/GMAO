@@ -111,6 +111,7 @@ export default function Panne(){
                     etatPannes = {etatPannes}
                     urgencePannes = {urgencePannes}
                     machines ={machines}
+                    utilisateurs={utilisateurs}
                     setView={setView}
                 />
             )}

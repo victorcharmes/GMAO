@@ -7,6 +7,7 @@ function AjoutPanne({
     etatPannes=[],
     urgencePannes=[], 
     machines=[],
+    utilisateurs=[],
     setView
     }){
     // ================================
@@ -30,8 +31,8 @@ function AjoutPanne({
         tpsReparation:"",
         idUrgence:"",
         idEtatPanne:"",
-        nomUtilisateurDemandeur:"",
-        nomMachineEnPanne:""
+        idUtilisateurDemandeur:"",
+        idMachineEnPanne:""
     };
 
     // Panne en cours de création
@@ -44,11 +45,12 @@ function AjoutPanne({
 
         // Liste des champs obligatoires
         const requiredFields = [
-            { key: "nomMachineEnPanne", label: "Nom de la machine en panne" },
+            { key: "idMachineEnPanne", label: "Nom de la machine en panne" },
             { key: "description", label: "Description de la panne" },
             { key: "dateDebut", label: "Date de début de la panne" },
             { key: "idUrgence", label: "Urgence de la panne" },
-            { key: "idEtatPanne", label: "État de la panne" }
+            { key: "idEtatPanne", label: "État de la panne" },
+            { key: "idUtilisateurDemandeur", label: "Saisir votre identité" }
         ];
 
         // Vérification des champs vides
@@ -126,9 +128,9 @@ function AjoutPanne({
                 <div>
                     <h3>Nom de la machine en panne :</h3>
                     <select
-                        name="nomMachineEnPanne"
+                        name="idMachineEnPanne"
                         className="border-2 rounded border-slate-900 w-full text-white max-w-75"
-                        value={newPanne.nomMachineEnPanne}
+                        value={newPanne.idMachineEnPanne}
                         onChange={handleChange}
                     >
                         <option value="" className="bg-slate-900">-- Sélectionner --</option>
@@ -181,6 +183,23 @@ function AjoutPanne({
                         {etatPannes.map(e => (
                             <option key={e.idEtatPanne} value={e.idEtatPanne } className="bg-slate-900">
                                 {e.etatPanne + ": " + e.descriptionEtatPanne}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                {/* Utilisateur */}
+                <div>
+                    <h3>Saisir votre identité :</h3>
+                    <select
+                        name="idUtilisateurDemandeur"
+                        className="border-2 rounded border-slate-900 w-full text-white max-w-75"
+                        value={newPanne.idUtilisateurDemandeur}
+                        onChange={handleChange}
+                    >
+                        <option value="" className="bg-slate-900">-- Sélectionner --</option>
+                        {utilisateurs.map(u => (
+                            <option key={u.idUtilisateur} value={u.idUtilisateur } className="bg-slate-900">
+                                {u.nomUtilisateur}
                             </option>
                         ))}
                     </select>
