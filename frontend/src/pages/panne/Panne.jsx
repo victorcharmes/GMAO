@@ -116,6 +116,8 @@ export default function Panne(){
             )}
             {view === "supression" && (
                 <SupressionPanne
+                    pannes ={pannes}
+                    loadPannes={loadPannes}
                     setView={setView}
                 />  
             )}
