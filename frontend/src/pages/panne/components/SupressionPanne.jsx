@@ -72,6 +72,7 @@ function SupressionPanne({
         setShowPopup(true);
         setSelectedId("");
         setSelectedPanne(null);
+        setSearchQuery("");
 
         setTimeout(() => {
             setShowPopup(false);
