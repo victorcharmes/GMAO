@@ -60,6 +60,7 @@ export default function intervention(){
                 {view === "selection" && (
                     <SelectionIntervention
                         interventions={interventions}
+                        pannes={pannes}
                         setView={setView}
                     />
                 )}
