@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback  } from "react"
-import { getPannes, getUtilisateurs, getEtatsPanne, getUrgencesPanne, getInterventions, getMachines } from "./service/panneApi"
+import { getPannes, getUtilisateurs, getEtatsPanne, getUrgencesPanne, getMachines } from "./service/panneApi"
 import Navbar from "../../components/Navbar"
 import SelectionPanne from "./components/SelectionPanne"
 import SupressionPanne from "./components/SupressionPanne"
@@ -14,7 +14,6 @@ export default function Panne(){
     const [utilisateurs, setUtilisateurs] = useState([])
     const [etatPannes, setEtatPannes] = useState([])
     const [urgencePannes, setUrgencePannes] = useState([])
-    const [interventions, setInterventions] = useState([])
     const [machines, setMachines] = useState([])
 
     // Vue active
@@ -37,7 +36,7 @@ export default function Panne(){
     }, []);
     // Debug du state pieces
     useEffect(() => {
-        console.log("STATE MACHINES :", pannes.length);
+        console.log("STATE INTERVENTIONS :", pannes.length);
     }, [pannes]);
 
     // ================================
@@ -55,10 +54,6 @@ export default function Panne(){
         const data = await getUrgencesPanne();
         setUrgencePannes(data);
     };
-    const loadInterventions = async () => {
-        const data = await getInterventions();
-        setInterventions(data);
-    };
     const loadMachines = async () => {
         const data = await getMachines();
         setMachines(data);
@@ -73,7 +68,6 @@ export default function Panne(){
         loadUtilisateurs();
         loadEtatPannes();
         loadUrgencePannes();
-        loadInterventions();
         loadMachines();
     }, []);
 
@@ -90,7 +84,6 @@ export default function Panne(){
                     utilisateurs = {utilisateurs}
                     etatPannes = {etatPannes}
                     urgencePannes = {urgencePannes}
-                    interventions = {interventions}
                     machines = {machines}
                     setView={setView}
                 />

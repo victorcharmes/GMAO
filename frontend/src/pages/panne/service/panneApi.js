@@ -3,7 +3,6 @@ const API_PANNE = "http://localhost:8081/panne";
 const API_UTILISATEUR = "http://localhost:8081/utilisateur";
 const API_ETAT_PANNE = "http://localhost:8081/etatPanne";
 const API_URGENCE_PANNE = "http://localhost:8081/urgencePanne";
-const API_ITERVENTION = "http://localhost:8081/intervention";
 const API_MACHINE = "http://localhost:8081/machine";
 
 /*
@@ -31,11 +30,6 @@ export const getEtatsPanne = async () => {
 };
 export const getUrgencesPanne = async () => {
   const response = await fetch(API_URGENCE_PANNE);
-  if (!response.ok) throw new Error("Erreur API");
-  return response.json();
-};
-export const getInterventions = async () => {
-  const response = await fetch(API_ITERVENTION);
   if (!response.ok) throw new Error("Erreur API");
   return response.json();
 };

@@ -4,6 +4,7 @@ import Accueil from "./pages/accueil/Accueil";
 import Machine from "./pages/machine/Machine";
 import Stock from "./pages/stock/Stock";
 import Panne from "./pages/panne/Panne";
+import Intervention from "./pages/intervention/Intervention";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/machine" element={<Machine />} />
         <Route path="/stock" element={<Stock />} />
         <Route path="/panne" element={<Panne />} />
+        <Route path="/intervention" element={<Intervention />} />
       </Routes>
     </div>
   );
