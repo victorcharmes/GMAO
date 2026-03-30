@@ -9,18 +9,25 @@ public class InterventionView {
     private LocalDateTime dateFinIntervention;
     private Integer dureeIntervention;
     private Integer idPanneDeIntervention;
+    private Integer idUtilisateurIntervenant;
 
     public InterventionView(){}
 
+    
+
     public InterventionView(Integer idIntervention, String descriptionIntervention, LocalDateTime dateDebutIntervention,
-            LocalDateTime dateFinIntervention, Integer dureeIntervention, Integer idPanneDeIntervention) {
+            LocalDateTime dateFinIntervention, Integer dureeIntervention, Integer idPanneDeIntervention,
+            Integer idUtilisateurIntervenant) {
         this.idIntervention = idIntervention;
         this.descriptionIntervention = descriptionIntervention;
         this.dateDebutIntervention = dateDebutIntervention;
         this.dateFinIntervention = dateFinIntervention;
         this.dureeIntervention = dureeIntervention;
         this.idPanneDeIntervention = idPanneDeIntervention;
+        this.idUtilisateurIntervenant = idUtilisateurIntervenant;
     }
+
+
 
     public Integer getIdIntervention() {
         return idIntervention;
@@ -68,6 +75,18 @@ public class InterventionView {
 
     public void setIdPanneDeIntervention(Integer idPanneDeIntervention) {
         this.idPanneDeIntervention = idPanneDeIntervention;
+    }
+
+
+
+    public Integer getIdUtilisateurIntervenant() {
+        return idUtilisateurIntervenant;
+    }
+
+
+
+    public void setIdUtilisateurIntervenant(Integer idUtilisateurIntervenant) {
+        this.idUtilisateurIntervenant = idUtilisateurIntervenant;
     }
 
 

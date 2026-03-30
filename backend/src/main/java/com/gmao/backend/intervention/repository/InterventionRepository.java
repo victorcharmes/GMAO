@@ -22,7 +22,8 @@ public class InterventionRepository {
                 i.DATE_DEBUT_INTERVENTION,
                 i.DATE_FIN_INTERVENTION,
                 i.DUREE_INTERVENTION,
-                i.PANNE_DE_INTERVENTION
+                i.PANNE_DE_INTERVENTION,
+                i.UTILISATEUR_INTERVENANT
             FROM 
                 INTERVENTION i
         
@@ -34,7 +35,8 @@ public class InterventionRepository {
                 rs.getTimestamp("DATE_DEBUT_INTERVENTION") != null ? rs.getTimestamp("DATE_DEBUT_INTERVENTION").toLocalDateTime() : null,
                 rs.getTimestamp("DATE_FIN_INTERVENTION") != null ? rs.getTimestamp("DATE_FIN_INTERVENTION").toLocalDateTime() : null,
                 rs.getInt("DUREE_INTERVENTION"),
-                rs.getInt("PANNE_DE_INTERVENTION")
+                rs.getInt("PANNE_DE_INTERVENTION"),
+                rs.getInt("UTILISATEUR_INTERVENANT")
             )
         );
     };
