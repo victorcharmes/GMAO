@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback  } from "react"
-import { getPannes, getInterventions } from "./service/interventionApi"
+import { getPannes, getInterventions, getMachines, getUtilisateurs } from "./service/interventionApi"
 import Navbar from "../../components/Navbar"
 import AjoutIntervention from "./components/AjoutIntervention"
 import ModificationIntervention from "./components/ModificationIntervention"
@@ -12,6 +12,8 @@ export default function intervention(){
 
     // Listes de référence (menus déroulants)
     const [pannes, setPannes] = useState([])
+    const [machines, setMachines] = useState([])
+    const [utilisateurs, setUtilisateurs] = useState([])
 
     // Vue active
     // "selection" | "modification" | "ajout" | "supression"
@@ -43,6 +45,14 @@ export default function intervention(){
         const data = await getPannes();
         setPannes(data);
     };
+    const loadMachines = async () => {
+        const data = await getMachines();
+        setMachines(data);
+    };
+    const loadUtilisateurs = async () => {
+        const data = await getUtilisateurs();
+        setUtilisateurs(data);
+    };
 
     // ================================
     // CHARGEMENT INITIAL AU MONTAGE
@@ -51,6 +61,8 @@ export default function intervention(){
     useEffect(() => {
         loadInterventions();
         loadPannes();
+        loadMachines();
+        loadUtilisateurs();
     }, []);
 
     return(
@@ -61,6 +73,8 @@ export default function intervention(){
                     <SelectionIntervention
                         interventions={interventions}
                         pannes={pannes}
+                        machines={machines}
+                        utilisateurs={utilisateurs}
                         setView={setView}
                     />
                 )}

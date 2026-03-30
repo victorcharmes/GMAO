@@ -6,6 +6,8 @@ import iconeSupression from "../style/iconeSupression.svg";
 function SelectionIntervention({
     interventions=[],
     pannes=[],
+    machines=[],
+    utilisateurs=[],
     setView
 }){
 
@@ -33,7 +35,8 @@ function SelectionIntervention({
     const interventionsDePanne = selectedPanne
         ? interventions.filter(i => i.idPanneDeIntervention === selectedPanne.id)
         : [];
-
+    console.log("Machines", machines)
+    console.log("Utilsateurs", utilisateurs)
     return(
         <div className="space-y-6">
             <div className="flex gap-4">
@@ -89,21 +92,23 @@ function SelectionIntervention({
                         <table className="w-full border-collapse text-sm">
                             <thead>
                                 <tr className="bg-slate-800 text-left">
-                                    <th className="border border-slate-600 px-3 py-2">ID</th>
                                     <th className="border border-slate-600 px-3 py-2">Description</th>
                                     <th className="border border-slate-600 px-3 py-2">Date début</th>
                                     <th className="border border-slate-600 px-3 py-2">Date fin</th>
                                     <th className="border border-slate-600 px-3 py-2">Durée (min)</th>
+                                    <th className="border border-slate-600 px-3 py-2">Machine en panne</th>
+                                    <th className="border border-slate-600 px-3 py-2">Intervenant</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {interventionsDePanne.map(i => (
                                     <tr key={i.idIntervention} className="hover:bg-slate-800">
-                                        <td className="border border-slate-600 px-3 py-2">{i.idIntervention}</td>
                                         <td className="border border-slate-600 px-3 py-2">{i.descriptionIntervention}</td>
                                         <td className="border border-slate-600 px-3 py-2">{i.dateDebutIntervention ?? "—"}</td>
                                         <td className="border border-slate-600 px-3 py-2">{i.dateFinIntervention ?? "—"}</td>
                                         <td className="border border-slate-600 px-3 py-2">{i.dureeIntervention ?? "—"}</td>
+                                        <td className="border border-slate-600 px-3 py-2">{machines.find(m => m.id === pannes.find(p => p.id === i.idPanneDeIntervention)?.idMachineEnPanne)?.nom ?? "—"}</td>
+                                        <td className="border border-slate-600 px-3 py-2">{utilisateurs.find(u => u.idUtilisateur === i.idUtilisateurIntervenant)?.nomUtilisateur ?? "—"}</td>
                                     </tr>
                                 ))}
                             </tbody>
