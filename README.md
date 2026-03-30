@@ -1,5 +1,5 @@
 Fonctionnalités:
-    CRUD pour gestion machines et pièces en stock
+    CRUD pour gestion machines, pièces, pannes et interventions
     
 Amélioration futures:
     Fonctionnalités de CRUD dupliqués entre machine et stock, possible de créer des composants pour simplifier
