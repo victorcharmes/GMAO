@@ -80,17 +80,17 @@ export default function intervention(){
                 )}
                 {view === "modification" && (
                     <ModificationIntervention
-
+                        setView={setView}
                     />
                 )}
                 {view === "ajout" && (
                     <AjoutIntervention
-
+                        setView={setView}
                     />
                 )}
                 {view === "supression" && (
                     <SuprressionIntervention
-
+                        setView={setView}
                     />
                 )}
             </div>

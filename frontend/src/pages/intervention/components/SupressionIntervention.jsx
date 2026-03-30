@@ -1,13 +1,25 @@
 import { useState } from "react";
-import iconeModification from "../style/iconeModification.svg";
-import iconeAjout from "../style/iconeAjout.svg";
-import iconeSupression from "../style/iconeSupression.svg";
+import iconeFlecheEnArriere from "../style/iconeFlecheEnArriere.svg"
 
-function SuppressionIntervention(){
+function SuppressionIntervention({setView}){
 
     return(
-        <div>
-            test
+        <div className="flex gap-10">
+            {/* COLONNE 1 */}
+            <div className="w-1/3 space-y-6">
+                <div className="flex gap-4 items-center">
+                    <img
+                        src={iconeFlecheEnArriere}
+                        alt="Retour"
+                        width="40"
+                        className="cursor-pointer"
+                        onClick={() => setView("selection")}
+                    />
+                    <h1 className="text-xl font-bold">
+                        Supression d'une intervention :
+                    </h1>
+                </div>
+            </div>
         </div>
     )
 }export default SuppressionIntervention
