@@ -18,6 +18,7 @@ public class InterventionRepository {
         String sql="""
             SELECT 
                 i.ID_INTERVENTION,
+                i.NOM_INTERVENTION,
                 i.DESCRIPTION_INTERVENTION,
                 i.DATE_DEBUT_INTERVENTION,
                 i.DATE_FIN_INTERVENTION,
@@ -31,6 +32,7 @@ public class InterventionRepository {
         return jdbcTemplate.query(sql, (rs, rowNum) ->
             new InterventionView(
                 rs.getInt("ID_INTERVENTION"),
+                rs.getString("NOM_INTERVENTION"),
                 rs.getString("DESCRIPTION_INTERVENTION"),
                 rs.getTimestamp("DATE_DEBUT_INTERVENTION") != null ? rs.getTimestamp("DATE_DEBUT_INTERVENTION").toLocalDateTime() : null,
                 rs.getTimestamp("DATE_FIN_INTERVENTION") != null ? rs.getTimestamp("DATE_FIN_INTERVENTION").toLocalDateTime() : null,

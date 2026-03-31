@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 public class InterventionView {
     private Integer idIntervention;
+    private String nomIntervention;
     private String descriptionIntervention;
     private LocalDateTime dateDebutIntervention;
     private LocalDateTime dateFinIntervention;
@@ -13,12 +14,11 @@ public class InterventionView {
 
     public InterventionView(){}
 
-    
-
-    public InterventionView(Integer idIntervention, String descriptionIntervention, LocalDateTime dateDebutIntervention,
-            LocalDateTime dateFinIntervention, Integer dureeIntervention, Integer idPanneDeIntervention,
-            Integer idUtilisateurIntervenant) {
+    public InterventionView(Integer idIntervention, String nomIntervention, String descriptionIntervention,
+            LocalDateTime dateDebutIntervention, LocalDateTime dateFinIntervention, Integer dureeIntervention,
+            Integer idPanneDeIntervention, Integer idUtilisateurIntervenant) {
         this.idIntervention = idIntervention;
+        this.nomIntervention = nomIntervention;
         this.descriptionIntervention = descriptionIntervention;
         this.dateDebutIntervention = dateDebutIntervention;
         this.dateFinIntervention = dateFinIntervention;
@@ -26,8 +26,6 @@ public class InterventionView {
         this.idPanneDeIntervention = idPanneDeIntervention;
         this.idUtilisateurIntervenant = idUtilisateurIntervenant;
     }
-
-
 
     public Integer getIdIntervention() {
         return idIntervention;
@@ -87,6 +85,14 @@ public class InterventionView {
 
     public void setIdUtilisateurIntervenant(Integer idUtilisateurIntervenant) {
         this.idUtilisateurIntervenant = idUtilisateurIntervenant;
+    }
+
+    public String getNomIntervention() {
+        return nomIntervention;
+    }
+
+    public void setNomIntervention(String nomIntervention) {
+        this.nomIntervention = nomIntervention;
     }
 
 
