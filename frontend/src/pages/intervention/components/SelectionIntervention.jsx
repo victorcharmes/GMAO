@@ -92,6 +92,7 @@ function SelectionIntervention({
                         <table className="w-full border-collapse text-sm">
                             <thead>
                                 <tr className="bg-slate-800 text-left">
+                                    <th className="border border-slate-600 px-3 py-2">Nom</th>
                                     <th className="border border-slate-600 px-3 py-2">Description</th>
                                     <th className="border border-slate-600 px-3 py-2">Date début</th>
                                     <th className="border border-slate-600 px-3 py-2">Date fin</th>
@@ -103,9 +104,10 @@ function SelectionIntervention({
                             <tbody>
                                 {interventionsDePanne.map(i => (
                                     <tr key={i.idIntervention} className="hover:bg-slate-800">
+                                        <td className="border border-slate-600 px-3 py-2">{i.nomIntervention}</td>
                                         <td className="border border-slate-600 px-3 py-2">{i.descriptionIntervention}</td>
-                                        <td className="border border-slate-600 px-3 py-2">{i.dateDebutIntervention ?? "—"}</td>
-                                        <td className="border border-slate-600 px-3 py-2">{i.dateFinIntervention ?? "—"}</td>
+                                        <td className="border border-slate-600 px-3 py-2">{i.dateDebutIntervention ? new Date(i.dateDebutIntervention).toLocaleString("fr-FR") : "-"}</td>
+                                        <td className="border border-slate-600 px-3 py-2">{i.dateFinIntervention ? new Date(i.dateFinIntervention).toLocaleString("fr-FR") : "-"}</td>
                                         <td className="border border-slate-600 px-3 py-2">{i.dureeIntervention ?? "—"}</td>
                                         <td className="border border-slate-600 px-3 py-2">{machines.find(m => m.id === pannes.find(p => p.id === i.idPanneDeIntervention)?.idMachineEnPanne)?.nom ?? "—"}</td>
                                         <td className="border border-slate-600 px-3 py-2">{utilisateurs.find(u => u.idUtilisateur === i.idUtilisateurIntervenant)?.nomUtilisateur ?? "—"}</td>
