@@ -74,6 +74,7 @@ export default function Panne(){
 // ================================
 // RENDER
 // ================================
+
     return(
         <div className="min-h-screen text-white" >
         <Navbar/>
@@ -99,7 +100,6 @@ export default function Panne(){
             )}
             {view === "ajout" && (
                 <AjoutPanne
-                    pannes ={pannes}
                     loadPannes={loadPannes}
                     etatPannes = {etatPannes}
                     urgencePannes = {urgencePannes}

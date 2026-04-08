@@ -2,7 +2,6 @@ import { useState } from "react"
 import iconeFlecheEnArriere from "../style/iconeFlecheEnArriere.svg"
 
 function AjoutPanne({
-    pannes=[], 
     loadPannes,
     etatPannes=[],
     urgencePannes=[], 
