@@ -64,7 +64,6 @@ export default function intervention(){
         loadMachines();
         loadUtilisateurs();
     }, []);
-
     return(
         <div className="min-h-screen text-white" >
         <Navbar/>
@@ -80,13 +79,14 @@ export default function intervention(){
                 )}
                 {view === "modification" && (
                     <ModificationIntervention
-                        interventions={interventions}
-                        loadInterventions={loadInterventions}
                         setView={setView}
                     />
                 )}
                 {view === "ajout" && (
                     <AjoutIntervention
+                        loadInterventions={loadInterventions}
+                        pannes ={pannes}
+                        utilisateurs={utilisateurs}
                         setView={setView}
                     />
                 )}
