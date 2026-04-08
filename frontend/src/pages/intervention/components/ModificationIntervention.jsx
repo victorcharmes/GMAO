@@ -113,6 +113,7 @@ function ModificationIntervention({
         } catch (error) {
             setErrorMessage("❌ Erreur lors de la modification");
         }
+        console.log("Intervention modif: ", editedIntervention)
     };
     return(
         <div className="flex gap-10">

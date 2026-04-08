@@ -19,4 +19,28 @@ public class InterventionService implements InterventionServiceInterface{
     public List<InterventionView> findAll(){
         return repository.findAll();
     }
+    
+    @Override
+    public InterventionView save(InterventionView interventionView) {
+        return repository.save(interventionView);
+    }
+
+    @Override
+    public InterventionView update(InterventionView interventionView) {
+    int rows = repository.update(interventionView);
+
+    if (rows == 0) {
+        return null; // id inexistant
+    }
+
+    return interventionView;
+    }
+    
+    @Override
+    public boolean deleteById(Integer id) {
+
+        int rowsAffected = repository.deleteById(id);
+
+        return rowsAffected > 0;
+    }
 }
