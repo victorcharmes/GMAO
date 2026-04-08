@@ -1,4 +1,5 @@
 package com.gmao.backend.intervention.repository;
+import java.time.Duration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -46,56 +47,56 @@ public class InterventionRepository {
         );
     }
 
-    public InterventionView save(InterventionView interventionView) {
+public InterventionView save(InterventionView interventionView) {
 
-        String nomPanne = jdbcTemplate.queryForObject(
-            "SELECT nom FROM PANNE WHERE id = ?",
-            String.class,
-            interventionView.getIdPanneDeIntervention()
-        );
+    String nomPanne = jdbcTemplate.queryForObject(
+        "SELECT NOM_PANNE FROM PANNE WHERE ID_PANNE = ?",
+        String.class,
+        interventionView.getIdPanneDeIntervention()
+    );
+    long dureeMinutes = Duration.between(
+        interventionView.getDateDebutIntervention(),
+        interventionView.getDateFinIntervention()
+    ).toMinutes();
 
-        Integer countExisting = jdbcTemplate.queryForObject(
-            "SELECT COUNT(*) FROM INTERVENTION WHERE PANNE_DE_INTERVENTION = ?",
-            Integer.class,
-            interventionView.getIdPanneDeIntervention()
-        );
 
-        String nomIntervention = "INTER_" + (countExisting + 1) + "_" + nomPanne;
+    String sql = """
+        INSERT INTO INTERVENTION (
+            NOM_INTERVENTION, DESCRIPTION_INTERVENTION,
+            DATE_DEBUT_INTERVENTION, DATE_FIN_INTERVENTION,
+            DUREE_INTERVENTION, PANNE_DE_INTERVENTION, UTILISATEUR_INTERVENANT
+        ) VALUES (?, ?, ?, ?, ?, ?, ?)
+    """;
 
-        String sql = """
-            INSERT INTO INTERVENTION (
-                NOM_INTERVENTION,
-                DESCRIPTION_INTERVENTION,
-                DATE_DEBUT_INTERVENTION,
-                DATE_FIN_INTERVENTION,
-                DUREE_INTERVENTION,
-                PANNE_DE_INTERVENTION,
-                UTILISATEUR_INTERVENANT
-            )
-            VALUES (?, ?, ?, ?, ?, ?, ?)
-        """;
+    KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        KeyHolder keyHolder = new GeneratedKeyHolder();
+    // INSERT avec nom temporaire
+    jdbcTemplate.update(connection -> {
+        PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        ps.setString(1, "TEMP");
+        ps.setString(2, interventionView.getDescriptionIntervention());
+        ps.setObject(3, interventionView.getDateDebutIntervention());
+        ps.setObject(4, interventionView.getDateFinIntervention());
+        ps.setLong(5, dureeMinutes);
+        ps.setInt(6, interventionView.getIdPanneDeIntervention());
+        ps.setInt(7, interventionView.getIdUtilisateurIntervenant());
+        return ps;
+    }, keyHolder);
 
-        jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, nomIntervention);
-            ps.setString(2, interventionView.getDescriptionIntervention());
-            ps.setObject(3, interventionView.getDateDebutIntervention());
-            ps.setObject(4, interventionView.getDateFinIntervention());
-            ps.setObject(5, interventionView.getDureeIntervention());
-            ps.setInt(6, interventionView.getIdPanneDeIntervention());
-            ps.setInt(7, interventionView.getIdUtilisateurIntervenant());
-            return ps;
-        }, keyHolder);
+    int generatedId = keyHolder.getKey().intValue();
+    String nomIntervention = "INTER_" + generatedId + "_" + nomPanne;
 
-        int generatedId = keyHolder.getKey().intValue();
+    // UPDATE avec le vrai nom
+    jdbcTemplate.update(
+        "UPDATE INTERVENTION SET NOM_INTERVENTION = ? WHERE ID_INTERVENTION = ?",
+        nomIntervention, generatedId
+    );
 
-        interventionView.setIdIntervention(generatedId);
-        interventionView.setNomIntervention(nomIntervention);
+    interventionView.setIdIntervention(generatedId);
+    interventionView.setNomIntervention(nomIntervention);
 
-        return interventionView;
-    }
+    return interventionView;
+}
 
     public int update(InterventionView interventionView) {
 
