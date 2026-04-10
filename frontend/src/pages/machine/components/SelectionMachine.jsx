@@ -1,5 +1,6 @@
 import { useState } from "react"
 import "../style.css"
+import iconeMachine from "../style/iconeMachine.svg";
 import iconeModificationMachine from "../style/iconeModificationMachine.svg";
 import iconeAjoutMachine from "../style/iconeAjoutMachine.svg";
 import iconeSupressionMachine from "../style/iconeSupressionMachine.svg";
@@ -19,6 +20,7 @@ return (
 
         {/* Icônes */}
         <div className="flex gap-4">
+          <img src={iconeMachine} alt="Icone Intervention" width="40" className="cursor-pointer"/>
           <img src={iconeModificationMachine} alt="Modification machine" width="40"     className="cursor-pointer" onClick={() => setView("modification")} />
           <img src={iconeAjoutMachine} alt="Ajout machine" width="40"     className="cursor-pointer"
           onClick={() => setView("ajout")}/>

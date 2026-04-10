@@ -1,4 +1,5 @@
 import { useState } from "react";
+import iconePanne from "../style/iconePanne.svg";
 import iconeModification from "../style/iconeModification.svg";
 import iconeAjout from "../style/iconeAjout.svg";
 import iconeSupression from "../style/iconeSupression.svg";
@@ -35,6 +36,7 @@ function SelectionPanne({
                 <div className="w-1/2 space-y-6">
                     {/* Icônes */}
                     <div className="flex gap-4">
+                        <img src={iconePanne} alt="Icone Intervention" width="40" className="cursor-pointer"/>
                         <img src={iconeModification} alt="Modification panne" width="40" className="cursor-pointer"
                         onClick={() => setView("modification")} />
                         <img src={iconeAjout} alt="Ajout panne" width="40" className="cursor-pointer"
