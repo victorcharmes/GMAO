@@ -54,6 +54,13 @@ public InterventionView save(InterventionView interventionView) {
         String.class,
         interventionView.getIdPanneDeIntervention()
     );
+
+    int countForPanne = jdbcTemplate.queryForObject(
+        "SELECT COUNT(*) FROM INTERVENTION WHERE PANNE_DE_INTERVENTION = ?",
+        Integer.class,
+        interventionView.getIdPanneDeIntervention()
+    );
+    int sequence = countForPanne + 1;
     long dureeMinutes = Duration.between(
         interventionView.getDateDebutIntervention(),
         interventionView.getDateFinIntervention()
@@ -84,7 +91,7 @@ public InterventionView save(InterventionView interventionView) {
     }, keyHolder);
 
     int generatedId = keyHolder.getKey().intValue();
-    String nomIntervention = "INTER_" + generatedId + "_" + nomPanne;
+    String nomIntervention = "INTER_" + sequence + "_" + nomPanne;
 
     // UPDATE avec le vrai nom
     jdbcTemplate.update(
