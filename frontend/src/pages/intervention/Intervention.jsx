@@ -79,6 +79,8 @@ export default function intervention(){
                 )}
                 {view === "modification" && (
                     <ModificationIntervention
+                        interventions={interventions}
+                        loadInterventions={loadInterventions}
                         setView={setView}
                     />
                 )}
