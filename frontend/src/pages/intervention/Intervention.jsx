@@ -17,7 +17,7 @@ export default function intervention(){
 
     // Vue active
     // "selection" | "modification" | "ajout" | "supression"
-    const [view, setView] = useState("selection")
+    const [view, setView] = useState("")
 
     // ================================
     // CHARGEMENT DES INTERVENTIONS

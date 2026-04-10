@@ -5,6 +5,7 @@ import Machine from "./pages/machine/Machine";
 import Stock from "./pages/stock/Stock";
 import Panne from "./pages/panne/Panne";
 import Intervention from "./pages/intervention/Intervention";
+import Indicateur from "./pages/indicateur/Indicateur";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/stock" element={<Stock />} />
         <Route path="/panne" element={<Panne />} />
         <Route path="/intervention" element={<Intervention />} />
+        <Route path="/indicateur" element={<Indicateur />} />
       </Routes>
     </div>
   );

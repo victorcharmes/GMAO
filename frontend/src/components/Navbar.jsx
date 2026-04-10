@@ -51,7 +51,12 @@ export default function Navbar(){
                    </Link>
                 </li>
                 <li> 
-                   <a className = "inline-block py-2 mx-6 text-lg sm:py-0" href="#"> Indicateur</a> 
+                   <Link
+                    to="/indicateur"
+                    className = "inline-block py-2 mx-6 text-lg sm:py-0"
+                   >
+                        Indicateur
+                   </Link>
                 </li>
             </ul>
             <button
