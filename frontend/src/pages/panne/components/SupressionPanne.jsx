@@ -99,6 +99,7 @@ function SupressionPanne({
                 <h1 className="text-xl font-bold">
                     Supression d'une panne :
                 </h1>
+                </div>
                 {/* Recherche panne */}
                 <div className="relative">
                     <h3>Nom de la panne :</h3>
@@ -140,7 +141,6 @@ function SupressionPanne({
                 >
                     Supprimer
                 </button>
-                </div>
             </div>
 
         {/* Popup confirmation */}

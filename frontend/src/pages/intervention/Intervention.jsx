@@ -94,6 +94,8 @@ export default function intervention(){
                 )}
                 {view === "supression" && (
                     <SuprressionIntervention
+                        interventions={interventions}
+                        loadInterventions={loadInterventions}
                         setView={setView}
                     />
                 )}
