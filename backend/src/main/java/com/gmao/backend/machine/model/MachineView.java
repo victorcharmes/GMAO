@@ -53,7 +53,10 @@ public class MachineView {
         this.descriptionUr = descriptionUr;
         this.nomUtilisateur = nomUtilisateur;
     }
-
+    @Override
+    public String toString(){
+        return "id: " + this.id + " Machine: " + this.nom + "\n"; //+ "\nDescription: " + this.description + "\nPhoto: " + this.photo + "\nDate implémentation: " + this.dateImplementation + "\nCriticite: " + this.criticite + "\nClasse: " + this.classe + "\nEmplacement: " + this.emplacement + "\nUR: " + this.ur;
+    }
     public Integer getId() {
         return id;
     }

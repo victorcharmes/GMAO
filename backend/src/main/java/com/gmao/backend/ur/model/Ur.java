@@ -17,6 +17,10 @@ public class Ur {
         this.batimentDeUr = batimentDeUr;
     }
 
+    @Override
+    public String toString(){
+        return("id: " + this.getIdUr() + " nom: " + this.getNomUr() + "\n");
+    }
     public int getIdUr() {
         return idUr;
     }

@@ -14,6 +14,10 @@ public class Criticite {
         this.criticiteMachine = criticiteMachine;
         this.descriptionCriticiteMachine = descriptionCriticiteMachine;
     }
+    @Override
+    public String toString(){
+        return("id: " + this.getCriticiteMachine() + " nom: " + this.getCriticiteMachine() + "\n");
+    }
 
     public int getIdCriticiteMachine() {
         return idCriticiteMachine;
