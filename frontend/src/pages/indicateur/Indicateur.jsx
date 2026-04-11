@@ -6,9 +6,9 @@ import iconeCriticite from "./style/iconeCriticite.svg";
 import iconeUR from "./style/iconeUR.svg";
 
 const TYPES_INDICATEUR = [
-    { value: "machine", label: "Machine" },
-    { value: "criticite", label: "Criticité Machine" },
-    { value: "ur", label: "UR" },
+    { id: 1, value: "machine", label: "Machine" },
+    { id: 2, value: "criticite", label: "Criticité Machine" },
+    { id: 3, value: "ur", label: "UR" },
 ]
 
 export default function Indicateur(){
@@ -72,11 +72,13 @@ export default function Indicateur(){
     }
 
     const handleTypeChange = (e) => {
+        const selected = TYPES_INDICATEUR.find(t => t.value === e.target.value)
         setTypeIndicateur(e.target.value)
         setSelectedItem("")
         setNewIndicateur(prev => ({
             ...prev,
-            typeDesIndicateur: e.target.value,
+            idTypeIndicateur: selected ? selected.id : null,
+            nomTypeIndicateur: selected ? selected.label : "",
             porteeIndicateur: ""
         }))
     }
@@ -88,7 +90,7 @@ export default function Indicateur(){
 
         // Liste des champs obligatoires
         const requiredFields = [
-            { key: "typeDesIndicateur", label: "Type d'indicateur à réaliser" },
+            { key: "nomTypeIndicateur", label: "Type d'indicateur à réaliser" },
             { key: "porteeIndicateur", label: "Portée des indicateurs" },
             { key: "dateDebut", label: "Date de début des indicateurs" },
             { key: "dateFin", label: "Date de fin des indicateurs" }
@@ -118,6 +120,10 @@ export default function Indicateur(){
 
         // Affichage popup succès
         setShowPopup(true);
+
+        // Reset formulaire
+        setTypeIndicateur("");
+        setSelectedItem("");
 
         // Disparition automatique popup
         setTimeout(() => {
@@ -160,16 +166,16 @@ export default function Indicateur(){
                                 <h3 className="mb-1">Moyen de visualisation des indicateurs :</h3>
                                 <select
                                     value={typeIndicateur}
-                                    name="typeDesIndicateur" 
+                                    name="nomTypeIndicateur"
                                     onChange={handleTypeChange}
                                     className="border-2 rounded border-slate-900 w-full text-white max-w-75"
                                 >
                                     <option value="" className="bg-slate-900">-- Sélectionner un type --</option>
                                     {TYPES_INDICATEUR.map((type) => (
-                                        <option 
-                                            onChange={handleChange} 
-                                            className="bg-slate-900" 
-                                            key={type.value} 
+                                        <option
+                                            onChange={handleChange}
+                                            className="bg-slate-900"
+                                            key={type.value}
                                             value={type.value}>{type.label}
                                         </option>
                                     ))}
