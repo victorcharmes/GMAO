@@ -41,7 +41,7 @@ public class IndicateurService implements CommandLineRunner {
         List<MachineView> machines = getMachines();
         List<Ur> ur = getUr();
         List<Criticite> criticite = getCriticite();
-        Indicateur indicateur1 = new Indicateur(1, "Machine", 2, LocalDateTime.of(2024, 1, 20, 14, 30, 0), LocalDateTime.of(2024, 1, 20, 14, 30, 0));
+        Indicateur indicateur1 = new Indicateur(2, "Machine", 2, LocalDateTime.of(2024, 1, 20, 14, 30, 0), LocalDateTime.of(2024, 1, 20, 14, 30, 0));
         System.out.println("= La cible d'indicateur ==");
         System.out.println(indicateur1);
         System.out.println("==========================");
@@ -67,11 +67,15 @@ public class IndicateurService implements CommandLineRunner {
 
     public void calcIndicateurMachine(){
         System.out.println("Calcul avec machines");
-        List<Panne> pannes = indicateurRepository.findByMachine(2, LocalDateTime.of(2024, 1, 20, 14, 30, 0), LocalDateTime.of(2027, 1, 20, 14, 30, 0), 4);
+        List<Panne> pannes = indicateurRepository.findByMachine(2, LocalDateTime.of(2024, 1, 20, 14, 30, 0), LocalDateTime.of(2027, 1, 20, 14, 30, 0));
         System.out.println(pannes);
+        System.out.println("Longeur: " + pannes.size());
     }
     public void calcIndicateurCriticite(){
         System.out.println("Calcul avec criticite");
+        List<Panne> pannes = indicateurRepository.finByCriticite(1, LocalDateTime.of(2024, 1, 20, 14, 30, 0), LocalDateTime.of(2027, 1, 20, 14, 30, 0));
+        System.out.println(pannes);
+        System.out.println("Longeur: " + pannes.size());
     }
     public void calcIndicateurUR(){
         System.out.println("Calcul avec UR");
