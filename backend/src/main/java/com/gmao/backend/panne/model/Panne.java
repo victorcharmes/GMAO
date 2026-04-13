@@ -33,8 +33,17 @@ public class Panne {
         this.idMachineEnPanne = idMachineEnPanne;
     }
 
+    public Panne(Integer id, LocalDateTime dateDebut, LocalDateTime dateFin){
+        this.id = id;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+    }
 
-
+    @Override
+    public String toString(){
+        return "\nid: " + this.getId() + "\nnom: " + this.getNom() + "\ndescription: " + this.getDescription() +
+        "\ndateDebut: " + this.getDateDebut() + "\ndateFin: " + this.getDateFin();
+    }
     public Integer getId() {
         return id;
     }
