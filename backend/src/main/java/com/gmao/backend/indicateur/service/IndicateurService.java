@@ -41,7 +41,7 @@ public class IndicateurService implements CommandLineRunner {
         List<MachineView> machines = getMachines();
         List<Ur> ur = getUr();
         List<Criticite> criticite = getCriticite();
-        Indicateur indicateur1 = new Indicateur(2, "Machine", 2, LocalDateTime.of(2024, 1, 20, 14, 30, 0), LocalDateTime.of(2024, 1, 20, 14, 30, 0));
+        Indicateur indicateur1 = new Indicateur(3, "Machine", 2, LocalDateTime.of(2024, 1, 20, 14, 30, 0), LocalDateTime.of(2024, 1, 20, 14, 30, 0));
         System.out.println("= La cible d'indicateur ==");
         System.out.println(indicateur1);
         System.out.println("==========================");
@@ -79,8 +79,21 @@ public class IndicateurService implements CommandLineRunner {
     }
     public void calcIndicateurUR(){
         System.out.println("Calcul avec UR");
+        List<Panne> pannes = indicateurRepository.finByUR(3, LocalDateTime.of(2024, 1, 20, 14, 30, 0), LocalDateTime.of(2027, 1, 20, 14, 30, 0));
+        System.out.println(pannes);
+        System.out.println("Longeur: " + pannes.size());
     }
+/*
+LocalDateTime pour représenter tes deux bornes (début et fin), puisque tu manipules des dates avec heures.
+LocalTime pour définir ta plage d'ouverture (ex : LocalTime.of(8, 0) et LocalTime.of(18, 0)).
+LocalDate et sa méthode getDayOfWeek() pour tester si un jour est un DayOfWeek.SATURDAY ou DayOfWeek.SUNDAY et l'exclure.
+Duration pour accumuler le temps calculé. Tu peux additionner des durées avec duration = duration.plus(...) et récupérer le total en heures/minutes via toHours(), toMinutes(), etc.
+ChronoUnit peut aussi être utile pour des calculs ponctuels (ChronoUnit.MINUTES.between(a, b)).
+*/
+    public void timeBetween(LocalDateTime dateDebut, LocalDateTime dateFin){
 
+    }
+    
     public Indicateur createIndicateur(Indicateur indicateur) {
         System.out.println("Service reçoit : " + indicateur);
         return indicateur;

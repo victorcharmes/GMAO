@@ -56,16 +56,7 @@ public class IndicateurRepository {
             Timestamp.valueOf(dateFin)
         );
     };
-    /*
-SELECT *
-FROM PANNE p
-WHERE p.MACHINE_EN_PANNE IN (SELECT m.ID_MACHINE 
-							 FROM MACHINE m
-							 WHERE m.CRITICITE_MACHINE = 3)
-AND p.DATE_DEBUT_PANNE >= "2020-01-11 13:20:10"
-AND p.DATE_FIN_PANNE <= "2027-01-11 13:20:10"
-AND p.ETAT_PANNE = 4;
-*/
+
     public List<Panne> finByCriticite(
         Integer idCriticite,
         LocalDateTime dateDebut, 
@@ -95,6 +86,43 @@ AND p.ETAT_PANNE = 4;
                 rs.getTimestamp("DATE_FIN_PANNE").toLocalDateTime()
             ),
             idCriticite,
+            Timestamp.valueOf(dateDebut),
+            Timestamp.valueOf(dateFin)
+        );
+    };
+    public List<Panne> finByUR(
+        Integer idUr,
+        LocalDateTime dateDebut, 
+        LocalDateTime dateFin
+    ){
+        String sql ="""
+        SELECT 
+            p.ID_PANNE,
+            p.DATE_DEBUT_PANNE,
+            p.DATE_FIN_PANNE
+        FROM PANNE p
+        WHERE 
+            p.MACHINE_EN_PANNE IN (
+                SELECT m.ID_MACHINE
+                FROM MACHINE m
+                WHERE m.UR_MACHINE IN (
+                        SELECT u.ID_UR
+                        FROM UR u
+                        WHERE u.ID_UR = ?
+                        )
+            )
+            AND
+            p.DATE_DEBUT_PANNE >= ? AND 
+            p.DATE_FIN_PANNE <= ? AND 
+            p.ETAT_PANNE = 4
+        """;
+        return jdbcTemplate.query(sql, (rs, rowNum) ->
+            new Panne(
+                rs.getInt("ID_PANNE"),
+                rs.getTimestamp("DATE_DEBUT_PANNE").toLocalDateTime(),
+                rs.getTimestamp("DATE_FIN_PANNE").toLocalDateTime()
+            ),
+            idUr,
             Timestamp.valueOf(dateDebut),
             Timestamp.valueOf(dateFin)
         );
