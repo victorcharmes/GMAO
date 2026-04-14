@@ -1,6 +1,7 @@
 package com.gmao.backend.indicateur.service;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import org.springframework.boot.CommandLineRunner;
@@ -41,7 +42,7 @@ public class IndicateurService implements CommandLineRunner {
         List<MachineView> machines = getMachines();
         List<Ur> ur = getUr();
         List<Criticite> criticite = getCriticite();
-        Indicateur indicateur1 = new Indicateur(3, "Machine", 2, LocalDateTime.of(2024, 1, 20, 14, 30, 0), LocalDateTime.of(2024, 1, 20, 14, 30, 0));
+        Indicateur indicateur1 = new Indicateur(3, "Machine", 2, LocalDateTime.of(2024, 1, 20, 14, 30, 0), LocalDateTime.of(2024, 1, 20, 23, 30, 0));
         System.out.println("= La cible d'indicateur ==");
         System.out.println(indicateur1);
         System.out.println("==========================");
@@ -63,6 +64,8 @@ public class IndicateurService implements CommandLineRunner {
         else if (indicateur1.getIdTypeIndicateur() == 3){
             calcIndicateurUR();
         }
+        System.out.println("== Temp entre deux dates ===");
+        System.out.println("Temps en s: " + timeBetween(indicateur1.getDateDebut(), indicateur1.getDateFin()));
     }
 
     public void calcIndicateurMachine(){
@@ -90,8 +93,8 @@ LocalDate et sa méthode getDayOfWeek() pour tester si un jour est un DayOfWeek.
 Duration pour accumuler le temps calculé. Tu peux additionner des durées avec duration = duration.plus(...) et récupérer le total en heures/minutes via toHours(), toMinutes(), etc.
 ChronoUnit peut aussi être utile pour des calculs ponctuels (ChronoUnit.MINUTES.between(a, b)).
 */
-    public void timeBetween(LocalDateTime dateDebut, LocalDateTime dateFin){
-
+    public long timeBetween(LocalDateTime dateDebut, LocalDateTime dateFin){
+        return ChronoUnit.SECONDS.between(dateDebut, dateFin);
     }
     
     public Indicateur createIndicateur(Indicateur indicateur) {
