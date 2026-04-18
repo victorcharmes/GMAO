@@ -18,7 +18,9 @@ public class ClasseRepository {
             SELECT 
                 c.ID_CLASSE_MACHINE,
                 c.CLASSE_MACHINE,
-                c.DESCRIPTION_CLASSE_MACHINE
+                c.DESCRIPTION_CLASSE_MACHINE,
+                c.ouvertureDebut,
+                c.ouvertureFin
             FROM 
                 CLASSE_MACHINE c
         
@@ -27,7 +29,9 @@ public class ClasseRepository {
             new Classe(
                 rs.getInt("ID_CLASSE_MACHINE"),
                 rs.getString("CLASSE_MACHINE"),
-                rs.getString("DESCRIPTION_CLASSE_MACHINE")
+                rs.getString("DESCRIPTION_CLASSE_MACHINE"),
+                rs.getTimestamp("ouvertureDebut").toLocalDateTime(),
+                rs.getTimestamp("ouvertureFin").toLocalDateTime()
             )
         );
     };

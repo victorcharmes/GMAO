@@ -1,19 +1,54 @@
 package com.gmao.backend.classeMachine.model;
 
+import java.time.LocalDateTime;
+
 public class Classe {
     private int idClasseMachine;
     private String classeMachine;
     private String descriptionClasseMachine;
+    private LocalDateTime ouvertureDebut;
+    private LocalDateTime ouvertureFin;
 
     public Classe(){
 
     }
 
-    public Classe(int idClasseMachine, String classeMachine, String descriptionClasseMachine) {
+
+
+    public Classe(int idClasseMachine, String classeMachine, String descriptionClasseMachine,
+            LocalDateTime ouvertureDebut, LocalDateTime ouvertureFin) {
         this.idClasseMachine = idClasseMachine;
         this.classeMachine = classeMachine;
         this.descriptionClasseMachine = descriptionClasseMachine;
+        this.ouvertureDebut = ouvertureDebut;
+        this.ouvertureFin = ouvertureFin;
     }
+
+
+
+    public LocalDateTime getOuvertureDebut() {
+        return ouvertureDebut;
+    }
+
+
+
+    public void setOuvertureDebut(LocalDateTime ouvertureDebut) {
+        this.ouvertureDebut = ouvertureDebut;
+    }
+
+
+
+    public LocalDateTime getOuvertureFin() {
+        return ouvertureFin;
+    }
+
+
+
+    public void setOuvertureFin(LocalDateTime ouvertureFin) {
+        this.ouvertureFin = ouvertureFin;
+    }
+
+
 
     public int getIdClasseMachine() {
         return idClasseMachine;
