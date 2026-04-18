@@ -23,10 +23,6 @@ public class Classe {
     }
 
 
-
-
-
-
     public LocalTime getOuvertureDebut() {
         return ouvertureDebut;
     }
