@@ -30,8 +30,8 @@ public class ClasseRepository {
                 rs.getInt("ID_CLASSE_MACHINE"),
                 rs.getString("CLASSE_MACHINE"),
                 rs.getString("DESCRIPTION_CLASSE_MACHINE"),
-                rs.getTimestamp("ouvertureDebut").toLocalDateTime(),
-                rs.getTimestamp("ouvertureFin").toLocalDateTime()
+                rs.getTime("ouvertureDebut").toLocalTime(),
+                rs.getTime("ouvertureFin").toLocalTime()
             )
         );
     };
