@@ -41,7 +41,7 @@ public class Panne {
 
     @Override
     public String toString(){
-        return "\nid: " + this.getId() + "\nnom: " + this.getNom() + "\ndescription: " + this.getDescription() +
+        return "\nid: " + this.getId() +
         "\ndateDebut: " + this.getDateDebut() + "\ndateFin: " + this.getDateFin();
     }
     public Integer getId() {
