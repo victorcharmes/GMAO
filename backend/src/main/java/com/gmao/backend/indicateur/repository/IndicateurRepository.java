@@ -2,12 +2,14 @@ package com.gmao.backend.indicateur.repository;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.gmao.backend.classeMachine.model.Classe;
 import com.gmao.backend.panne.model.Panne;
 
 @Repository
@@ -127,4 +129,22 @@ public class IndicateurRepository {
             Timestamp.valueOf(dateFin)
         );
     };
+    public Classe findPlageOuvertureByIDMachine(Integer idMachine) {
+        String sql = """
+            SELECT c.ID_CLASSE_MACHINE, c.CLASSE_MACHINE, c.DESCRIPTION_CLASSE_MACHINE, c.OUVERTURE_DEBUT, c.OUVERTURE_FIN
+            FROM MACHINE m
+            JOIN CLASSE_MACHINE c ON m.CLASSE_MACHINE = c.ID_CLASSE_MACHINE
+            WHERE m.ID_MACHINE = ?
+        """;
+
+        return jdbcTemplate.queryForObject(sql, (rs, rowNum) ->
+            new Classe(
+                rs.getInt("ID_CLASSE_MACHINE"),
+                rs.getString("CLASSE_MACHINE"),
+                rs.getString("DESCRIPTION_CLASSE_MACHINE"),
+                rs.getTime("OUVERTURE_DEBUT").toLocalTime(),
+                rs.getTime("OUVERTURE_FIN").toLocalTime()
+            ), idMachine);
+    };
+
 }

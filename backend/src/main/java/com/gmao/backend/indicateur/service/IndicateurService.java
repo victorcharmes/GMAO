@@ -8,6 +8,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import com.gmao.backend.indicateur.model.Indicateur;
@@ -17,6 +18,7 @@ import com.gmao.backend.machine.repository.MachineRepository;
 import com.gmao.backend.panne.model.Panne;
 import com.gmao.backend.ur.model.Ur;
 import com.gmao.backend.ur.repository.UrRepository;
+import com.gmao.backend.classeMachine.model.Classe;
 import com.gmao.backend.criticiteMachine.model.Criticite;
 import com.gmao.backend.criticiteMachine.repository.CriticiteRepository;
 
@@ -43,11 +45,14 @@ public class IndicateurService implements CommandLineRunner {
     @Override
     public void run(String... args) {
 
-        Indicateur indicateur1 = new Indicateur(3, "Machine", 2, 
-        LocalDateTime.of(2026, 4, 8, 14, 30, 0), LocalDateTime.of(2026, 4, 23, 23, 30, 0));
+        Indicateur indicateur1 = new Indicateur(1, "Machine", 2, 
+        LocalDateTime.of(2025, 1, 1, 14, 30, 0), LocalDateTime.of(2026, 4, 20, 15, 30, 0));
+        LocalDateTime dateDeb = indicateur1.getDateDebut();
+        LocalDateTime dateFin = indicateur1.getDateFin();
+        int porteeIndicateur = indicateur1.getPorteeIndicateur();
 
         if (indicateur1.getIdTypeIndicateur() == 1){
-            calcIndicateurMachine();
+            calcIndicateurMachine(porteeIndicateur, dateDeb, dateFin);
         }
         else if (indicateur1.getIdTypeIndicateur() == 2){
             calcIndicateurCriticite();
@@ -55,13 +60,29 @@ public class IndicateurService implements CommandLineRunner {
         else if (indicateur1.getIdTypeIndicateur() == 3){
             calcIndicateurUR();
         }
-        System.out.println("== Temp entre deux dates ===");
-        System.out.println("Temps en s: " + timeBetween(indicateur1.getDateDebut(), indicateur1.getDateFin()));
     }
 
-    public void calcIndicateurMachine(){
+    //dans List<Panne> pannes mettre temp arret 
+    public void calcIndicateurMachine(int porteeIndicateur, LocalDateTime dateDeb, LocalDateTime dateFin){
         System.out.println("Calcul avec machines");
-        List<Panne> pannes = indicateurRepository.findByMachine(2, LocalDateTime.of(2024, 1, 20, 14, 30, 0), LocalDateTime.of(2027, 1, 20, 14, 30, 0));
+        List<Panne> pannes = indicateurRepository.findByMachine(porteeIndicateur, dateDeb, dateFin);
+        int nbJoursOuvres = 0;
+        LocalDate jourDeb = dateDeb.toLocalDate();
+        LocalDate jourFin = dateFin.toLocalDate();
+        LocalTime heureDeb = dateDeb.toLocalTime();
+        LocalTime heureFin = dateFin.toLocalTime();
+        long tempsPremierJour = 0;
+        long tempsDernierJour = 0;
+        Classe classeMachine = indicateurRepository.findPlageOuvertureByIDMachine(porteeIndicateur);
+        LocalTime heureOuvertureDebut = classeMachine.getOuvertureDebut();
+        LocalTime heureOuvertureFin = classeMachine.getOuvertureFin();
+
+        for (Panne panne : pannes){
+            nbJoursOuvres = nombreJoursOuvres(jourDeb, jourFin);
+            tempsPremierJour = timeBetween(heureDeb, heureOuvertureFin);
+            tempsDernierJour = timeBetween(heureOuvertureDebut, heureFin);
+
+        }
         System.out.println(pannes);
         System.out.println("Longeur: " + pannes.size());
     }
@@ -97,19 +118,8 @@ calcul panne (LocalDateTime dateDeb, LocalDateTime dateFin)
 }
 */
 
-    public long timeBetween(LocalDateTime dateDebut, LocalDateTime dateFin){
-        LocalDate  jourDebut = dateDebut.toLocalDate(); 
-        LocalDate  jourFin = dateFin.toLocalDate(); 
-        Long tempPanne;
-        if (jourDebut.isEqual(jourFin)) {
-            System.out.println("Même jour: " + jourDebut + " " + jourFin);
-            tempPanne = ChronoUnit.SECONDS.between(dateDebut, dateFin);
-        }else{
-            int jourss = nombreJoursOuvres(jourDebut, jourFin);
-            System.out.println("Jours différents: " + jourDebut + " " + jourFin);
-            tempPanne = ChronoUnit.SECONDS.between(dateDebut, dateFin) * 1000;
-        }
-        return tempPanne;
+    public long timeBetween(LocalTime dateDebut, LocalTime dateFin){
+        return ChronoUnit.SECONDS.between(dateDebut, dateFin);
     }
     /**
      *Ne prend pas en compte le premier jour et le dernier jour
@@ -124,7 +134,6 @@ calcul panne (LocalDateTime dateDeb, LocalDateTime dateFin)
             }
             dateCourant = dateCourant.plusDays(1);
         }
-        System.out.println("jourssss: " + nombreJoursOuvres);
         return nombreJoursOuvres;
     }
 
