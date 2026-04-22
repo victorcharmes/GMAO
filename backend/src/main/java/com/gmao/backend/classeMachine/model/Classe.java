@@ -22,42 +22,25 @@ public class Classe {
         this.ouvertureFin = ouvertureFin;
     }
 
-
+    @Override
+    public String toString(){
+        return("\nouvertureDebut: " + this.getOuvertureDebut() + "\nouvertureFin: " + this.getOuvertureFin());
+    }
     public LocalTime getOuvertureDebut() {
         return ouvertureDebut;
     }
-
-
-
-
-
 
     public void setOuvertureDebut(LocalTime ouvertureDebut) {
         this.ouvertureDebut = ouvertureDebut;
     }
 
-
-
-
-
-
     public LocalTime getOuvertureFin() {
         return ouvertureFin;
     }
 
-
-
-
-
-
     public void setOuvertureFin(LocalTime ouvertureFin) {
         this.ouvertureFin = ouvertureFin;
     }
-
-
-
-
-
 
     public int getIdClasseMachine() {
         return idClasseMachine;
