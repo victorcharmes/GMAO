@@ -7,8 +7,8 @@ public class Panne {
     private String description;
     private LocalDateTime dateDebut;
     private LocalDateTime dateFin;
-    private Integer tpsArret;
-    private Integer tpsReparation;
+    private Long tpsArret;
+    private Long tpsReparation;
     private Integer idUrgence;
     private Integer idEtatPanne;
     private Integer idUtilisateurDemandeur;
@@ -17,8 +17,8 @@ public class Panne {
     public Panne() {
     }
 
-    public Panne(Integer id, String nom, String description, LocalDateTime dateDebut, LocalDateTime dateFin, Integer tpsArret,
-            Integer tpsReparation, Integer idUrgence, Integer idEtatPanne, Integer idUtilisateurDemandeur,
+    public Panne(Integer id, String nom, String description, LocalDateTime dateDebut, LocalDateTime dateFin, Long tpsArret,
+            Long tpsReparation, Integer idUrgence, Integer idEtatPanne, Integer idUtilisateurDemandeur,
             Integer idMachineEnPanne) {
         this.id = id;
         this.nom = nom;
@@ -42,7 +42,8 @@ public class Panne {
     @Override
     public String toString(){
         return "\nid: " + this.getId() +
-        "\ndateDebut: " + this.getDateDebut() + "\ndateFin: " + this.getDateFin();
+        "\ndateDebut: " + this.getDateDebut() + "\ndateFin: " + this.getDateFin()+
+        "\ntpsArret: " + this.getTpsArret() + "\ntpsReparation: " + this.getTpsReparation();
     }
     public Integer getId() {
         return id;
@@ -76,19 +77,19 @@ public class Panne {
         this.dateFin = dateFin;
     }
 
-    public Integer getTpsArret() {
+    public Long getTpsArret() {
         return tpsArret;
     }
 
-    public void setTpsArret(Integer tpsArret) {
+    public void setTpsArret(Long tpsArret) {
         this.tpsArret = tpsArret;
     }
 
-    public Integer getTpsReparation() {
+    public Long getTpsReparation() {
         return tpsReparation;
     }
 
-    public void setTpsReparation(Integer tpsReparation) {
+    public void setTpsReparation(Long tpsReparation) {
         this.tpsReparation = tpsReparation;
     }
 
