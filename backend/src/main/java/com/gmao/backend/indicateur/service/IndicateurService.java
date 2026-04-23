@@ -67,22 +67,32 @@ public class IndicateurService implements CommandLineRunner {
         System.out.println("Calcul avec machines");
         List<Panne> pannes = indicateurRepository.findByMachine(porteeIndicateur, dateDeb, dateFin);
         int nbJoursOuvres = 0;
-        LocalDate jourDeb = dateDeb.toLocalDate();
-        LocalDate jourFin = dateFin.toLocalDate();
-        LocalTime heureDeb = dateDeb.toLocalTime();
-        LocalTime heureFin = dateFin.toLocalTime();
+        LocalDate jourDeb; //= dateDeb.toLocalDate();
+        LocalDate jourFin;
+        LocalTime heureDeb; //= dateDeb.toLocalTime();
+        LocalTime heureFin;
         long tempsPremierJour = 0;
         long tempsDernierJour = 0;
+        long tempsArretTotal = 0;
+        long tempsRepparation = 0;
         Classe classeMachine = indicateurRepository.findPlageOuvertureByIDMachine(porteeIndicateur);
+        long ouvertureJournaliere = timeBetween(classeMachine.getOuvertureDebut(), classeMachine.getOuvertureFin());
         LocalTime heureOuvertureDebut = classeMachine.getOuvertureDebut();
         LocalTime heureOuvertureFin = classeMachine.getOuvertureFin();
 
+        System.out.println("=== ouvertureJournaliere ===");
+        System.out.println(ouvertureJournaliere);
         for (Panne panne : pannes){
-            nbJoursOuvres = nombreJoursOuvres(jourDeb, jourFin);
-            tempsPremierJour = timeBetween(heureDeb, heureOuvertureFin);
-            tempsDernierJour = timeBetween(heureOuvertureDebut, heureFin);
-
-        }
+            jourDeb = panne.getDateDebut().toLocalDate(); //Date seulement, permet le calcul du nombre de jours ouvres
+            jourFin = panne.getDateFin().toLocalDate(); //Date seulement, permet le calcul du nombre de jours ouvres
+            heureDeb = panne.getDateDebut().toLocalTime(); //Heure seulement, permet le calcul du temps arrêt premier jour
+            heureFin = panne.getDateFin().toLocalTime(); //Heure seulement, permet le calcul du temps arrêt dernier jour
+            nbJoursOuvres = nombreJoursOuvres(jourDeb, jourFin); //Nombre de jours ouvres entre deux dates - 2
+            tempsPremierJour = timeBetween(heureOuvertureDebut, heureDeb);
+            tempsDernierJour = timeBetween(heureFin, heureOuvertureFin);
+            tempsArretTotal = tempsPremierJour + tempsDernierJour + nbJoursOuvres * ouvertureJournaliere;
+            panne.setTpsArret(tempsArretTotal);
+        } 
         System.out.println(pannes);
         System.out.println("Longeur: " + pannes.size());
     }
