@@ -37,6 +37,7 @@ public class IndicateurRepository {
         String sql ="""
         SELECT 
             p.ID_PANNE,
+            p.MACHINE_EN_PANNE,
             p.DATE_DEBUT_PANNE,
             p.DATE_FIN_PANNE
         FROM PANNE p
@@ -50,6 +51,7 @@ public class IndicateurRepository {
         return jdbcTemplate.query(sql, (rs, rowNum) ->
             new Panne(
                 rs.getInt("ID_PANNE"),
+                rs.getInt("MACHINE_EN_PANNE"),
                 rs.getTimestamp("DATE_DEBUT_PANNE").toLocalDateTime(),
                 rs.getTimestamp("DATE_FIN_PANNE").toLocalDateTime()
             ),
@@ -67,6 +69,7 @@ public class IndicateurRepository {
         String sql ="""
         SELECT 
             p.ID_PANNE,
+            p.MACHINE_EN_PANNE,
             p.DATE_DEBUT_PANNE,
             p.DATE_FIN_PANNE
         FROM PANNE p
@@ -84,6 +87,7 @@ public class IndicateurRepository {
         return jdbcTemplate.query(sql, (rs, rowNum) ->
             new Panne(
                 rs.getInt("ID_PANNE"),
+                rs.getInt("MACHINE_EN_PANNE"),
                 rs.getTimestamp("DATE_DEBUT_PANNE").toLocalDateTime(),
                 rs.getTimestamp("DATE_FIN_PANNE").toLocalDateTime()
             ),
@@ -100,6 +104,7 @@ public class IndicateurRepository {
         String sql ="""
         SELECT 
             p.ID_PANNE,
+            p.MACHINE_EN_PANNE,
             p.DATE_DEBUT_PANNE,
             p.DATE_FIN_PANNE
         FROM PANNE p
@@ -121,6 +126,7 @@ public class IndicateurRepository {
         return jdbcTemplate.query(sql, (rs, rowNum) ->
             new Panne(
                 rs.getInt("ID_PANNE"),
+                rs.getInt("MACHINE_EN_PANNE"),
                 rs.getTimestamp("DATE_DEBUT_PANNE").toLocalDateTime(),
                 rs.getTimestamp("DATE_FIN_PANNE").toLocalDateTime()
             ),
